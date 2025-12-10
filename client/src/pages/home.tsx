@@ -260,6 +260,7 @@ import ryanSterlingImg from "@assets/image_1765405515300.png";
 import michaelKerrImg from "@assets/image_1765405543889.png";
 import sanjayStephensImg from "@assets/Photo-_Sanjay_1765405740646.jpeg";
 import coleenHibbertImg from "@assets/Vertis_Technology_Headshots-51_1765405778953.jpg";
+import cassandraSterlingImg from "@assets/Cass_-_Pic_1765405831947.png";
 
 const executives = [
   {
@@ -291,7 +292,7 @@ const keyEmployees = [
     name: "Cassandra-Leigh Sterling",
     role: "Service Delivery Manager",
     initials: "CS",
-    image: null
+    image: cassandraSterlingImg
   },
   {
     name: "Sanjay Stephens",

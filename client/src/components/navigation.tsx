@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, X, ChevronDown, Server, Network, Shield, Cloud, Users } from "lucide-react";
+import { Menu, ChevronDown, Server, Network, Shield, Cloud, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "./theme-toggle";
 import {
@@ -15,6 +15,7 @@ import {
   SheetTrigger,
   SheetClose,
 } from "@/components/ui/sheet";
+import vertisLogo from "@assets/vertis-logo.svg";
 
 const serviceLinks = [
   { href: "/services/managed-it", label: "Managed IT Services", icon: Server },
@@ -46,11 +47,12 @@ export function Navigation() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between gap-4">
-          <Link href="/" className="flex items-center gap-2" data-testid="link-logo">
-            <div className="flex items-center justify-center w-10 h-10 rounded-md bg-primary text-primary-foreground font-bold text-lg">
-              V
-            </div>
-            <span className="font-semibold text-lg hidden sm:block">Vertis Technology</span>
+          <Link href="/" className="flex items-center" data-testid="link-logo">
+            <img 
+              src={vertisLogo} 
+              alt="Vertis Technology" 
+              className="h-10 w-auto"
+            />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-1">
@@ -130,10 +132,11 @@ export function Navigation() {
               <SheetContent side="right" className="w-[300px] sm:w-[350px]">
                 <div className="flex flex-col gap-4 mt-8">
                   <div className="flex items-center gap-2 mb-4">
-                    <div className="flex items-center justify-center w-10 h-10 rounded-md bg-primary text-primary-foreground font-bold text-lg">
-                      V
-                    </div>
-                    <span className="font-semibold text-lg">Vertis Technology</span>
+                    <img 
+                      src={vertisLogo} 
+                      alt="Vertis Technology" 
+                      className="h-10 w-auto"
+                    />
                   </div>
                   
                   {navLinks.map((link) => (

@@ -24,7 +24,7 @@ Preferred communication style: Simple, everyday language.
 - **API Design**: RESTful API endpoints under `/api` prefix
 - **Database ORM**: Drizzle ORM with PostgreSQL dialect
 - **Schema Validation**: Zod schemas shared between frontend and backend via drizzle-zod
-- **Session Storage**: In-memory storage (MemStorage class) with PostgreSQL session support available
+- **Data Storage**: PostgreSQL database with Drizzle ORM (DatabaseStorage class in server/storage.ts)
 
 ### Project Structure
 ```

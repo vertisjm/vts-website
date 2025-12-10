@@ -147,7 +147,7 @@ export function Footer() {
               <li className="flex items-start gap-3">
                 <MapPin className="h-5 w-5 mt-0.5 flex-shrink-0 opacity-80" />
                 <span className="text-sm opacity-80">
-                  12 Trafalgar Road<br />
+                  1b Braemar Avenue<br />
                   Kingston 10, Jamaica
                 </span>
               </li>

@@ -938,29 +938,44 @@ function WhyChooseUsSection() {
 
 function CTASection() {
   return (
-    <section className="py-20 lg:py-24 bg-primary text-primary-foreground">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+    <section className="py-20 lg:py-24 relative overflow-hidden">
+      {/* Rich contemporary gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0B1F3A] via-[#1755B5] to-[#0B1F3A]" />
+      
+      {/* Animated gradient orbs */}
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#33C3F0]/20 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-[#1755B5]/30 rounded-full blur-3xl" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-[#33C3F0]/10 to-[#1755B5]/10 rounded-full blur-3xl" />
+      
+      {/* Subtle mesh pattern */}
+      <div className="absolute inset-0 opacity-5" style={{
+        backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                         linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+        backgroundSize: '60px 60px'
+      }} />
+      
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" data-testid="text-cta-title">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 text-white" data-testid="text-cta-title">
             Ready to Transform Your IT Infrastructure?
           </h2>
-          <p className="text-lg opacity-90 max-w-2xl mx-auto mb-8">
+          <p className="text-lg text-white/85 max-w-2xl mx-auto mb-8">
             Let's discuss how Vertis Technology can help your organization achieve its technology goals. Schedule a free consultation with our experts today.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/contact">
-              <Button size="lg" variant="secondary" className="gap-2" data-testid="button-cta-consultation">
+              <Button size="lg" className="gap-2 bg-[#33C3F0] hover:bg-[#33C3F0]/90 text-[#0B1F3A] font-semibold" data-testid="button-cta-consultation">
                 Schedule Consultation
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
             <a href="#services">
-              <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground/30 hover:bg-primary-foreground/10" data-testid="button-cta-services">
+              <Button size="lg" variant="outline" className="bg-white/10 border-white/30 text-white backdrop-blur-sm" data-testid="button-cta-services">
                 Explore Our Services
               </Button>
             </a>

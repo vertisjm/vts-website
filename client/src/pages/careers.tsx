@@ -1,5 +1,30 @@
 import { useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { Users, Lightbulb, TrendingUp, Heart } from "lucide-react";
+
+const benefits = [
+  {
+    icon: Users,
+    title: "Collaborative Team",
+    description: "Work alongside talented professionals in a supportive environment"
+  },
+  {
+    icon: Lightbulb,
+    title: "Growth Opportunities",
+    description: "Continuous learning and career advancement programs"
+  },
+  {
+    icon: TrendingUp,
+    title: "Competitive Benefits",
+    description: "Comprehensive compensation and benefits packages"
+  },
+  {
+    icon: Heart,
+    title: "Work-Life Balance",
+    description: "Flexible arrangements to support your personal life"
+  }
+];
 
 export default function Careers() {
   useEffect(() => {
@@ -62,6 +87,7 @@ export default function Careers() {
 
       <section className="py-16 lg:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold mb-8">Open Positions</h2>
           <div className="embed_jobs_head embed_jobs_with_style_1">
             <div className="embed_jobs_head2">
               <div className="embed_jobs_head3">
@@ -70,12 +96,40 @@ export default function Careers() {
             </div>
           </div>
 
-          <p className="text-center text-sm text-muted-foreground mt-8">
-            Don't see a role that fits? Send your resume to{" "}
-            <a href="mailto:careers@vertisjm.com" className="text-primary hover:underline" data-testid="link-careers-email">
-              careers@vertisjm.com
-            </a>
-          </p>
+          <div className="mt-12 text-center">
+            <Card className="inline-block">
+              <CardContent className="p-6">
+                <p className="text-muted-foreground mb-2">
+                  Don't see a role that fits?
+                </p>
+                <p className="text-sm text-muted-foreground">
+                  Send your resume to{" "}
+                  <a href="mailto:careers@vertisjm.com" className="text-primary hover:underline font-medium" data-testid="link-careers-email">
+                    careers@vertisjm.com
+                  </a>
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-12 lg:py-16 bg-muted/30">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-center mb-10">Why Work With Us</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {benefits.map((benefit, index) => (
+              <Card key={index} data-testid={`card-benefit-${index}`}>
+                <CardContent className="p-6 text-center">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                    <benefit.icon className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold mb-2">{benefit.title}</h3>
+                  <p className="text-sm text-muted-foreground">{benefit.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </section>
     </>

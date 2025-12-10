@@ -289,7 +289,7 @@ const executives = [
 
 const keyEmployees = [
   {
-    name: "Cassandra-Leigh Sterling",
+    name: "Cassandra-Leigh Sterling-Masters",
     role: "Service Delivery Manager",
     initials: "CS",
     image: cassandraSterlingImg

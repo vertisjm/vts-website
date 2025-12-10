@@ -296,7 +296,7 @@ function IndustriesSection() {
 
 function PartnersSection() {
   return (
-    <section id="partners" className="py-20 lg:py-24 bg-card scroll-mt-16">
+    <section id="partners" className="py-20 lg:py-24 bg-gradient-to-br from-primary/5 via-background to-accent/10 scroll-mt-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <Badge variant="secondary" className="mb-4">Technology Partners</Badge>

@@ -104,8 +104,8 @@ export default function Careers() {
                 </p>
                 <p className="text-sm text-muted-foreground">
                   Send your resume to{" "}
-                  <a href="mailto:careers@vertisjm.com" className="text-primary hover:underline font-medium" data-testid="link-careers-email">
-                    careers@vertisjm.com
+                  <a href="mailto:jobs@vertisjm.com" className="text-primary hover:underline font-medium" data-testid="link-careers-email">
+                    jobs@vertisjm.com
                   </a>
                 </p>
               </CardContent>

@@ -133,78 +133,85 @@ export const partners: Partner[] = [
     id: "microsoft",
     name: "Microsoft",
     description: "Strategic partner for Microsoft 365, Azure cloud solutions, and enterprise productivity tools.",
-    logo: "Microsoft",
+    logo: "https://logo.svgcdn.com/logos/microsoft.svg",
     url: "https://www.microsoft.com"
   },
   {
     id: "dell",
     name: "Dell Technologies",
     description: "Hardware partner for enterprise servers, workstations, and infrastructure solutions.",
-    logo: "Dell",
+    logo: "https://logo.svgcdn.com/logos/dell.svg",
     url: "https://www.dell.com"
   },
   {
     id: "hp",
     name: "HP",
     description: "Provider of enterprise computing, printing, and imaging solutions.",
-    logo: "HP",
+    logo: "https://logo.svgcdn.com/logos/hp.svg",
     url: "https://www.hp.com"
   },
   {
     id: "fortinet",
     name: "Fortinet",
     description: "Network security partner offering next-generation firewalls and security fabric solutions.",
-    logo: "Fortinet",
+    logo: "https://logo.svgcdn.com/logos/fortinet.svg",
     url: "https://www.fortinet.com"
   },
   {
     id: "sophos",
     name: "Sophos",
     description: "Cybersecurity partner for endpoint protection and synchronized security solutions.",
-    logo: "Sophos",
+    logo: "https://svgmix.com/item/yVklOB/sophos.svg",
     url: "https://www.sophos.com"
   },
   {
     id: "crowdstrike",
     name: "CrowdStrike",
     description: "Cloud-native endpoint protection and threat intelligence platform.",
-    logo: "CrowdStrike",
+    logo: "https://svgmix.com/item/XokDZX/crowdstrike.svg",
     url: "https://www.crowdstrike.com"
   },
   {
     id: "synology",
     name: "Synology",
     description: "Storage and backup solutions partner for enterprise NAS and data management.",
-    logo: "Synology",
+    logo: "https://logo.svgcdn.com/logos/synology.svg",
     url: "https://www.synology.com"
   },
   {
     id: "cisco",
     name: "Cisco",
     description: "Networking partner for enterprise routing, switching, and collaboration solutions.",
-    logo: "Cisco",
+    logo: "https://logo.svgcdn.com/logos/cisco.svg",
     url: "https://www.cisco.com"
   },
   {
     id: "grandstream",
     name: "Grandstream",
     description: "VoIP and unified communications solutions for modern business telephony.",
-    logo: "Grandstream",
+    logo: "https://seeklogo.com/images/G/grandstream-logo-989E4E7F11-seeklogo.com.svg",
     url: "https://www.grandstream.com"
   },
   {
     id: "3cx",
     name: "3CX",
     description: "Software-based PBX and unified communications platform for voice and video.",
-    logo: "3CX",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/0/0d/3CX_Logo_-_Wiki.svg",
     url: "https://www.3cx.com"
   },
   {
     id: "veeam",
     name: "Veeam",
     description: "Backup and disaster recovery solutions for hybrid cloud environments.",
-    logo: "Veeam",
+    logo: "https://logo.svgcdn.com/s/veeam-dark.svg",
     url: "https://www.veeam.com"
+  },
+  {
+    id: "vmware",
+    name: "VMware",
+    description: "Virtualization and cloud infrastructure solutions for enterprise environments.",
+    logo: "https://logo.svgcdn.com/logos/vmware.svg",
+    url: "https://www.vmware.com"
   }
 ];
 

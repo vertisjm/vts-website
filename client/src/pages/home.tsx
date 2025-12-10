@@ -1,6 +1,5 @@
 import { Link } from "wouter";
 import { ArrowRight, Server, Network, Shield, Cloud, Users, CheckCircle, Quote, Target, Eye, Award, Building2, Briefcase, Headphones, Clock, ExternalLink, Zap } from "lucide-react";
-import { SiDell, SiHp, SiCisco, SiFortinet, SiSynology, SiVeeam } from "react-icons/si";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -295,15 +294,6 @@ function IndustriesSection() {
   );
 }
 
-const partnerLogos: Record<string, React.ComponentType<{ className?: string }>> = {
-  dell: SiDell,
-  hp: SiHp,
-  cisco: SiCisco,
-  fortinet: SiFortinet,
-  synology: SiSynology,
-  veeam: SiVeeam,
-};
-
 function PartnersSection() {
   return (
     <section id="partners" className="py-20 lg:py-24 bg-card scroll-mt-16">
@@ -318,31 +308,26 @@ function PartnersSection() {
           </p>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {partners.map((partner) => {
-            const LogoIcon = partnerLogos[partner.id];
-            return (
-              <a
-                key={partner.id}
-                href={partner.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-col items-center justify-center p-4 sm:p-6 rounded-lg border bg-background hover:border-primary/30 transition-colors group hover-elevate"
-                data-testid={`partner-logo-${partner.id}`}
-                title={partner.name}
-              >
-                {LogoIcon ? (
-                  <LogoIcon className="h-10 w-10 text-muted-foreground group-hover:text-foreground transition-colors" />
-                ) : (
-                  <span className="text-2xl font-bold text-muted-foreground group-hover:text-foreground transition-colors">
-                    {partner.name.charAt(0)}
-                  </span>
-                )}
-                <span className="text-xs text-muted-foreground mt-2 group-hover:text-foreground transition-colors text-center">
-                  {partner.name}
-                </span>
-              </a>
-            );
-          })}
+          {partners.map((partner) => (
+            <a
+              key={partner.id}
+              href={partner.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-col items-center justify-center p-4 sm:p-6 rounded-lg border bg-background hover:border-primary/30 transition-all group hover-elevate min-h-[120px]"
+              data-testid={`partner-logo-${partner.id}`}
+              title={partner.name}
+            >
+              <img
+                src={partner.logo}
+                alt={`${partner.name} logo`}
+                className="h-10 w-auto max-w-[80px] object-contain opacity-70 group-hover:opacity-100 transition-opacity"
+              />
+              <span className="text-xs text-muted-foreground mt-3 group-hover:text-foreground transition-colors text-center">
+                {partner.name}
+              </span>
+            </a>
+          ))}
         </div>
       </div>
     </section>

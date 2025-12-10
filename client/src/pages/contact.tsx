@@ -1,40 +1,7 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useEffect, useRef } from "react";
+import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { useToast } from "@/hooks/use-toast";
-import { insertContactSchema, type InsertContact } from "@shared/schema";
-import { apiRequest } from "@/lib/queryClient";
-
-const serviceOptions = [
-  { value: "managed-it", label: "Managed IT Services" },
-  { value: "network-infrastructure", label: "Network Design & Infrastructure" },
-  { value: "it-security", label: "IT Security Services" },
-  { value: "cloud-services", label: "Cloud Services" },
-  { value: "staff-augmentation", label: "IT Staff Augmentation" },
-  { value: "other", label: "Other / General Inquiry" },
-];
 
 function HeroSection() {
   return (
@@ -55,184 +22,30 @@ function HeroSection() {
 }
 
 function ContactFormSection() {
-  const { toast } = useToast();
-  const [submitted, setSubmitted] = useState(false);
+  const formContainerRef = useRef<HTMLDivElement>(null);
 
-  const form = useForm<InsertContact>({
-    resolver: zodResolver(insertContactSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      company: "",
-      serviceInterest: "",
-      message: "",
-    },
-  });
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.id = 'formScript1691948000001924023';
+    script.src = 'https://crm.zoho.com/crm/WebFormServeServlet?rid=7ebbaac1113935ccd84ee73bc0e27316545dcbcbf4ddd34233ef44e98569162351d1535ae282784b8bef9129c0892349gidffd7dbb1408e7f3dd2f7041ffcee60768639875ddfa4f216077e022ee5c43a50&script=$sYG';
+    script.async = true;
 
-  const mutation = useMutation({
-    mutationFn: async (data: InsertContact) => {
-      return apiRequest("POST", "/api/contact", data);
-    },
-    onSuccess: () => {
-      setSubmitted(true);
-      form.reset();
-      toast({
-        title: "Message Sent",
-        description: "Thank you for contacting us. We'll respond within 24 hours.",
-      });
-    },
-    onError: () => {
-      toast({
-        title: "Error",
-        description: "Something went wrong. Please try again.",
-        variant: "destructive",
-      });
-    },
-  });
+    if (formContainerRef.current) {
+      formContainerRef.current.appendChild(script);
+    }
 
-  const onSubmit = (data: InsertContact) => {
-    mutation.mutate(data);
-  };
-
-  if (submitted) {
-    return (
-      <Card data-testid="card-success">
-        <CardContent className="p-8 text-center">
-          <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
-            <CheckCircle className="h-8 w-8 text-primary" />
-          </div>
-          <h3 className="text-2xl font-bold mb-4">Thank You!</h3>
-          <p className="text-muted-foreground mb-6">
-            Your message has been received. One of our team members will contact you within 24 hours.
-          </p>
-          <Button onClick={() => setSubmitted(false)} data-testid="button-send-another">
-            Send Another Message
-          </Button>
-        </CardContent>
-      </Card>
-    );
-  }
+    return () => {
+      if (formContainerRef.current && script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
+    };
+  }, []);
 
   return (
     <Card data-testid="card-contact-form">
       <CardContent className="p-8">
         <h2 className="text-2xl font-bold mb-6">Send Us a Message</h2>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Full Name *</FormLabel>
-                    <FormControl>
-                      <Input placeholder="John Smith" {...field} data-testid="input-name" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email Address *</FormLabel>
-                    <FormControl>
-                      <Input placeholder="john@company.com" type="email" {...field} data-testid="input-email" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <FormField
-                control={form.control}
-                name="company"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Company Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Your Company Ltd." {...field} value={field.value || ""} data-testid="input-company" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="serviceInterest"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Service Interest</FormLabel>
-                    <Select onValueChange={field.onChange} value={field.value || ""}>
-                      <FormControl>
-                        <SelectTrigger data-testid="select-service">
-                          <SelectValue placeholder="Select a service" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {serviceOptions.map((option) => (
-                          <SelectItem key={option.value} value={option.value}>
-                            {option.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-
-            <FormField
-              control={form.control}
-              name="message"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Message *</FormLabel>
-                  <FormControl>
-                    <Textarea 
-                      placeholder="Tell us about your project or inquiry..." 
-                      className="min-h-[150px] resize-none"
-                      {...field} 
-                      data-testid="textarea-message"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {mutation.isError && (
-              <div className="p-4 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-sm" data-testid="text-form-error">
-                {mutation.error instanceof Error 
-                  ? mutation.error.message 
-                  : "Something went wrong. Please check your information and try again."}
-              </div>
-            )}
-
-            <Button 
-              type="submit" 
-              size="lg" 
-              className="w-full gap-2"
-              disabled={mutation.isPending}
-              data-testid="button-submit"
-            >
-              {mutation.isPending ? (
-                "Sending..."
-              ) : (
-                <>
-                  Send Message
-                  <Send className="h-4 w-4" />
-                </>
-              )}
-            </Button>
-          </form>
-        </Form>
+        <div ref={formContainerRef} data-testid="zoho-form-container" className="zoho-crm-form" />
       </CardContent>
     </Card>
   );

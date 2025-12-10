@@ -255,23 +255,28 @@ function AboutSection() {
   );
 }
 
+import cameilleSterlingImg from "@assets/image_1765405458755.png";
+
 const executives = [
   {
     name: "Ryan Sterling",
     role: "CEO & Head of Business Development",
     initials: "RS",
+    image: null,
     bio: "Ryan Sterling serves on the Board of Directors. Ryan is responsible for all of the company's worldwide sales and business development, and strategic partnerships."
   },
   {
     name: "Cameille Sterling",
     role: "Chief Operations Officer",
     initials: "CS",
+    image: cameilleSterlingImg,
     bio: "Cameille serves on the Board of Directors. As head of Operations and Marketing, Cameille leads a talented and creative team focused on enabling the success of Vertis Technology teams across the organization."
   },
   {
     name: "Michael Kerr",
     role: "CTO & Head of Service Delivery",
     initials: "MK",
+    image: null,
     bio: "Michael serves on the Board of Directors. He leads Vertis' Service and Solutions Teams. Michael has a proven ability in adapting/maturing technology organizations to solve business issues while managing costs and risks."
   }
 ];
@@ -332,9 +337,17 @@ function TeamSection() {
             {executives.map((exec, index) => (
               <Card key={index} className="text-center" data-testid={`card-executive-${index}`}>
                 <CardContent className="p-6">
-                  <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <span className="text-2xl font-bold text-primary">{exec.initials}</span>
-                  </div>
+                  {exec.image ? (
+                    <img 
+                      src={exec.image} 
+                      alt={exec.name}
+                      className="w-24 h-24 rounded-full object-cover mx-auto mb-4"
+                    />
+                  ) : (
+                    <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                      <span className="text-2xl font-bold text-primary">{exec.initials}</span>
+                    </div>
+                  )}
                   <h4 className="text-lg font-semibold mb-1">{exec.name}</h4>
                   <p className="text-sm text-primary font-medium mb-4">{exec.role}</p>
                   <p className="text-sm text-muted-foreground leading-relaxed">{exec.bio}</p>

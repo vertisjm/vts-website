@@ -272,6 +272,7 @@ const executives = [
     role: "Chief Operations Officer",
     initials: "CS",
     image: cameilleSterlingImg,
+    imagePosition: "object-top",
     bio: "Cameille serves on the Board of Directors. As head of Operations and Marketing, Cameille leads a talented and creative team focused on enabling the success of Vertis Technology teams across the organization."
   },
   {
@@ -343,7 +344,7 @@ function TeamSection() {
                     <img 
                       src={exec.image} 
                       alt={exec.name}
-                      className="w-24 h-24 rounded-full object-cover mx-auto mb-4"
+                      className={`w-24 h-24 rounded-full object-cover mx-auto mb-4 ${exec.imagePosition || ''}`}
                     />
                   ) : (
                     <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">

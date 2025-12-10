@@ -1,7 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 
 function HeroSection() {
   return (
@@ -22,21 +26,61 @@ function HeroSection() {
 }
 
 function ContactFormSection() {
-  const formContainerRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
-    const script = document.createElement('script');
-    script.id = 'formScript1691948000001924023';
-    script.src = 'https://crm.zoho.com/crm/WebFormServeServlet?rid=7ebbaac1113935ccd84ee73bc0e27316545dcbcbf4ddd34233ef44e98569162351d1535ae282784b8bef9129c0892349gidffd7dbb1408e7f3dd2f7041ffcee60768639875ddfa4f216077e022ee5c43a50&script=$sYG';
-    script.async = true;
+    const validateEmail = () => {
+      const form = document.forms.namedItem('WebToLeads1691948000001924023');
+      if (!form) return true;
+      const emailFld = form.querySelectorAll('[data-ftype="email"]');
+      for (let i = 0; i < emailFld.length; i++) {
+        const emailInput = emailFld[i] as HTMLInputElement;
+        const emailVal = emailInput.value;
+        if (emailVal.replace(/^\s+|\s+$/g, '').length !== 0) {
+          const atpos = emailVal.indexOf('@');
+          const dotpos = emailVal.lastIndexOf('.');
+          if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= emailVal.length) {
+            alert('Please enter a valid email address.');
+            emailInput.focus();
+            return false;
+          }
+        }
+      }
+      return true;
+    };
 
-    if (formContainerRef.current) {
-      formContainerRef.current.appendChild(script);
+    const checkMandatory = (e: Event) => {
+      const mndFields = ['Company', 'Last Name'];
+      const fldLangVal = ['Company', 'Last Name'];
+      const form = document.forms.namedItem('WebToLeads1691948000001924023');
+      if (!form) return true;
+      
+      for (let i = 0; i < mndFields.length; i++) {
+        const fieldObj = form.elements.namedItem(mndFields[i]) as HTMLInputElement;
+        if (fieldObj) {
+          if (fieldObj.value.replace(/^\s+|\s+$/g, '').length === 0) {
+            alert(fldLangVal[i] + ' cannot be empty.');
+            fieldObj.focus();
+            e.preventDefault();
+            return false;
+          }
+        }
+      }
+      
+      if (!validateEmail()) {
+        e.preventDefault();
+        return false;
+      }
+      
+      return true;
+    };
+
+    const form = document.getElementById('webform1691948000001924023');
+    if (form) {
+      form.addEventListener('submit', checkMandatory);
     }
 
     return () => {
-      if (formContainerRef.current && script.parentNode) {
-        script.parentNode.removeChild(script);
+      if (form) {
+        form.removeEventListener('submit', checkMandatory);
       }
     };
   }, []);
@@ -45,7 +89,115 @@ function ContactFormSection() {
     <Card data-testid="card-contact-form">
       <CardContent className="p-8">
         <h2 className="text-2xl font-bold mb-6">Send Us a Message</h2>
-        <div ref={formContainerRef} data-testid="zoho-form-container" className="zoho-crm-form" />
+        <form 
+          id="webform1691948000001924023"
+          action="https://crm.zoho.com/crm/WebToLeadForm"
+          name="WebToLeads1691948000001924023"
+          method="POST"
+          acceptCharset="UTF-8"
+          className="space-y-6"
+        >
+          <input type="hidden" name="xnQsjsdp" value="5c4185d76ba11908c903f46d925645fb0a831c58a72187603bf2f18b4a792b82" />
+          <input type="hidden" name="zc_gad" id="zc_gad" value="" />
+          <input type="hidden" name="xmIwtLD" value="9008bd84f0566c5e3e6f7b9069815f50cd1dfc4d48d30ea59e94d527382c54ed537e26d2e9076a1b3d07556366aef8a5" />
+          <input type="hidden" name="actionType" value="TGVhZHM=" />
+          <input type="hidden" name="returnURL" value="https://www.vertisjm.com/" />
+          <input type="hidden" name="Lead Source" value="OnlineStore" />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <Label htmlFor="Company">
+                Company <span className="text-destructive">*</span>
+              </Label>
+              <Input 
+                type="text" 
+                id="Company" 
+                name="Company" 
+                maxLength={200}
+                required
+                data-testid="input-company"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="First_Name">First Name</Label>
+              <Input 
+                type="text" 
+                id="First_Name" 
+                name="First Name" 
+                maxLength={40}
+                data-testid="input-first-name"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <Label htmlFor="Last_Name">
+                Last Name <span className="text-destructive">*</span>
+              </Label>
+              <Input 
+                type="text" 
+                id="Last_Name" 
+                name="Last Name" 
+                maxLength={80}
+                required
+                data-testid="input-last-name"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="Email">Email</Label>
+              <Input 
+                type="email" 
+                id="Email" 
+                name="Email" 
+                maxLength={100}
+                data-ftype="email"
+                data-testid="input-email"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="Phone">Phone</Label>
+            <Input 
+              type="tel" 
+              id="Phone" 
+              name="Phone" 
+              maxLength={30}
+              data-testid="input-phone"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="Description">Message</Label>
+            <Textarea 
+              id="Description" 
+              name="Description"
+              className="min-h-[150px] resize-none"
+              placeholder="Tell us about your project or inquiry..."
+              data-testid="textarea-message"
+            />
+          </div>
+
+          <div className="flex gap-4">
+            <Button 
+              type="submit" 
+              size="lg"
+              className="flex-1"
+              data-testid="button-submit"
+            >
+              Submit
+            </Button>
+            <Button 
+              type="reset" 
+              variant="outline"
+              size="lg"
+              data-testid="button-reset"
+            >
+              Reset
+            </Button>
+          </div>
+        </form>
       </CardContent>
     </Card>
   );

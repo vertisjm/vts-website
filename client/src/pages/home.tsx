@@ -268,7 +268,7 @@ const executives = [
     role: "CEO & Head of Business Development",
     initials: "RS",
     image: ryanSterlingImg,
-    imageClass: "scale-150 object-[center_25%]",
+    imageClass: "scale-150 object-[center_35%]",
     bio: "Ryan Sterling serves on the Board of Directors. Ryan is responsible for all of the company's worldwide sales and business development, and strategic partnerships."
   },
   {

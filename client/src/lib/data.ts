@@ -133,63 +133,63 @@ export const partners: Partner[] = [
     id: "microsoft",
     name: "Microsoft",
     description: "Strategic partner for Microsoft 365, Azure cloud solutions, and enterprise productivity tools.",
-    logo: "https://logo.svgcdn.com/logos/microsoft.svg",
+    logo: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/microsoft.svg",
     url: "https://www.microsoft.com"
   },
   {
     id: "dell",
     name: "Dell Technologies",
     description: "Hardware partner for enterprise servers, workstations, and infrastructure solutions.",
-    logo: "https://logo.svgcdn.com/logos/dell.svg",
+    logo: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/dell.svg",
     url: "https://www.dell.com"
   },
   {
     id: "hp",
     name: "HP",
     description: "Provider of enterprise computing, printing, and imaging solutions.",
-    logo: "https://logo.svgcdn.com/logos/hp.svg",
+    logo: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/hp.svg",
     url: "https://www.hp.com"
   },
   {
     id: "fortinet",
     name: "Fortinet",
     description: "Network security partner offering next-generation firewalls and security fabric solutions.",
-    logo: "https://logo.svgcdn.com/logos/fortinet.svg",
+    logo: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/fortinet.svg",
     url: "https://www.fortinet.com"
   },
   {
     id: "sophos",
     name: "Sophos",
     description: "Cybersecurity partner for endpoint protection and synchronized security solutions.",
-    logo: "https://svgmix.com/item/yVklOB/sophos.svg",
+    logo: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/sophos.svg",
     url: "https://www.sophos.com"
   },
   {
     id: "crowdstrike",
     name: "CrowdStrike",
     description: "Cloud-native endpoint protection and threat intelligence platform.",
-    logo: "https://svgmix.com/item/XokDZX/crowdstrike.svg",
+    logo: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/crowdstrike.svg",
     url: "https://www.crowdstrike.com"
   },
   {
     id: "synology",
     name: "Synology",
     description: "Storage and backup solutions partner for enterprise NAS and data management.",
-    logo: "https://logo.svgcdn.com/logos/synology.svg",
+    logo: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/synology.svg",
     url: "https://www.synology.com"
   },
   {
     id: "cisco",
     name: "Cisco",
     description: "Networking partner for enterprise routing, switching, and collaboration solutions.",
-    logo: "https://logo.svgcdn.com/logos/cisco.svg",
+    logo: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/cisco.svg",
     url: "https://www.cisco.com"
   },
   {
     id: "grandstream",
     name: "Grandstream",
     description: "VoIP and unified communications solutions for modern business telephony.",
-    logo: "https://seeklogo.com/images/G/grandstream-logo-989E4E7F11-seeklogo.com.svg",
+    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Grandstream-logo.svg/320px-Grandstream-logo.svg.png",
     url: "https://www.grandstream.com"
   },
   {
@@ -203,14 +203,14 @@ export const partners: Partner[] = [
     id: "veeam",
     name: "Veeam",
     description: "Backup and disaster recovery solutions for hybrid cloud environments.",
-    logo: "https://logo.svgcdn.com/s/veeam-dark.svg",
+    logo: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/veeam.svg",
     url: "https://www.veeam.com"
   },
   {
     id: "vmware",
     name: "VMware",
     description: "Virtualization and cloud infrastructure solutions for enterprise environments.",
-    logo: "https://logo.svgcdn.com/logos/vmware.svg",
+    logo: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/vmware.svg",
     url: "https://www.vmware.com"
   }
 ];

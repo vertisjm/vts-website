@@ -260,7 +260,7 @@ import ryanSterlingImg from "@assets/Copy_of_Ryan_-_Professional_Photo_(2)_(1)_1
 import michaelKerrImg from "@assets/MK_-_Professional_Photo_(1)_1765406633973.png";
 import sanjayStephensImg from "@assets/Photo-_Sanjay_1765405740646.jpeg";
 import coleenHibbertImg from "@assets/Vertis_Technology_Headshots-51_1765405778953.jpg";
-import cassandraSterlingImg from "@assets/Cass_-_Pic_1765405831947.png";
+import cassandraSterlingImg from "@assets/Photo_2_(1)_1765407162039.jpg";
 
 const executives = [
   {

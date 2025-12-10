@@ -306,7 +306,8 @@ const keyEmployees = [
     name: "Coleen Hibbert",
     role: "IT Operations Manager",
     initials: "CH",
-    image: coleenHibbertImg
+    image: coleenHibbertImg,
+    imageClass: "scale-125"
   }
 ];
 
@@ -336,7 +337,7 @@ function TeamSection() {
                       <img 
                         src={employee.image} 
                         alt={employee.name}
-                        className="w-full h-full object-cover object-top"
+                        className={`w-full h-full object-cover object-top ${employee.imageClass || ''}`}
                       />
                     </div>
                   ) : (

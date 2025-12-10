@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Facebook, Instagram } from "lucide-react";
 import { services, partners } from "@/lib/data";
 import vertisLogo from "@assets/vertis-logo.svg";
 
@@ -37,7 +37,7 @@ export function Footer() {
             </p>
             <div className="flex gap-3">
               <a 
-                href="https://linkedin.com" 
+                href="https://jm.linkedin.com/company/vertis-technology" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="p-2 rounded-md bg-background/10 hover:bg-background/20 transition-colors"
@@ -47,17 +47,7 @@ export function Footer() {
                 <Linkedin className="h-5 w-5" />
               </a>
               <a 
-                href="https://twitter.com" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="p-2 rounded-md bg-background/10 hover:bg-background/20 transition-colors"
-                data-testid="link-twitter"
-                aria-label="Twitter"
-              >
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a 
-                href="https://facebook.com" 
+                href="https://www.facebook.com/vertisjm/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="p-2 rounded-md bg-background/10 hover:bg-background/20 transition-colors"
@@ -65,6 +55,16 @@ export function Footer() {
                 aria-label="Facebook"
               >
                 <Facebook className="h-5 w-5" />
+              </a>
+              <a 
+                href="https://www.instagram.com/vertistechnology/?hl=en" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="p-2 rounded-md bg-background/10 hover:bg-background/20 transition-colors"
+                data-testid="link-instagram"
+                aria-label="Instagram"
+              >
+                <Instagram className="h-5 w-5" />
               </a>
             </div>
           </div>

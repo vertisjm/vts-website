@@ -256,13 +256,14 @@ function AboutSection() {
 }
 
 import cameilleSterlingImg from "@assets/image_1765405458755.png";
+import ryanSterlingImg from "@assets/image_1765405515300.png";
 
 const executives = [
   {
     name: "Ryan Sterling",
     role: "CEO & Head of Business Development",
     initials: "RS",
-    image: null,
+    image: ryanSterlingImg,
     bio: "Ryan Sterling serves on the Board of Directors. Ryan is responsible for all of the company's worldwide sales and business development, and strategic partnerships."
   },
   {

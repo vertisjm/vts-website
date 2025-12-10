@@ -203,7 +203,7 @@ export const partners: Partner[] = [
     id: "veeam",
     name: "Veeam",
     description: "Backup and disaster recovery solutions for hybrid cloud environments.",
-    logo: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/veeam.svg",
+    logo: "https://psr.veeam.com/global/img/logo/veeam_logo_lp_white.svg",
     url: "https://www.veeam.com"
   },
   {

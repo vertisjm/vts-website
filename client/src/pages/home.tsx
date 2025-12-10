@@ -323,10 +323,7 @@ function PartnersSection() {
               <img
                 src={partner.logo}
                 alt={`${partner.name} logo`}
-                className={`h-8 sm:h-10 w-auto max-w-full object-contain opacity-60 group-hover:opacity-100 transition-opacity ${
-                  ["veeam", "grandstream"].includes(partner.id) ? "grayscale" : 
-                  ["3cx", "microsoft"].includes(partner.id) ? "" : "dark:invert dark:brightness-200"
-                }`}
+                className="h-8 sm:h-10 w-auto max-w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity"
               />
             </a>
           ))}

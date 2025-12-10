@@ -257,7 +257,7 @@ function AboutSection() {
 
 import cameilleSterlingImg from "@assets/image_1765405458755.png";
 import ryanSterlingImg from "@assets/image_1765405515300.png";
-import michaelKerrImg from "@assets/image_1765405543889.png";
+import michaelKerrImg from "@assets/MK_-_Professional_Photo_(1)_1765406633973.png";
 import sanjayStephensImg from "@assets/Photo-_Sanjay_1765405740646.jpeg";
 import coleenHibbertImg from "@assets/Vertis_Technology_Headshots-51_1765405778953.jpg";
 import cassandraSterlingImg from "@assets/Cass_-_Pic_1765405831947.png";
@@ -284,7 +284,7 @@ const executives = [
     role: "CTO & Head of Service Delivery",
     initials: "MK",
     image: michaelKerrImg,
-    imageClass: "scale-150 object-[center_40%]",
+    imageClass: "object-top",
     bio: "Michael serves on the Board of Directors. He leads Vertis' Service and Solutions Teams. Michael has a proven ability in adapting/maturing technology organizations to solve business issues while managing costs and risks."
   }
 ];

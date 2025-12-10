@@ -323,7 +323,9 @@ function PartnersSection() {
               <img
                 src={partner.logo}
                 alt={`${partner.name} logo`}
-                className={`h-8 sm:h-10 w-auto max-w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity ${
+                className={`w-auto max-w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity ${
+                  ["synology", "cisco", "vmware"].includes(partner.id) ? "h-12 sm:h-14" : "h-8 sm:h-10"
+                } ${
                   ["fortinet", "crowdstrike"].includes(partner.id) ? "brightness-0 saturate-100 invert sepia saturate-[10000%] hue-rotate-[0deg]" :
                   ["hp", "cisco"].includes(partner.id) ? "brightness-0 saturate-100 invert sepia saturate-[10000%] hue-rotate-[200deg]" : ""
                 }`}

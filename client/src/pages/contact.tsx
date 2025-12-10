@@ -263,8 +263,12 @@ function ContactInfoSection() {
               </div>
               <div>
                 <p className="font-medium mb-1">Phone</p>
-                <a href="tel:+18769299000" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="link-phone">
-                  +1 (876) 929-9000
+                <a href="tel:+18766348700" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="link-phone">
+                  +1 (876) 634-8700
+                </a>
+                <br />
+                <a href="tel:+18766348699" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="link-phone-alt">
+                  +1 (876) 634-8699
                 </a>
               </div>
             </li>

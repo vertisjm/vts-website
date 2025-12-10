@@ -447,7 +447,7 @@ function SupportSection() {
       title: "Phone Support",
       description: "Speak directly with our technical support team for urgent issues.",
       action: "Call Now",
-      link: "tel:+18769299000"
+      link: "tel:+18766348700"
     },
     {
       icon: Clock,

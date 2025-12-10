@@ -331,14 +331,16 @@ function TeamSection() {
               <Card key={index} className="text-center" data-testid={`card-employee-${index}`}>
                 <CardContent className="p-6">
                   {employee.image ? (
-                    <img 
-                      src={employee.image} 
-                      alt={employee.name}
-                      className="w-20 h-20 rounded-full object-cover object-top mx-auto mb-4"
-                    />
+                    <div className="w-28 h-28 rounded-full overflow-hidden mx-auto mb-4">
+                      <img 
+                        src={employee.image} 
+                        alt={employee.name}
+                        className="w-full h-full object-cover object-top"
+                      />
+                    </div>
                   ) : (
-                    <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                      <span className="text-xl font-bold text-primary">{employee.initials}</span>
+                    <div className="w-28 h-28 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                      <span className="text-2xl font-bold text-primary">{employee.initials}</span>
                     </div>
                   )}
                   <h4 className="text-base font-semibold mb-1">{employee.name}</h4>
@@ -356,7 +358,7 @@ function TeamSection() {
               <Card key={index} className="text-center" data-testid={`card-executive-${index}`}>
                 <CardContent className="p-6">
                   {exec.image ? (
-                    <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4">
+                    <div className="w-32 h-32 rounded-full overflow-hidden mx-auto mb-4">
                       <img 
                         src={exec.image} 
                         alt={exec.name}
@@ -364,8 +366,8 @@ function TeamSection() {
                       />
                     </div>
                   ) : (
-                    <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl font-bold text-primary">{exec.initials}</span>
+                    <div className="w-32 h-32 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                      <span className="text-3xl font-bold text-primary">{exec.initials}</span>
                     </div>
                   )}
                   <h4 className="text-lg font-semibold mb-1">{exec.name}</h4>

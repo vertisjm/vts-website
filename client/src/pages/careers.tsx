@@ -85,25 +85,6 @@ export default function Careers() {
         </div>
       </section>
 
-      <section className="py-12 lg:py-16 bg-muted/30">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-center mb-10">Why Work With Us</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {benefits.map((benefit, index) => (
-              <Card key={index} data-testid={`card-benefit-${index}`}>
-                <CardContent className="p-6 text-center">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <benefit.icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <h3 className="font-semibold mb-2">{benefit.title}</h3>
-                  <p className="text-sm text-muted-foreground">{benefit.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section className="py-16 lg:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-2xl font-bold mb-8">Open Positions</h2>
@@ -129,6 +110,25 @@ export default function Careers() {
                 </p>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-12 lg:py-16 bg-muted/30">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-center mb-10">Why Work With Us</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {benefits.map((benefit, index) => (
+              <Card key={index} data-testid={`card-benefit-${index}`}>
+                <CardContent className="p-6 text-center">
+                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                    <benefit.icon className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="font-semibold mb-2">{benefit.title}</h3>
+                  <p className="text-sm text-muted-foreground">{benefit.description}</p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>

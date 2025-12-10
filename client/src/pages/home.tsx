@@ -307,25 +307,22 @@ function PartnersSection() {
             We partner with the world's leading technology providers to deliver best-in-class solutions for your business.
           </p>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-6">
           {partners.map((partner) => (
             <a
               key={partner.id}
               href={partner.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-center justify-center p-4 sm:p-6 rounded-lg border bg-background hover:border-primary/30 transition-all group hover-elevate min-h-[120px]"
+              className="flex items-center justify-center p-6 rounded-lg border bg-background hover:border-primary/30 transition-all group hover-elevate aspect-[3/2]"
               data-testid={`partner-logo-${partner.id}`}
               title={partner.name}
             >
               <img
                 src={partner.logo}
                 alt={`${partner.name} logo`}
-                className="h-10 w-auto max-w-[80px] object-contain opacity-70 group-hover:opacity-100 transition-opacity"
+                className="h-8 sm:h-10 w-auto max-w-full object-contain dark:invert dark:brightness-200 opacity-60 group-hover:opacity-100 transition-opacity"
               />
-              <span className="text-xs text-muted-foreground mt-3 group-hover:text-foreground transition-colors text-center">
-                {partner.name}
-              </span>
             </a>
           ))}
         </div>

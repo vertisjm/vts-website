@@ -258,6 +258,7 @@ function AboutSection() {
 import cameilleSterlingImg from "@assets/image_1765405458755.png";
 import ryanSterlingImg from "@assets/image_1765405515300.png";
 import michaelKerrImg from "@assets/image_1765405543889.png";
+import sanjayStephensImg from "@assets/Photo-_Sanjay_1765405740646.jpeg";
 
 const executives = [
   {
@@ -288,17 +289,20 @@ const keyEmployees = [
   {
     name: "Cassandra-Leigh Sterling",
     role: "Service Delivery Manager",
-    initials: "CS"
+    initials: "CS",
+    image: null
   },
   {
     name: "Sanjay Stephens",
     role: "Snr Systems Engineer",
-    initials: "SS"
+    initials: "SS",
+    image: sanjayStephensImg
   },
   {
     name: "Coleen Hibbert",
     role: "IT Operations Manager",
-    initials: "CH"
+    initials: "CH",
+    image: null
   }
 ];
 
@@ -323,9 +327,17 @@ function TeamSection() {
             {keyEmployees.map((employee, index) => (
               <Card key={index} className="text-center" data-testid={`card-employee-${index}`}>
                 <CardContent className="p-6">
-                  <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <span className="text-xl font-bold text-primary">{employee.initials}</span>
-                  </div>
+                  {employee.image ? (
+                    <img 
+                      src={employee.image} 
+                      alt={employee.name}
+                      className="w-20 h-20 rounded-full object-cover object-top mx-auto mb-4"
+                    />
+                  ) : (
+                    <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                      <span className="text-xl font-bold text-primary">{employee.initials}</span>
+                    </div>
+                  )}
                   <h4 className="text-base font-semibold mb-1">{employee.name}</h4>
                   <p className="text-sm text-muted-foreground">{employee.role}</p>
                 </CardContent>

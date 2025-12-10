@@ -702,18 +702,30 @@ function TestimonialsSection() {
               <p className="text-lg sm:text-xl leading-relaxed mb-8" data-testid="text-testimonial-quote">
                 {testimonials[currentIndex]?.quote}
               </p>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold">
-                  {testimonials[currentIndex]?.name?.charAt(0)}
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold">
+                    {testimonials[currentIndex]?.name?.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="font-semibold" data-testid="text-testimonial-name">
+                      {testimonials[currentIndex]?.name}
+                    </p>
+                    <p className="text-sm text-muted-foreground" data-testid="text-testimonial-role">
+                      {testimonials[currentIndex]?.role}, {testimonials[currentIndex]?.company}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-semibold" data-testid="text-testimonial-name">
-                    {testimonials[currentIndex]?.name}
-                  </p>
-                  <p className="text-sm text-muted-foreground" data-testid="text-testimonial-role">
-                    {testimonials[currentIndex]?.role}, {testimonials[currentIndex]?.company}
-                  </p>
-                </div>
+                {testimonials[currentIndex]?.companyLogo && (
+                  <div className="h-10 flex items-center">
+                    <img 
+                      src={testimonials[currentIndex].companyLogo} 
+                      alt={`${testimonials[currentIndex]?.company} logo`}
+                      className="h-full w-auto object-contain max-w-[120px]"
+                      data-testid="img-testimonial-company-logo"
+                    />
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>

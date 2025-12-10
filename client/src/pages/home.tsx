@@ -6,24 +6,54 @@ import { Badge } from "@/components/ui/badge";
 import { services, partners, testimonials, companyStats, industries } from "@/lib/data";
 import { useState, useEffect } from "react";
 
+import heroImage1 from "@assets/stock_images/black_professionals__57cc3629.jpg";
+import heroImage2 from "@assets/stock_images/black_professionals__5b030cf6.jpg";
+import heroImage3 from "@assets/stock_images/black_professionals__34628ca7.jpg";
+
+const heroImages = [heroImage1, heroImage2, heroImage3];
+
 const serviceIcons: Record<string, typeof Server> = {
   Server, Network, Shield, Cloud, Users
 };
 
 function HeroSection() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <section id="hero" className="relative min-h-[70vh] flex items-center bg-gradient-to-br from-primary/10 via-background to-background scroll-mt-16">
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2260%22%20height%3D%2260%22%20viewBox%3D%220%200%2060%2060%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cg%20fill%3D%22none%22%20fill-rule%3D%22evenodd%22%3E%3Cg%20fill%3D%22%239C92AC%22%20fill-opacity%3D%220.05%22%3E%3Cpath%20d%3D%22M36%2034v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6%2034v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6%204V0H4v4H0v2h4v4h2V6h4V4H6z%22%2F%3E%3C%2Fg%3E%3C%2Fg%3E%3C%2Fsvg%3E')] opacity-50" />
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 relative">
+    <section id="hero" className="relative min-h-[80vh] flex items-center scroll-mt-16 overflow-hidden">
+      {heroImages.map((image, index) => (
+        <div
+          key={index}
+          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+            index === currentImageIndex ? "opacity-100" : "opacity-0"
+          }`}
+          aria-hidden={index !== currentImageIndex}
+        >
+          <img
+            src={image}
+            alt={`Technology professionals ${index + 1}`}
+            className="w-full h-full object-cover"
+          />
+        </div>
+      ))}
+      <div className="absolute inset-0 bg-gradient-to-r from-[rgba(11,31,58,0.92)] via-[rgba(11,31,58,0.85)] to-[rgba(11,31,58,0.70)]" />
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 relative z-10">
         <div className="max-w-3xl">
-          <Badge variant="secondary" className="mb-6" data-testid="badge-hero">
+          <Badge className="mb-6 bg-white/15 text-white border-white/20 backdrop-blur-sm" data-testid="badge-hero">
             Jamaica's Leading IT Partner
           </Badge>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight mb-6" data-testid="text-hero-title">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight mb-6 text-white" data-testid="text-hero-title">
             Enterprise IT Solutions <br className="hidden sm:block" />
-            <span className="text-primary">Built for Growth</span>
+            <span className="text-[#33C3F0]">Built for Growth</span>
           </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl" data-testid="text-hero-description">
+          <p className="text-lg sm:text-xl text-white/85 leading-relaxed mb-8 max-w-2xl" data-testid="text-hero-description">
             Vertis Technology delivers comprehensive managed IT services, network infrastructure, cybersecurity, and cloud solutions for medium to large enterprises across Jamaica and the Caribbean.
           </p>
           <div className="flex flex-wrap gap-4">
@@ -34,12 +64,25 @@ function HeroSection() {
               </Button>
             </Link>
             <a href="#support">
-              <Button variant="outline" size="lg" data-testid="button-hero-support">
+              <Button variant="outline" size="lg" className="bg-white/10 border-white/30 text-white backdrop-blur-sm" data-testid="button-hero-support">
                 Request Support
               </Button>
             </a>
           </div>
         </div>
+      </div>
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+        {heroImages.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentImageIndex(index)}
+            className={`w-2 h-2 rounded-full transition-colors ${
+              index === currentImageIndex ? "bg-white" : "bg-white/40"
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+            data-testid={`button-hero-slide-${index}`}
+          />
+        ))}
       </div>
     </section>
   );

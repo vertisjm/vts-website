@@ -256,7 +256,7 @@ function AboutSection() {
 }
 
 import cameilleSterlingImg from "@assets/image_1765405458755.png";
-import ryanSterlingImg from "@assets/image_1765405515300.png";
+import ryanSterlingImg from "@assets/Copy_of_Ryan_-_Professional_Photo_(2)_(1)_1765406682054.png";
 import michaelKerrImg from "@assets/MK_-_Professional_Photo_(1)_1765406633973.png";
 import sanjayStephensImg from "@assets/Photo-_Sanjay_1765405740646.jpeg";
 import coleenHibbertImg from "@assets/Vertis_Technology_Headshots-51_1765405778953.jpg";

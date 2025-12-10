@@ -174,7 +174,14 @@ function StatsSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {companyStats.map((stat, index) => (
-            <div key={index} className="text-center">
+            <motion.div 
+              key={index} 
+              className="text-center"
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
               <p className="text-3xl sm:text-4xl font-bold text-primary mb-2" data-testid={`text-stat-value-${index}`}>
                 {stat.isStatic ? (
                   <>{stat.value}{stat.suffix}</>
@@ -185,7 +192,7 @@ function StatsSection() {
               <p className="text-sm text-muted-foreground" data-testid={`text-stat-label-${index}`}>
                 {stat.label}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -197,7 +204,13 @@ function AboutSection() {
   return (
     <section id="about" className="py-20 lg:py-24 scroll-mt-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <Badge variant="secondary" className="mb-4">About Us</Badge>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" data-testid="text-about-title">
             Your Trusted IT Partner in Jamaica
@@ -205,32 +218,46 @@ function AboutSection() {
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
             For over 50 years, Vertis Technology has been empowering businesses across Jamaica and the Caribbean with enterprise-grade IT solutions and exceptional service.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-          <Card data-testid="card-mission">
-            <CardContent className="p-8">
-              <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
-                <Target className="h-7 w-7 text-primary" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                To deliver exceptional IT services and solutions that enable businesses to achieve their strategic objectives through reliable, secure, and innovative technology.
-              </p>
-            </CardContent>
-          </Card>
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <Card data-testid="card-mission" className="h-full">
+              <CardContent className="p-8">
+                <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
+                  <Target className="h-7 w-7 text-primary" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  To deliver exceptional IT services and solutions that enable businesses to achieve their strategic objectives through reliable, secure, and innovative technology.
+                </p>
+              </CardContent>
+            </Card>
+          </motion.div>
 
-          <Card data-testid="card-vision">
-            <CardContent className="p-8">
-              <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
-                <Eye className="h-7 w-7 text-primary" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                To be the leading Managed IT Services provider in the Caribbean, recognized for excellence in technology solutions, customer satisfaction, and innovation.
-              </p>
-            </CardContent>
-          </Card>
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <Card data-testid="card-vision" className="h-full">
+              <CardContent className="p-8">
+                <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
+                  <Eye className="h-7 w-7 text-primary" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
+                <p className="text-muted-foreground leading-relaxed">
+                  To be the leading Managed IT Services provider in the Caribbean, recognized for excellence in technology solutions, customer satisfaction, and innovation.
+                </p>
+              </CardContent>
+            </Card>
+          </motion.div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -240,15 +267,23 @@ function AboutSection() {
             { icon: Target, title: "Innovation", description: "We continuously evolve to bring the latest technology solutions." },
             { icon: Building2, title: "Integrity", description: "We conduct business with the highest ethical standards." }
           ].map((value, index) => (
-            <Card key={index} className="text-center" data-testid={`card-value-${index}`}>
-              <CardContent className="p-6">
-                <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                  <value.icon className="h-7 w-7 text-primary" />
-                </div>
-                <h4 className="text-lg font-semibold mb-2">{value.title}</h4>
-                <p className="text-sm text-muted-foreground">{value.description}</p>
-              </CardContent>
-            </Card>
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <Card className="text-center h-full" data-testid={`card-value-${index}`}>
+                <CardContent className="p-6">
+                  <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                    <value.icon className="h-7 w-7 text-primary" />
+                  </div>
+                  <h4 className="text-lg font-semibold mb-2">{value.title}</h4>
+                  <p className="text-sm text-muted-foreground">{value.description}</p>
+                </CardContent>
+              </Card>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -408,7 +443,13 @@ function ServicesSection() {
   return (
     <section id="services" className="py-20 lg:py-24 bg-card scroll-mt-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <Badge variant="secondary" className="mb-4">Our Services</Badge>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" data-testid="text-services-title">
             Comprehensive IT Solutions
@@ -416,15 +457,22 @@ function ServicesSection() {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             From managed IT services to cybersecurity, we provide end-to-end technology solutions tailored to your business needs.
           </p>
-        </div>
+        </motion.div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service) => {
+          {services.map((service, serviceIndex) => {
             const IconComponent = serviceIcons[service.icon] || Server;
             const isExpanded = expandedService === service.id;
             return (
+              <motion.div
+                key={service.id}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: serviceIndex * 0.08 }}
+                className={isExpanded ? 'md:col-span-2 lg:col-span-3' : ''}
+              >
               <Card 
-                key={service.id} 
-                className={`group transition-all duration-300 ${isExpanded ? 'md:col-span-2 lg:col-span-3' : 'hover-elevate'}`}
+                className={`group transition-all duration-300 h-full ${!isExpanded ? 'hover-elevate' : ''}`}
                 data-testid={`card-service-${service.id}`}
               >
                 <CardContent className="p-6">
@@ -479,6 +527,7 @@ function ServicesSection() {
                   </div>
                 </CardContent>
               </Card>
+              </motion.div>
             );
           })}
         </div>
@@ -492,7 +541,12 @@ function IndustriesSection() {
     <section className="py-20 lg:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
             <Badge variant="secondary" className="mb-4">Industries We Serve</Badge>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6" data-testid="text-industries-title">
               Expertise Across Sectors
@@ -506,16 +560,24 @@ function IndustriesSection() {
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-2 gap-4">
             {industries.map((industry, index) => (
-              <Card key={index} className="hover-elevate" data-testid={`card-industry-${index}`}>
-                <CardContent className="p-4 flex items-center gap-3">
-                  <Briefcase className="h-5 w-5 text-primary flex-shrink-0" />
-                  <span className="font-medium text-sm">{industry}</span>
-                </CardContent>
-              </Card>
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: index * 0.05 }}
+              >
+                <Card className="hover-elevate h-full" data-testid={`card-industry-${index}`}>
+                  <CardContent className="p-4 flex items-center gap-3">
+                    <Briefcase className="h-5 w-5 text-primary flex-shrink-0" />
+                    <span className="font-medium text-sm">{industry}</span>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -528,7 +590,13 @@ function PartnersSection() {
   return (
     <section id="partners" className="py-20 lg:py-24 bg-gradient-to-br from-primary/5 via-background to-accent/10 scroll-mt-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+        <motion.div 
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <Badge variant="secondary" className="mb-4">Technology Partners</Badge>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" data-testid="text-partners-title">
             Powered by Industry Leaders
@@ -536,10 +604,10 @@ function PartnersSection() {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             We partner with the world's leading technology providers to deliver best-in-class solutions for your business.
           </p>
-        </div>
+        </motion.div>
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-6">
-          {partners.map((partner) => (
-            <a
+          {partners.map((partner, partnerIndex) => (
+            <motion.a
               key={partner.id}
               href={partner.url}
               target="_blank"
@@ -549,6 +617,10 @@ function PartnersSection() {
               }`}
               data-testid={`partner-logo-${partner.id}`}
               title={partner.name}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: partnerIndex * 0.05 }}
             >
               <img
                 src={partner.logo}
@@ -564,7 +636,7 @@ function PartnersSection() {
                   ["hp", "cisco"].includes(partner.id) ? { filter: "brightness(0) saturate(100%) invert(30%) sepia(100%) saturate(2000%) hue-rotate(200deg) brightness(90%)" } : undefined
                 }
               />
-            </a>
+            </motion.a>
           ))}
         </div>
       </div>
@@ -599,14 +671,26 @@ function TestimonialsSection() {
   return (
     <section id="testimonials" className="py-20 lg:py-24 scroll-mt-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+        <motion.div 
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <Badge variant="secondary" className="mb-4">Testimonials</Badge>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" data-testid="text-testimonials-title">
             Trusted by Leading Organizations
           </h2>
-        </div>
+        </motion.div>
         
-        <div className="max-w-4xl mx-auto">
+        <motion.div 
+          className="max-w-4xl mx-auto"
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           <Card className="relative overflow-visible" data-testid="card-testimonial">
             <CardContent className="p-8 sm:p-12">
               <Quote className="h-10 w-10 text-primary/20 mb-6" />
@@ -647,7 +731,7 @@ function TestimonialsSection() {
               />
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -675,7 +759,13 @@ function SupportSection() {
   return (
     <section id="support" className="py-20 lg:py-24 bg-card scroll-mt-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
+        <motion.div 
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <Badge variant="secondary" className="mb-4">Support</Badge>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" data-testid="text-support-title">
             We're Here to Help
@@ -683,11 +773,18 @@ function SupportSection() {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Need technical assistance? Our support team is available to help you resolve issues quickly.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {supportOptions.map((option, index) => (
-            <Card key={index} className="text-center" data-testid={`card-support-option-${index}`}>
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.15 }}
+            >
+            <Card className="text-center h-full" data-testid={`card-support-option-${index}`}>
               <CardContent className="p-8">
                 <div className="w-16 h-16 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-6">
                   <option.icon className="h-8 w-8 text-primary" />
@@ -708,6 +805,7 @@ function SupportSection() {
                 </Button>
               </CardContent>
             </Card>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -729,7 +827,12 @@ function WhyChooseUsSection() {
     <section className="py-20 lg:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
             <Badge variant="secondary" className="mb-4">Why Choose Us</Badge>
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6" data-testid="text-why-choose-title">
               Your Technology Partner for Success
@@ -739,27 +842,45 @@ function WhyChooseUsSection() {
             </p>
             <ul className="space-y-4">
               {reasons.map((reason, index) => (
-                <li key={index} className="flex items-start gap-3" data-testid={`text-reason-${index}`}>
+                <motion.li 
+                  key={index} 
+                  className="flex items-start gap-3" 
+                  data-testid={`text-reason-${index}`}
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                >
                   <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
                   <span>{reason}</span>
-                </li>
+                </motion.li>
               ))}
             </ul>
-          </div>
-          <div className="relative">
+          </motion.div>
+          <motion.div 
+            className="relative"
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
             <div className="aspect-square rounded-lg bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
               <div className="grid grid-cols-2 gap-4 p-8">
                 {[Server, Network, Shield, Cloud].map((Icon, index) => (
-                  <div
+                  <motion.div
                     key={index}
                     className="w-24 h-24 sm:w-32 sm:h-32 rounded-lg bg-background shadow-sm flex items-center justify-center"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
                   >
                     <Icon className="h-10 w-10 sm:h-12 sm:w-12 text-primary" />
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -770,25 +891,32 @@ function CTASection() {
   return (
     <section className="py-20 lg:py-24 bg-primary text-primary-foreground">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" data-testid="text-cta-title">
-          Ready to Transform Your IT Infrastructure?
-        </h2>
-        <p className="text-lg opacity-90 max-w-2xl mx-auto mb-8">
-          Let's discuss how Vertis Technology can help your organization achieve its technology goals. Schedule a free consultation with our experts today.
-        </p>
-        <div className="flex flex-wrap justify-center gap-4">
-          <Link href="/contact">
-            <Button size="lg" variant="secondary" className="gap-2" data-testid="button-cta-consultation">
-              Schedule Consultation
-              <ArrowRight className="h-4 w-4" />
-            </Button>
-          </Link>
-          <a href="#services">
-            <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground/30 hover:bg-primary-foreground/10" data-testid="button-cta-services">
-              Explore Our Services
-            </Button>
-          </a>
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" data-testid="text-cta-title">
+            Ready to Transform Your IT Infrastructure?
+          </h2>
+          <p className="text-lg opacity-90 max-w-2xl mx-auto mb-8">
+            Let's discuss how Vertis Technology can help your organization achieve its technology goals. Schedule a free consultation with our experts today.
+          </p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link href="/contact">
+              <Button size="lg" variant="secondary" className="gap-2" data-testid="button-cta-consultation">
+                Schedule Consultation
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </Link>
+            <a href="#services">
+              <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground/30 hover:bg-primary-foreground/10" data-testid="button-cta-services">
+                Explore Our Services
+              </Button>
+            </a>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

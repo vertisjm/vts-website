@@ -12,6 +12,7 @@ import type { TestimonialRecord } from "@shared/schema";
 import heroImage1 from "@assets/stock_images/black_professionals__57cc3629.jpg";
 import heroImage2 from "@assets/stock_images/black_professionals__5b030cf6.jpg";
 import heroImage3 from "@assets/stock_images/black_professionals__34628ca7.jpg";
+import techInnovationImage from "@assets/stock_images/technology_innovatio_c4bf14a8.jpg";
 
 const heroImages = [heroImage1, heroImage2, heroImage3];
 
@@ -908,20 +909,24 @@ function WhyChooseUsSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <div className="aspect-square rounded-lg bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-              <div className="grid grid-cols-2 gap-4 p-8">
-                {[Server, Network, Shield, Cloud].map((Icon, index) => (
-                  <motion.div
-                    key={index}
-                    className="w-24 h-24 sm:w-32 sm:h-32 rounded-lg bg-background shadow-sm flex items-center justify-center"
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: 0.3 + index * 0.1 }}
-                  >
-                    <Icon className="h-10 w-10 sm:h-12 sm:w-12 text-primary" />
-                  </motion.div>
-                ))}
+            <div className="relative rounded-lg overflow-hidden shadow-xl">
+              <img 
+                src={techInnovationImage} 
+                alt="AI and technology innovation"
+                className="w-full h-auto object-cover aspect-[4/5]"
+                data-testid="img-why-choose-tech"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0B1F3A]/60 via-transparent to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-[#33C3F0]/20 backdrop-blur-sm flex items-center justify-center">
+                    <Zap className="h-5 w-5 text-[#33C3F0]" />
+                  </div>
+                  <div>
+                    <p className="text-white font-semibold">Innovative Solutions</p>
+                    <p className="text-white/70 text-sm">Powered by cutting-edge technology</p>
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>

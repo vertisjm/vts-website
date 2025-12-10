@@ -23,6 +23,14 @@ The website is a single-page application with anchor-based navigation:
   - **/contact** - Contact form with database persistence
   - **/careers** - Job board with Zoho Recruit integration link
 
+- **Admin Portal:**
+  - **/admin** - Admin login page
+  - **/admin/dashboard** - Content management dashboard with tabs for:
+    - Website Content - Edit hero, about, and team section text
+    - Testimonials - Add, view, and delete customer testimonials
+    - Contact Info - Update company contact details
+    - Submissions - View contact form submissions
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
@@ -70,8 +78,16 @@ Preferred communication style: Simple, everyday language.
 - **Type Safety**: End-to-end TypeScript with shared schema definitions
 
 ### Database Schema
-- **users**: Basic user authentication table (id, username, password)
+- **users**: User authentication table (id, username, password, isAdmin)
 - **contactSubmissions**: Contact form submissions (name, email, company, serviceInterest, message, submittedAt)
+- **siteSections**: Editable content sections (id, key, title, subtitle, content, ctaLabel, ctaUrl, metadata, updatedAt)
+- **testimonials**: Customer testimonials (id, quote, name, role, company, isFeatured, displayOrder, createdAt)
+- **contactInfo**: Company contact details (id, headline, description, phone, email, supportEmail, address, officeHours, updatedAt)
+
+### Admin Credentials
+- Username: `admin`
+- Password: `VertisAdmin2024!`
+- **Important**: Change these credentials in production by creating a new admin user
 
 ### Design System
 Following enterprise B2B design guidelines with:
@@ -89,8 +105,9 @@ Following enterprise B2B design guidelines with:
 - **Zoho Recruit**: External job application system (linked from careers page)
 
 ### Third-Party APIs & Integrations
-- No active third-party API integrations currently implemented
-- Design references external support/recruiting platforms via outbound links
+- **Zoho SalesIQ**: Chat widget integrated for live customer support
+- **Zoho Recruit**: External job application system (embed on careers page)
+- **Zoho Desk**: External support ticket system (linked from support page)
 
 ### Key NPM Packages
 - **@tanstack/react-query**: Server state management

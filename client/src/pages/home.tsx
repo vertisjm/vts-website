@@ -3,8 +3,10 @@ import { ArrowRight, Server, Network, Shield, Cloud, Users, CheckCircle, Quote, 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { services, partners, testimonials, companyStats, industries } from "@/lib/data";
+import { services, partners, testimonials as fallbackTestimonials, companyStats, industries } from "@/lib/data";
 import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import type { TestimonialRecord } from "@shared/schema";
 
 import heroImage1 from "@assets/stock_images/black_professionals__57cc3629.jpg";
 import heroImage2 from "@assets/stock_images/black_professionals__5b030cf6.jpg";
@@ -364,13 +366,27 @@ function PartnersSection() {
 
 function TestimonialsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  
+  const { data: dbTestimonials } = useQuery<TestimonialRecord[]>({
+    queryKey: ["/api/testimonials"],
+  });
+
+  const testimonials = dbTestimonials && dbTestimonials.length > 0 
+    ? dbTestimonials 
+    : fallbackTestimonials;
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-    }, 6000);
-    return () => clearInterval(interval);
-  }, []);
+    if (testimonials.length > 0) {
+      const interval = setInterval(() => {
+        setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+      }, 6000);
+      return () => clearInterval(interval);
+    }
+  }, [testimonials.length]);
+
+  if (testimonials.length === 0) {
+    return null;
+  }
 
   return (
     <section className="py-20 lg:py-24">
@@ -387,18 +403,18 @@ function TestimonialsSection() {
             <CardContent className="p-8 sm:p-12">
               <Quote className="h-10 w-10 text-primary/20 mb-6" />
               <p className="text-lg sm:text-xl leading-relaxed mb-8" data-testid="text-testimonial-quote">
-                {testimonials[currentIndex].quote}
+                {testimonials[currentIndex]?.quote}
               </p>
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold">
-                  {testimonials[currentIndex].name.charAt(0)}
+                  {testimonials[currentIndex]?.name?.charAt(0)}
                 </div>
                 <div>
                   <p className="font-semibold" data-testid="text-testimonial-name">
-                    {testimonials[currentIndex].name}
+                    {testimonials[currentIndex]?.name}
                   </p>
                   <p className="text-sm text-muted-foreground" data-testid="text-testimonial-role">
-                    {testimonials[currentIndex].role}, {testimonials[currentIndex].company}
+                    {testimonials[currentIndex]?.role}, {testimonials[currentIndex]?.company}
                   </p>
                 </div>
               </div>

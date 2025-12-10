@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, ChevronDown, Server, Network, Shield, Cloud, Users } from "lucide-react";
+import { Menu, ChevronDown, Server, Network, Shield, Cloud, Users, Info, Star, Code } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "./theme-toggle";
 import {
@@ -18,11 +18,14 @@ import {
 import vertisLogo from "@assets/vertis-logo.svg";
 
 const sectionLinks = [
-  { href: "/#about", label: "About", anchor: true },
-  { href: "/#testimonials", label: "Testimonials", anchor: true },
   { href: "/#services", label: "Services", anchor: true },
   { href: "/#partners", label: "Partners", anchor: true },
   { href: "/#support", label: "Support", anchor: true },
+];
+
+const aboutAnchors = [
+  { id: "about", label: "About Us", icon: Info, hash: "#about" },
+  { id: "testimonials", label: "Testimonials", icon: Star, hash: "#testimonials" },
 ];
 
 const serviceAnchors = [
@@ -30,6 +33,7 @@ const serviceAnchors = [
   { id: "network-infrastructure", label: "Network Design & Infrastructure", icon: Network },
   { id: "it-security", label: "IT Security Services", icon: Shield },
   { id: "cloud-services", label: "Cloud Services", icon: Cloud },
+  { id: "application-development", label: "Application Development", icon: Code },
   { id: "staff-augmentation", label: "IT Staff Augmentation", icon: Users },
 ];
 
@@ -79,15 +83,34 @@ export function Navigation() {
               </Button>
             </a>
             
-            <a 
-              href="/#about" 
-              onClick={(e) => handleAnchorClick(e, "#about")}
-              data-testid="link-about"
-            >
-              <Button variant="ghost" size="sm">
-                About
-              </Button>
-            </a>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  className="gap-1"
+                  data-testid="button-about-dropdown"
+                >
+                  About
+                  <ChevronDown className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="start" className="w-48">
+                {aboutAnchors.map((item) => (
+                  <DropdownMenuItem key={item.id} asChild>
+                    <a 
+                      href={`/${item.hash}`} 
+                      onClick={(e) => handleAnchorClick(e, item.hash)}
+                      className="flex items-center gap-2 cursor-pointer" 
+                      data-testid={`link-${item.id}`}
+                    >
+                      <item.icon className="h-4 w-4 text-muted-foreground" />
+                      {item.label}
+                    </a>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

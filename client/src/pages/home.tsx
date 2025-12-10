@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { ArrowRight, Server, Network, Shield, Cloud, Users, CheckCircle, Quote, Target, Eye, Award, Building2, Briefcase, Headphones, Clock, ExternalLink, Zap, Star, Code } from "lucide-react";
+import { ArrowRight, Server, Network, Shield, Cloud, Users, CheckCircle, Quote, Target, Eye, Award, Building2, Briefcase, Headphones, Clock, ExternalLink, Zap, Star, Code, Landmark, Heart, Factory, Truck, ShoppingCart, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -17,6 +17,10 @@ const heroImages = [heroImage1, heroImage2, heroImage3];
 
 const serviceIcons: Record<string, typeof Server> = {
   Server, Network, Shield, Cloud, Users, Code
+};
+
+const industryIcons: Record<string, typeof Server> = {
+  Landmark, Heart, Factory, Truck, ShoppingCart, GraduationCap, Building2, Briefcase
 };
 
 function HeroSection() {
@@ -563,22 +567,25 @@ function IndustriesSection() {
           </motion.div>
 
           <div className="grid grid-cols-2 gap-4">
-            {industries.map((industry, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: index * 0.05 }}
-              >
-                <Card className="hover-elevate h-full" data-testid={`card-industry-${index}`}>
-                  <CardContent className="p-4 flex items-center gap-3">
-                    <Briefcase className="h-5 w-5 text-primary flex-shrink-0" />
-                    <span className="font-medium text-sm">{industry}</span>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+            {industries.map((industry, index) => {
+              const IconComponent = industryIcons[industry.icon] || Briefcase;
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.05 }}
+                >
+                  <Card className="hover-elevate h-full" data-testid={`card-industry-${index}`}>
+                    <CardContent className="p-4 flex items-center gap-3">
+                      <IconComponent className="h-5 w-5 text-primary flex-shrink-0" />
+                      <span className="font-medium text-sm">{industry.name}</span>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </div>

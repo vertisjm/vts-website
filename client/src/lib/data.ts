@@ -161,7 +161,7 @@ export const partners: Partner[] = [
     id: "sophos",
     name: "Sophos",
     description: "Cybersecurity partner for endpoint protection and synchronized security solutions.",
-    logo: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/sophos.svg",
+    logo: "https://assets.sophos.com/X24WTUEQ/at/cgwpbfck63x7s6xnn84ck/Logo-Graphic-Logo-Tagline.svg",
     url: "https://www.sophos.com"
   },
   {

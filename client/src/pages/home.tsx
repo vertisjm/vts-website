@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { services, partners, testimonials as fallbackTestimonials, companyStats, industries } from "@/lib/data";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { TestimonialRecord } from "@shared/schema";
 
@@ -90,15 +90,96 @@ function HeroSection() {
   );
 }
 
-function StatsSection() {
+function CountUpNumber({ value, suffix, duration = 2000 }: { value: number; suffix: string; duration?: number }) {
+  const [count, setCount] = useState(0);
+  const [hasStarted, setHasStarted] = useState(false);
+  const ref = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !hasStarted) {
+          setHasStarted(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, [hasStarted]);
+
+  useEffect(() => {
+    if (!hasStarted) return;
+
+    const steps = 60;
+    const increment = value / steps;
+    const stepDuration = duration / steps;
+    let current = 0;
+
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= value) {
+        setCount(value);
+        clearInterval(timer);
+      } else {
+        setCount(current);
+      }
+    }, stepDuration);
+
+    return () => clearInterval(timer);
+  }, [hasStarted, value, duration]);
+
+  const displayValue = Number.isInteger(value) ? Math.round(count) : count.toFixed(1);
+
   return (
-    <section className="py-12 border-b bg-card">
+    <span ref={ref}>
+      {displayValue}{suffix}
+    </span>
+  );
+}
+
+function useIntersectionObserver(ref: React.RefObject<HTMLElement>) {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return isVisible;
+}
+
+function StatsSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  return (
+    <section ref={sectionRef} className="py-12 border-b bg-card">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           {companyStats.map((stat, index) => (
             <div key={index} className="text-center">
               <p className="text-3xl sm:text-4xl font-bold text-primary mb-2" data-testid={`text-stat-value-${index}`}>
-                {stat.value}
+                {stat.isStatic ? (
+                  <>{stat.value}{stat.suffix}</>
+                ) : (
+                  <CountUpNumber value={stat.value as number} suffix={stat.suffix} />
+                )}
               </p>
               <p className="text-sm text-muted-foreground" data-testid={`text-stat-label-${index}`}>
                 {stat.label}
@@ -121,7 +202,7 @@ function AboutSection() {
             Your Trusted IT Partner in Jamaica
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            For over 15 years, Vertis Technology has been empowering businesses across Jamaica and the Caribbean with enterprise-grade IT solutions and exceptional service.
+            For over 50 years, Vertis Technology has been empowering businesses across Jamaica and the Caribbean with enterprise-grade IT solutions and exceptional service.
           </p>
         </div>
 

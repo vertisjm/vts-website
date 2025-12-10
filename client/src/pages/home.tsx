@@ -314,7 +314,9 @@ function PartnersSection() {
               href={partner.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center p-6 rounded-lg border bg-background hover:border-primary/30 transition-all group hover-elevate aspect-[3/2]"
+              className={`flex items-center justify-center p-6 rounded-lg border hover:border-primary/30 transition-all group hover-elevate aspect-[3/2] ${
+                partner.id === "3cx" ? "bg-slate-800" : "bg-background"
+              }`}
               data-testid={`partner-logo-${partner.id}`}
               title={partner.name}
             >
@@ -322,7 +324,8 @@ function PartnersSection() {
                 src={partner.logo}
                 alt={`${partner.name} logo`}
                 className={`h-8 sm:h-10 w-auto max-w-full object-contain opacity-60 group-hover:opacity-100 transition-opacity ${
-                  ["3cx", "veeam", "grandstream"].includes(partner.id) ? "grayscale" : "dark:invert dark:brightness-200"
+                  ["veeam", "grandstream"].includes(partner.id) ? "grayscale" : 
+                  partner.id === "3cx" ? "" : "dark:invert dark:brightness-200"
                 }`}
               />
             </a>

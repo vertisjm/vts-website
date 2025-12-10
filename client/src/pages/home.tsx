@@ -259,6 +259,7 @@ import cameilleSterlingImg from "@assets/image_1765405458755.png";
 import ryanSterlingImg from "@assets/image_1765405515300.png";
 import michaelKerrImg from "@assets/image_1765405543889.png";
 import sanjayStephensImg from "@assets/Photo-_Sanjay_1765405740646.jpeg";
+import coleenHibbertImg from "@assets/Vertis_Technology_Headshots-51_1765405778953.jpg";
 
 const executives = [
   {
@@ -302,7 +303,7 @@ const keyEmployees = [
     name: "Coleen Hibbert",
     role: "IT Operations Manager",
     initials: "CH",
-    image: null
+    image: coleenHibbertImg
   }
 ];
 

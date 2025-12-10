@@ -1,27 +1,21 @@
 import { Link } from "wouter";
-import { ArrowRight, Briefcase, Users, Lightbulb, Heart, ExternalLink, CheckCircle } from "lucide-react";
+import { Briefcase, Users, Lightbulb, Heart, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 function HeroSection() {
   return (
-    <section className="py-20 lg:py-24 bg-gradient-to-br from-primary/10 via-background to-background">
+    <section className="py-16 lg:py-20 bg-gradient-to-br from-primary/10 via-background to-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
           <Badge variant="secondary" className="mb-6">Careers</Badge>
           <h1 className="text-4xl sm:text-5xl font-bold tracking-tight leading-tight mb-6" data-testid="text-careers-title">
             Join Our <span className="text-primary">Growing Team</span>
           </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-8" data-testid="text-careers-description">
+          <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed" data-testid="text-careers-description">
             At Vertis Technology, we're building the future of IT services in the Caribbean. Join a team of passionate professionals making a real impact for businesses across the region.
           </p>
-          <Button size="lg" className="gap-2" asChild data-testid="button-view-positions">
-            <a href="https://recruit.zoho.com" target="_blank" rel="noopener noreferrer">
-              View Open Positions
-              <ExternalLink className="h-4 w-4" />
-            </a>
-          </Button>
         </div>
       </div>
     </section>
@@ -53,9 +47,9 @@ function WhyJoinSection() {
   ];
 
   return (
-    <section className="py-20 lg:py-24">
+    <section className="py-16 lg:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <Badge variant="secondary" className="mb-4">Why Join Us</Badge>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" data-testid="text-why-join-title">
             More Than Just a Job
@@ -98,7 +92,7 @@ function BenefitsSection() {
   ];
 
   return (
-    <section className="py-20 lg:py-24 bg-card">
+    <section className="py-16 lg:py-20 bg-card">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
@@ -134,11 +128,11 @@ function BenefitsSection() {
   );
 }
 
-function OpenPositionsSection() {
+function JobPortalSection() {
   return (
-    <section className="py-20 lg:py-24">
+    <section className="py-16 lg:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <Badge variant="secondary" className="mb-4">Open Positions</Badge>
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" data-testid="text-positions-title">
             Current Opportunities
@@ -148,27 +142,21 @@ function OpenPositionsSection() {
           </p>
         </div>
 
-        <Card className="max-w-2xl mx-auto" data-testid="card-job-portal">
-          <CardContent className="p-8 text-center">
-            <Briefcase className="h-16 w-16 text-primary mx-auto mb-6" />
-            <h3 className="text-2xl font-bold mb-4">View All Open Positions</h3>
-            <p className="text-muted-foreground mb-8 leading-relaxed">
-              Our job board is powered by Zoho Recruit. Click below to explore current openings, learn more about each role, and submit your application.
-            </p>
-            <Button size="lg" className="gap-2" asChild data-testid="button-job-portal">
-              <a href="https://recruit.zoho.com" target="_blank" rel="noopener noreferrer">
-                View Open Positions
-                <ExternalLink className="h-4 w-4" />
-              </a>
-            </Button>
-            <p className="text-sm text-muted-foreground mt-6">
-              Don't see a role that fits? Send your resume to{" "}
-              <a href="mailto:careers@vertisjm.com" className="text-primary hover:underline">
-                careers@vertisjm.com
-              </a>
-            </p>
-          </CardContent>
-        </Card>
+        <div className="rounded-lg border bg-background overflow-hidden" data-testid="container-job-portal">
+          <iframe
+            src="https://vertisjm.zohorecruit.com/recruit/Portal.na?digest=sAfFktMKt7vE1xFSw0isrXls8Yrf0wcCO2f9f1YMJww-"
+            title="Vertis Technology Job Openings"
+            className="w-full min-h-[800px] border-0"
+            data-testid="iframe-job-portal"
+          />
+        </div>
+
+        <p className="text-center text-sm text-muted-foreground mt-6">
+          Don't see a role that fits? Send your resume to{" "}
+          <a href="mailto:careers@vertisjm.com" className="text-primary hover:underline" data-testid="link-careers-email">
+            careers@vertisjm.com
+          </a>
+        </p>
       </div>
     </section>
   );
@@ -176,7 +164,7 @@ function OpenPositionsSection() {
 
 function CTASection() {
   return (
-    <section className="py-20 lg:py-24 bg-primary text-primary-foreground">
+    <section className="py-16 lg:py-20 bg-primary text-primary-foreground">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
         <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" data-testid="text-careers-cta-title">
           Ready to Make an Impact?
@@ -185,12 +173,11 @@ function CTASection() {
           Join Vertis Technology and help shape the future of IT services in the Caribbean. Your next chapter starts here.
         </p>
         <div className="flex flex-wrap justify-center gap-4">
-          <Button size="lg" variant="secondary" className="gap-2" asChild data-testid="button-cta-apply">
-            <a href="https://recruit.zoho.com" target="_blank" rel="noopener noreferrer">
-              Apply Now
-              <ExternalLink className="h-4 w-4" />
-            </a>
-          </Button>
+          <a href="#container-job-portal">
+            <Button size="lg" variant="secondary" data-testid="button-cta-apply">
+              View Open Positions
+            </Button>
+          </a>
           <Link href="/contact">
             <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground/30 hover:bg-primary-foreground/10" data-testid="button-cta-contact">
               Contact Us
@@ -208,7 +195,7 @@ export default function Careers() {
       <HeroSection />
       <WhyJoinSection />
       <BenefitsSection />
-      <OpenPositionsSection />
+      <JobPortalSection />
       <CTASection />
     </>
   );

@@ -139,9 +139,18 @@ export function Navigation() {
             <ThemeToggle />
             
             <div className="hidden md:flex items-center gap-2">
-              <a href="/#support" onClick={(e) => handleAnchorClick(e, "#support")} data-testid="link-request-support">
-                <Button variant="outline" size="sm">Request Support</Button>
-              </a>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                data-testid="button-request-support"
+                onClick={() => {
+                  if (typeof (window as any).ZohoDeskAsap?.invoke === 'function') {
+                    (window as any).ZohoDeskAsap.invoke();
+                  }
+                }}
+              >
+                Request Support
+              </Button>
               <Link href="/contact" data-testid="link-contact-cta">
                 <Button size="sm">Contact Us</Button>
               </Link>
@@ -201,15 +210,19 @@ export function Navigation() {
 
                   <div className="border-t pt-4 mt-2 flex flex-col gap-2">
                     <SheetClose asChild>
-                      <a href="/#support" onClick={(e) => {
-                        if (location === "/") {
-                          e.preventDefault();
-                          scrollToSection("#support");
+                      <Button 
+                        variant="outline" 
+                        className="w-full"
+                        data-testid="mobile-button-request-support"
+                        onClick={() => {
                           setMobileOpen(false);
-                        }
-                      }}>
-                        <Button variant="outline" className="w-full">Request Support</Button>
-                      </a>
+                          if (typeof (window as any).ZohoDeskAsap?.invoke === 'function') {
+                            (window as any).ZohoDeskAsap.invoke();
+                          }
+                        }}
+                      >
+                        Request Support
+                      </Button>
                     </SheetClose>
                     <SheetClose asChild>
                       <Link href="/contact">

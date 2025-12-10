@@ -65,11 +65,19 @@ function HeroSection() {
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
-            <a href="#support">
-              <Button variant="outline" size="lg" className="bg-white/10 border-white/30 text-white backdrop-blur-sm" data-testid="button-hero-support">
-                Request Support
-              </Button>
-            </a>
+            <Button 
+              variant="outline" 
+              size="lg" 
+              className="bg-white/10 border-white/30 text-white backdrop-blur-sm" 
+              data-testid="button-hero-support"
+              onClick={() => {
+                if (typeof (window as any).ZohoDeskAsap?.invoke === 'function') {
+                  (window as any).ZohoDeskAsap.invoke();
+                }
+              }}
+            >
+              Request Support
+            </Button>
           </div>
         </div>
       </div>

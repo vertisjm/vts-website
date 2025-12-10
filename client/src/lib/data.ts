@@ -168,7 +168,7 @@ export const partners: Partner[] = [
     id: "crowdstrike",
     name: "CrowdStrike",
     description: "Cloud-native endpoint protection and threat intelligence platform.",
-    logo: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/crowdstrike.svg",
+    logo: "https://assets.crowdstrike.com/is/content/crowdstrikeinc/black-primary-crowdstrike-logo-1-addedPadding-3",
     url: "https://www.crowdstrike.com"
   },
   {

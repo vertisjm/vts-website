@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, ChevronDown, Server, Network, Shield, Cloud, Users, Info, Star, Code } from "lucide-react";
+import { Menu, ChevronDown, Server, Network, Shield, Cloud, Users, Info, Star, Code, Handshake } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "./theme-toggle";
 import {
@@ -19,13 +19,13 @@ import vertisLogo from "@assets/vertis-logo.svg";
 
 const sectionLinks = [
   { href: "/#services", label: "Services", anchor: true },
-  { href: "/#partners", label: "Partners", anchor: true },
   { href: "/#support", label: "Support", anchor: true },
 ];
 
 const aboutAnchors = [
   { id: "about", label: "About Us", icon: Info, hash: "#about" },
   { id: "testimonials", label: "Testimonials", icon: Star, hash: "#testimonials" },
+  { id: "partners", label: "Partners", icon: Handshake, hash: "#partners" },
 ];
 
 const serviceAnchors = [
@@ -142,16 +142,6 @@ export function Navigation() {
             </DropdownMenu>
 
             <a 
-              href="/#partners" 
-              onClick={(e) => handleAnchorClick(e, "#partners")}
-              data-testid="link-partners"
-            >
-              <Button variant="ghost" size="sm">
-                Partners
-              </Button>
-            </a>
-
-            <a 
               href="/#support" 
               onClick={(e) => handleAnchorClick(e, "#support")}
               data-testid="link-support"
@@ -213,6 +203,27 @@ export function Navigation() {
                       </Button>
                     </a>
                   </SheetClose>
+
+                  {aboutAnchors.map((item) => (
+                    <SheetClose asChild key={item.id}>
+                      <a 
+                        href={`/${item.hash}`} 
+                        onClick={(e) => {
+                          if (location === "/") {
+                            e.preventDefault();
+                            scrollToSection(item.hash);
+                            setMobileOpen(false);
+                          }
+                        }}
+                        data-testid={`mobile-link-${item.id}`}
+                      >
+                        <Button variant="ghost" className="w-full justify-start gap-2">
+                          <item.icon className="h-4 w-4" />
+                          {item.label}
+                        </Button>
+                      </a>
+                    </SheetClose>
+                  ))}
 
                   {sectionLinks.map((link) => (
                     <SheetClose asChild key={link.href}>

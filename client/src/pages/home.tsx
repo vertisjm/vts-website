@@ -284,6 +284,7 @@ const executives = [
     role: "CTO & Head of Service Delivery",
     initials: "MK",
     image: michaelKerrImg,
+    imageClass: "scale-150 object-[center_30%]",
     bio: "Michael serves on the Board of Directors. He leads Vertis' Service and Solutions Teams. Michael has a proven ability in adapting/maturing technology organizations to solve business issues while managing costs and risks."
   }
 ];

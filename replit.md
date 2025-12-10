@@ -84,10 +84,11 @@ Preferred communication style: Simple, everyday language.
 - **testimonials**: Customer testimonials (id, quote, name, role, company, isFeatured, displayOrder, createdAt)
 - **contactInfo**: Company contact details (id, headline, description, phone, email, supportEmail, address, officeHours, updatedAt)
 
-### Admin Credentials
-- Username: `admin`
-- Password: `VertisAdmin2024!`
-- **Important**: Change these credentials in production by creating a new admin user
+### Admin Access
+- Default admin user is created when the application first runs
+- To change admin credentials, update the database directly or create a new admin user
+- Admin login page: `/admin`
+- Protected routes require session authentication via `x-session-id` header
 
 ### Design System
 Following enterprise B2B design guidelines with:

@@ -1,4 +1,5 @@
 import { Link } from "wouter";
+import { motion } from "framer-motion";
 import { ArrowRight, Server, Network, Shield, Cloud, Users, CheckCircle, Quote, Target, Eye, Award, Building2, Briefcase, Headphones, Clock, ExternalLink, Zap, Star, Code } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -330,25 +331,33 @@ function TeamSection() {
         <div className="mb-16">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
             {keyEmployees.map((employee, index) => (
-              <Card key={index} className="text-center" data-testid={`card-employee-${index}`}>
-                <CardContent className="p-6">
-                  {employee.image ? (
-                    <div className="w-44 h-44 rounded-full overflow-hidden mx-auto mb-4">
-                      <img 
-                        src={employee.image} 
-                        alt={employee.name}
-                        className={`w-full h-full object-cover object-top ${employee.imageClass || ''}`}
-                      />
-                    </div>
-                  ) : (
-                    <div className="w-44 h-44 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                      <span className="text-4xl font-bold text-primary">{employee.initials}</span>
-                    </div>
-                  )}
-                  <h4 className="text-base font-semibold mb-1">{employee.name}</h4>
-                  <p className="text-sm text-muted-foreground">{employee.role}</p>
-                </CardContent>
-              </Card>
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: index * 0.15 }}
+              >
+                <Card className="text-center" data-testid={`card-employee-${index}`}>
+                  <CardContent className="p-6">
+                    {employee.image ? (
+                      <div className="w-44 h-44 rounded-full overflow-hidden mx-auto mb-4">
+                        <img 
+                          src={employee.image} 
+                          alt={employee.name}
+                          className={`w-full h-full object-cover object-top ${employee.imageClass || ''}`}
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-44 h-44 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                        <span className="text-4xl font-bold text-primary">{employee.initials}</span>
+                      </div>
+                    )}
+                    <h4 className="text-base font-semibold mb-1">{employee.name}</h4>
+                    <p className="text-sm text-muted-foreground">{employee.role}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -357,26 +366,34 @@ function TeamSection() {
           <h3 className="text-2xl font-bold text-center mb-10">Executive Team</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {executives.map((exec, index) => (
-              <Card key={index} className="text-center" data-testid={`card-executive-${index}`}>
-                <CardContent className="p-6">
-                  {exec.image ? (
-                    <div className="w-48 h-48 rounded-full overflow-hidden mx-auto mb-4">
-                      <img 
-                        src={exec.image} 
-                        alt={exec.name}
-                        className={`w-full h-full object-cover ${exec.imageClass || exec.imagePosition || ''}`}
-                      />
-                    </div>
-                  ) : (
-                    <div className="w-48 h-48 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                      <span className="text-5xl font-bold text-primary">{exec.initials}</span>
-                    </div>
-                  )}
-                  <h4 className="text-lg font-semibold mb-1">{exec.name}</h4>
-                  <p className="text-sm text-primary font-medium mb-4">{exec.role}</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{exec.bio}</p>
-                </CardContent>
-              </Card>
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 60 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.7, delay: index * 0.2 }}
+              >
+                <Card className="text-center h-full" data-testid={`card-executive-${index}`}>
+                  <CardContent className="p-6">
+                    {exec.image ? (
+                      <div className="w-48 h-48 rounded-full overflow-hidden mx-auto mb-4">
+                        <img 
+                          src={exec.image} 
+                          alt={exec.name}
+                          className={`w-full h-full object-cover ${exec.imageClass || exec.imagePosition || ''}`}
+                        />
+                      </div>
+                    ) : (
+                      <div className="w-48 h-48 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                        <span className="text-5xl font-bold text-primary">{exec.initials}</span>
+                      </div>
+                    )}
+                    <h4 className="text-lg font-semibold mb-1">{exec.name}</h4>
+                    <p className="text-sm text-primary font-medium mb-4">{exec.role}</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{exec.bio}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </div>

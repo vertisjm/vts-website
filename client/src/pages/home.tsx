@@ -172,6 +172,26 @@ function AboutSection() {
   );
 }
 
+function TeamSection() {
+  return (
+    <section id="team" className="py-20 lg:py-24 bg-card scroll-mt-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <Badge variant="secondary" className="mb-4">Our Team</Badge>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6" data-testid="text-team-title">
+            Over 50 Vertis Strong!
+          </h2>
+        </div>
+        <div className="max-w-4xl mx-auto">
+          <p className="text-lg text-muted-foreground text-center leading-relaxed" data-testid="text-team-description">
+            With over 100 years combined experience in the IT field implementing, supporting IT solutions and services from medium to large enterprises, we pride ourselves in delivering value service. Our customers are dear to us and we ensure that we know their mission and give solutions that achieve the mission well. Our commitment to our customers defines how we do business and our years of experience working across industries underpin the vast array of services we offer.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ServicesSection() {
   const [expandedService, setExpandedService] = useState<string | null>(null);
 
@@ -551,6 +571,7 @@ export default function Home() {
       <HeroSection />
       <StatsSection />
       <AboutSection />
+      <TeamSection />
       <ServicesSection />
       <IndustriesSection />
       <PartnersSection />

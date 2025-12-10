@@ -252,7 +252,7 @@ function ContactInfoSection() {
               <div>
                 <p className="font-medium mb-1">Office Address</p>
                 <p className="text-sm text-muted-foreground">
-                  12 Trafalgar Road<br />
+                  1b Braemar Avenue<br />
                   Kingston 10, Jamaica
                 </p>
               </div>

@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { ArrowRight, Server, Network, Shield, Cloud, Users, CheckCircle, Quote, Target, Eye, Award, Building2, Briefcase, Headphones, Clock, ExternalLink, Zap, Star } from "lucide-react";
+import { ArrowRight, Server, Network, Shield, Cloud, Users, CheckCircle, Quote, Target, Eye, Award, Building2, Briefcase, Headphones, Clock, ExternalLink, Zap, Star, Code } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -15,7 +15,7 @@ import heroImage3 from "@assets/stock_images/black_professionals__34628ca7.jpg";
 const heroImages = [heroImage1, heroImage2, heroImage3];
 
 const serviceIcons: Record<string, typeof Server> = {
-  Server, Network, Shield, Cloud, Users
+  Server, Network, Shield, Cloud, Users, Code
 };
 
 function HeroSection() {

@@ -102,6 +102,31 @@ export const services: Service[] = [
     icon: "Cloud"
   },
   {
+    id: "application-development",
+    title: "Application Development",
+    shortDescription: "Custom software solutions tailored to your business needs.",
+    description: "We design and develop custom applications that streamline your business processes and drive digital transformation. From web and mobile apps to enterprise systems, our development team delivers scalable, secure solutions aligned with your objectives.",
+    features: [
+      "Custom Web Application Development",
+      "Mobile App Development",
+      "Enterprise Software Solutions",
+      "API Development & Integration",
+      "Legacy System Modernization",
+      "Database Design & Development",
+      "Quality Assurance & Testing",
+      "Ongoing Maintenance & Support"
+    ],
+    benefits: [
+      "Automate manual processes to improve efficiency",
+      "Create competitive advantages with custom solutions",
+      "Integrate disparate systems for unified workflows",
+      "Scale applications as your business grows",
+      "Reduce operational costs through automation"
+    ],
+    technologies: ["React", "Node.js", "Python", ".NET", "Azure", "AWS"],
+    icon: "Code"
+  },
+  {
     id: "staff-augmentation",
     title: "IT Staff Augmentation",
     shortDescription: "Flexible IT talent solutions to extend your team's capabilities.",

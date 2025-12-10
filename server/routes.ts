@@ -99,9 +99,8 @@ export async function registerRoutes(
       }
       
       const hashedPassword = await bcrypt.hash(password, 10);
-      const user = await storage.createUser({ username, password: hashedPassword });
+      await storage.createAdminUser({ username, password: hashedPassword });
       
-      // Update user to be admin (direct DB call since createUser doesn't handle isAdmin)
       res.json({ success: true, message: "Admin user created" });
     } catch (error) {
       console.error("Setup error:", error);

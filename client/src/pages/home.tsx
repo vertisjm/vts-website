@@ -325,11 +325,11 @@ function PartnersSection() {
                 alt={`${partner.name} logo`}
                 className={`h-8 sm:h-10 w-auto max-w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity ${
                   ["fortinet", "crowdstrike"].includes(partner.id) ? "brightness-0 saturate-100 invert sepia saturate-[10000%] hue-rotate-[0deg]" :
-                  partner.id === "hp" ? "brightness-0 saturate-100 invert sepia saturate-[10000%] hue-rotate-[200deg]" : ""
+                  ["hp", "cisco"].includes(partner.id) ? "brightness-0 saturate-100 invert sepia saturate-[10000%] hue-rotate-[200deg]" : ""
                 }`}
                 style={
                   ["fortinet", "crowdstrike"].includes(partner.id) ? { filter: "brightness(0) saturate(100%) invert(21%) sepia(100%) saturate(3000%) hue-rotate(0deg) brightness(90%)" } :
-                  partner.id === "hp" ? { filter: "brightness(0) saturate(100%) invert(30%) sepia(100%) saturate(2000%) hue-rotate(200deg) brightness(90%)" } : undefined
+                  ["hp", "cisco"].includes(partner.id) ? { filter: "brightness(0) saturate(100%) invert(30%) sepia(100%) saturate(2000%) hue-rotate(200deg) brightness(90%)" } : undefined
                 }
               />
             </a>

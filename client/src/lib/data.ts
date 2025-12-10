@@ -133,7 +133,7 @@ export const partners: Partner[] = [
     id: "microsoft",
     name: "Microsoft",
     description: "Strategic partner for Microsoft 365, Azure cloud solutions, and enterprise productivity tools.",
-    logo: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/microsoft.svg",
+    logo: "https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1Mu3b?ver=5c31",
     url: "https://www.microsoft.com"
   },
   {

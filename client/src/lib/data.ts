@@ -189,7 +189,7 @@ export const partners: Partner[] = [
     id: "grandstream",
     name: "Grandstream",
     description: "VoIP and unified communications solutions for modern business telephony.",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Grandstream-logo.svg/320px-Grandstream-logo.svg.png",
+    logo: "https://www.grandstream.com/hs-fs/hubfs/raw_assets/public/Grandstream_Feb_2021/images/logo-grandstream-low-web.png?width=600&height=204&name=logo-grandstream-low-web.png",
     url: "https://www.grandstream.com"
   },
   {

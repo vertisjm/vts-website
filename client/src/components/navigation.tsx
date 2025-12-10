@@ -63,11 +63,20 @@ export function Navigation() {
           </Link>
 
           <nav className="hidden lg:flex items-center gap-1">
-            <Link href="/" data-testid="link-home">
+            <a 
+              href="/" 
+              onClick={(e) => {
+                if (location === "/") {
+                  e.preventDefault();
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+              }}
+              data-testid="link-home"
+            >
               <Button variant={location === "/" ? "secondary" : "ghost"} size="sm">
                 Home
               </Button>
-            </Link>
+            </a>
             
             <a 
               href="/#about" 
@@ -164,11 +173,21 @@ export function Navigation() {
                   </div>
                   
                   <SheetClose asChild>
-                    <Link href="/" data-testid="mobile-link-home">
+                    <a 
+                      href="/" 
+                      onClick={(e) => {
+                        if (location === "/") {
+                          e.preventDefault();
+                          window.scrollTo({ top: 0, behavior: 'smooth' });
+                          setMobileOpen(false);
+                        }
+                      }}
+                      data-testid="mobile-link-home"
+                    >
                       <Button variant={location === "/" ? "secondary" : "ghost"} className="w-full justify-start">
                         Home
                       </Button>
-                    </Link>
+                    </a>
                   </SheetClose>
 
                   {sectionLinks.map((link) => (

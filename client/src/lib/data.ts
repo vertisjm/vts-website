@@ -258,8 +258,8 @@ export const industries = [
 ];
 
 export const companyStats = [
-  { value: "15+", label: "Years Experience" },
-  { value: "200+", label: "Clients Served" },
-  { value: "99.9%", label: "Uptime SLA" },
-  { value: "24/7", label: "Support Available" }
+  { value: 50, suffix: "+", label: "Years Experience" },
+  { value: 200, suffix: "+", label: "Clients Served" },
+  { value: 99.9, suffix: "%", label: "Uptime SLA" },
+  { value: "24/7", suffix: "", label: "Support Available", isStatic: true }
 ];

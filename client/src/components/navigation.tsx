@@ -19,6 +19,7 @@ import vertisLogo from "@assets/vertis-logo.svg";
 
 const sectionLinks = [
   { href: "/#about", label: "About", anchor: true },
+  { href: "/#testimonials", label: "Testimonials", anchor: true },
   { href: "/#services", label: "Services", anchor: true },
   { href: "/#partners", label: "Partners", anchor: true },
   { href: "/#support", label: "Support", anchor: true },

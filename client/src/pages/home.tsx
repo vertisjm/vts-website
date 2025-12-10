@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { ArrowRight, Server, Network, Shield, Cloud, Users, CheckCircle, Quote, Target, Eye, Award, Building2, Briefcase, Headphones, Clock, ExternalLink, Zap } from "lucide-react";
+import { ArrowRight, Server, Network, Shield, Cloud, Users, CheckCircle, Quote, Target, Eye, Award, Building2, Briefcase, Headphones, Clock, ExternalLink, Zap, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -592,6 +592,11 @@ function TestimonialsSection() {
           <Card className="relative overflow-visible" data-testid="card-testimonial">
             <CardContent className="p-8 sm:p-12">
               <Quote className="h-10 w-10 text-primary/20 mb-6" />
+              <div className="flex gap-1 mb-4" data-testid="rating-stars">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+                ))}
+              </div>
               <p className="text-lg sm:text-xl leading-relaxed mb-8" data-testid="text-testimonial-quote">
                 {testimonials[currentIndex]?.quote}
               </p>

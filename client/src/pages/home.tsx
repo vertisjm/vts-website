@@ -579,7 +579,7 @@ function TestimonialsSection() {
   }
 
   return (
-    <section className="py-20 lg:py-24">
+    <section id="testimonials" className="py-20 lg:py-24 scroll-mt-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <Badge variant="secondary" className="mb-4">Testimonials</Badge>

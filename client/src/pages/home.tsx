@@ -311,6 +311,23 @@ function TeamSection() {
         </div>
 
         <div className="mb-16">
+          <h3 className="text-2xl font-bold text-center mb-10">Managers</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
+            {keyEmployees.map((employee, index) => (
+              <Card key={index} className="text-center" data-testid={`card-employee-${index}`}>
+                <CardContent className="p-6">
+                  <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                    <span className="text-xl font-bold text-primary">{employee.initials}</span>
+                  </div>
+                  <h4 className="text-base font-semibold mb-1">{employee.name}</h4>
+                  <p className="text-sm text-muted-foreground">{employee.role}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        <div>
           <h3 className="text-2xl font-bold text-center mb-10">Executive Team</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {executives.map((exec, index) => (
@@ -322,23 +339,6 @@ function TeamSection() {
                   <h4 className="text-lg font-semibold mb-1">{exec.name}</h4>
                   <p className="text-sm text-primary font-medium mb-4">{exec.role}</p>
                   <p className="text-sm text-muted-foreground leading-relaxed">{exec.bio}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-
-        <div>
-          <h3 className="text-2xl font-bold text-center mb-10">Managers</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
-            {keyEmployees.map((employee, index) => (
-              <Card key={index} className="text-center" data-testid={`card-employee-${index}`}>
-                <CardContent className="p-6">
-                  <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <span className="text-xl font-bold text-primary">{employee.initials}</span>
-                  </div>
-                  <h4 className="text-base font-semibold mb-1">{employee.name}</h4>
-                  <p className="text-sm text-muted-foreground">{employee.role}</p>
                 </CardContent>
               </Card>
             ))}

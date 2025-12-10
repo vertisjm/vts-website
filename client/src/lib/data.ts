@@ -133,67 +133,78 @@ export const partners: Partner[] = [
     id: "microsoft",
     name: "Microsoft",
     description: "Strategic partner for Microsoft 365, Azure cloud solutions, and enterprise productivity tools.",
-    logo: "Microsoft"
+    logo: "Microsoft",
+    url: "https://www.microsoft.com"
   },
   {
     id: "dell",
     name: "Dell Technologies",
     description: "Hardware partner for enterprise servers, workstations, and infrastructure solutions.",
-    logo: "Dell"
+    logo: "Dell",
+    url: "https://www.dell.com"
   },
   {
     id: "hp",
     name: "HP",
     description: "Provider of enterprise computing, printing, and imaging solutions.",
-    logo: "HP"
+    logo: "HP",
+    url: "https://www.hp.com"
   },
   {
     id: "fortinet",
     name: "Fortinet",
     description: "Network security partner offering next-generation firewalls and security fabric solutions.",
-    logo: "Fortinet"
+    logo: "Fortinet",
+    url: "https://www.fortinet.com"
   },
   {
     id: "sophos",
     name: "Sophos",
     description: "Cybersecurity partner for endpoint protection and synchronized security solutions.",
-    logo: "Sophos"
+    logo: "Sophos",
+    url: "https://www.sophos.com"
   },
   {
     id: "crowdstrike",
     name: "CrowdStrike",
     description: "Cloud-native endpoint protection and threat intelligence platform.",
-    logo: "CrowdStrike"
+    logo: "CrowdStrike",
+    url: "https://www.crowdstrike.com"
   },
   {
     id: "synology",
     name: "Synology",
     description: "Storage and backup solutions partner for enterprise NAS and data management.",
-    logo: "Synology"
+    logo: "Synology",
+    url: "https://www.synology.com"
   },
   {
     id: "cisco",
     name: "Cisco",
     description: "Networking partner for enterprise routing, switching, and collaboration solutions.",
-    logo: "Cisco"
+    logo: "Cisco",
+    url: "https://www.cisco.com"
   },
   {
     id: "grandstream",
     name: "Grandstream",
     description: "VoIP and unified communications solutions for modern business telephony.",
-    logo: "Grandstream"
+    logo: "Grandstream",
+    url: "https://www.grandstream.com"
   },
   {
     id: "3cx",
     name: "3CX",
     description: "Software-based PBX and unified communications platform for voice and video.",
-    logo: "3CX"
+    logo: "3CX",
+    url: "https://www.3cx.com"
   },
   {
     id: "veeam",
     name: "Veeam",
     description: "Backup and disaster recovery solutions for hybrid cloud environments.",
-    logo: "Veeam"
+    logo: "Veeam",
+    url: "https://www.veeam.com"
   }
 ];
 

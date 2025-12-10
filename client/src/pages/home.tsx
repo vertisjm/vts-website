@@ -255,6 +255,61 @@ function AboutSection() {
   );
 }
 
+import cameilleSterlingImg from "@assets/image_1765405458755.png";
+import ryanSterlingImg from "@assets/image_1765405515300.png";
+import michaelKerrImg from "@assets/image_1765405543889.png";
+import sanjayStephensImg from "@assets/Photo-_Sanjay_1765405740646.jpeg";
+import coleenHibbertImg from "@assets/Vertis_Technology_Headshots-51_1765405778953.jpg";
+import cassandraSterlingImg from "@assets/Cass_-_Pic_1765405831947.png";
+
+const executives = [
+  {
+    name: "Ryan Sterling",
+    role: "CEO & Head of Business Development",
+    initials: "RS",
+    image: ryanSterlingImg,
+    imageClass: "scale-150 object-[center_35%]",
+    bio: "Ryan Sterling serves on the Board of Directors. Ryan is responsible for all of the company's worldwide sales and business development, and strategic partnerships."
+  },
+  {
+    name: "Cameille Sterling",
+    role: "Chief Operations Officer",
+    initials: "CS",
+    image: cameilleSterlingImg,
+    imagePosition: "object-top",
+    bio: "Cameille serves on the Board of Directors. As head of Operations and Marketing, Cameille leads a talented and creative team focused on enabling the success of Vertis Technology teams across the organization."
+  },
+  {
+    name: "Michael Kerr",
+    role: "CTO & Head of Service Delivery",
+    initials: "MK",
+    image: michaelKerrImg,
+    imageClass: "scale-150 object-[center_40%]",
+    bio: "Michael serves on the Board of Directors. He leads Vertis' Service and Solutions Teams. Michael has a proven ability in adapting/maturing technology organizations to solve business issues while managing costs and risks."
+  }
+];
+
+const keyEmployees = [
+  {
+    name: "Cassandra-Leigh Sterling-Masters",
+    role: "Service Delivery Manager",
+    initials: "CS",
+    image: cassandraSterlingImg
+  },
+  {
+    name: "Sanjay Stephens",
+    role: "Snr Systems Engineer",
+    initials: "SS",
+    image: sanjayStephensImg
+  },
+  {
+    name: "Coleen Hibbert",
+    role: "IT Operations Manager",
+    initials: "CH",
+    image: coleenHibbertImg
+  }
+];
+
 function TeamSection() {
   return (
     <section id="team" className="py-20 lg:py-24 bg-card scroll-mt-16">
@@ -265,10 +320,64 @@ function TeamSection() {
             Over 50 Vertis Strong!
           </h2>
         </div>
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto mb-16">
           <p className="text-lg text-muted-foreground text-center leading-relaxed" data-testid="text-team-description">
             With over 100 years combined experience in the IT field implementing, supporting IT solutions and services from medium to large enterprises, we pride ourselves in delivering value service. Our customers are dear to us and we ensure that we know their mission and give solutions that achieve the mission well. Our commitment to our customers defines how we do business and our years of experience working across industries underpin the vast array of services we offer.
           </p>
+        </div>
+
+        <div className="mb-16">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
+            {keyEmployees.map((employee, index) => (
+              <Card key={index} className="text-center" data-testid={`card-employee-${index}`}>
+                <CardContent className="p-6">
+                  {employee.image ? (
+                    <div className="w-44 h-44 rounded-full overflow-hidden mx-auto mb-4">
+                      <img 
+                        src={employee.image} 
+                        alt={employee.name}
+                        className="w-full h-full object-cover object-top"
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-44 h-44 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                      <span className="text-4xl font-bold text-primary">{employee.initials}</span>
+                    </div>
+                  )}
+                  <h4 className="text-base font-semibold mb-1">{employee.name}</h4>
+                  <p className="text-sm text-muted-foreground">{employee.role}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <h3 className="text-2xl font-bold text-center mb-10">Executive Team</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {executives.map((exec, index) => (
+              <Card key={index} className="text-center" data-testid={`card-executive-${index}`}>
+                <CardContent className="p-6">
+                  {exec.image ? (
+                    <div className="w-48 h-48 rounded-full overflow-hidden mx-auto mb-4">
+                      <img 
+                        src={exec.image} 
+                        alt={exec.name}
+                        className={`w-full h-full object-cover ${exec.imageClass || exec.imagePosition || ''}`}
+                      />
+                    </div>
+                  ) : (
+                    <div className="w-48 h-48 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                      <span className="text-5xl font-bold text-primary">{exec.initials}</span>
+                    </div>
+                  )}
+                  <h4 className="text-lg font-semibold mb-1">{exec.name}</h4>
+                  <p className="text-sm text-primary font-medium mb-4">{exec.role}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{exec.bio}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
     </section>

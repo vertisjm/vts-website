@@ -272,14 +272,14 @@ export const testimonials: Testimonial[] = [
 ];
 
 export const industries = [
-  "Financial Services",
-  "Healthcare",
-  "Manufacturing",
-  "Logistics & Transportation",
-  "Retail & Distribution",
-  "Education",
-  "Government & Public Sector",
-  "Professional Services"
+  { name: "Financial Services", icon: "Landmark" },
+  { name: "Healthcare", icon: "Heart" },
+  { name: "Manufacturing", icon: "Factory" },
+  { name: "Logistics & Transportation", icon: "Truck" },
+  { name: "Retail & Distribution", icon: "ShoppingCart" },
+  { name: "Education", icon: "GraduationCap" },
+  { name: "Government & Public Sector", icon: "Building2" },
+  { name: "Professional Services", icon: "Briefcase" }
 ];
 
 export const companyStats = [

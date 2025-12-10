@@ -321,7 +321,9 @@ function PartnersSection() {
               <img
                 src={partner.logo}
                 alt={`${partner.name} logo`}
-                className="h-8 sm:h-10 w-auto max-w-full object-contain dark:invert dark:brightness-200 opacity-60 group-hover:opacity-100 transition-opacity"
+                className={`h-8 sm:h-10 w-auto max-w-full object-contain opacity-60 group-hover:opacity-100 transition-opacity ${
+                  partner.id === "3cx" ? "grayscale" : "dark:invert dark:brightness-200"
+                }`}
               />
             </a>
           ))}

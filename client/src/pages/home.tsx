@@ -268,6 +268,7 @@ const executives = [
     role: "CEO & Head of Business Development",
     initials: "RS",
     image: ryanSterlingImg,
+    imageClass: "scale-150 object-top",
     bio: "Ryan Sterling serves on the Board of Directors. Ryan is responsible for all of the company's worldwide sales and business development, and strategic partnerships."
   },
   {
@@ -355,11 +356,13 @@ function TeamSection() {
               <Card key={index} className="text-center" data-testid={`card-executive-${index}`}>
                 <CardContent className="p-6">
                   {exec.image ? (
-                    <img 
-                      src={exec.image} 
-                      alt={exec.name}
-                      className={`w-24 h-24 rounded-full object-cover mx-auto mb-4 ${exec.imagePosition || ''}`}
-                    />
+                    <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4">
+                      <img 
+                        src={exec.image} 
+                        alt={exec.name}
+                        className={`w-full h-full object-cover ${exec.imageClass || exec.imagePosition || ''}`}
+                      />
+                    </div>
                   ) : (
                     <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
                       <span className="text-2xl font-bold text-primary">{exec.initials}</span>

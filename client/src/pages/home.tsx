@@ -257,6 +257,7 @@ function AboutSection() {
 
 import cameilleSterlingImg from "@assets/image_1765405458755.png";
 import ryanSterlingImg from "@assets/image_1765405515300.png";
+import michaelKerrImg from "@assets/image_1765405543889.png";
 
 const executives = [
   {
@@ -277,7 +278,7 @@ const executives = [
     name: "Michael Kerr",
     role: "CTO & Head of Service Delivery",
     initials: "MK",
-    image: null,
+    image: michaelKerrImg,
     bio: "Michael serves on the Board of Directors. He leads Vertis' Service and Solutions Teams. Michael has a proven ability in adapting/maturing technology organizations to solve business issues while managing costs and risks."
   }
 ];

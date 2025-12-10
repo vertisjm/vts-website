@@ -1,40 +1,11 @@
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useEffect, useRef } from "react";
+import { Mail, Phone, MapPin, Clock, RefreshCw } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { useToast } from "@/hooks/use-toast";
-import { insertContactSchema, type InsertContact } from "@shared/schema";
-import { apiRequest } from "@/lib/queryClient";
-
-const serviceOptions = [
-  { value: "managed-it", label: "Managed IT Services" },
-  { value: "network-infrastructure", label: "Network Design & Infrastructure" },
-  { value: "it-security", label: "IT Security Services" },
-  { value: "cloud-services", label: "Cloud Services" },
-  { value: "staff-augmentation", label: "IT Staff Augmentation" },
-  { value: "other", label: "Other / General Inquiry" },
-];
+import { Label } from "@/components/ui/label";
 
 function HeroSection() {
   return (
@@ -55,184 +26,301 @@ function HeroSection() {
 }
 
 function ContactFormSection() {
-  const { toast } = useToast();
-  const [submitted, setSubmitted] = useState(false);
+  const captchaRef = useRef<HTMLImageElement>(null);
 
-  const form = useForm<InsertContact>({
-    resolver: zodResolver(insertContactSchema),
-    defaultValues: {
-      name: "",
-      email: "",
-      company: "",
-      serviceInterest: "",
-      message: "",
-    },
-  });
-
-  const mutation = useMutation({
-    mutationFn: async (data: InsertContact) => {
-      return apiRequest("POST", "/api/contact", data);
-    },
-    onSuccess: () => {
-      setSubmitted(true);
-      form.reset();
-      toast({
-        title: "Message Sent",
-        description: "Thank you for contacting us. We'll respond within 24 hours.",
-      });
-    },
-    onError: () => {
-      toast({
-        title: "Error",
-        description: "Something went wrong. Please try again.",
-        variant: "destructive",
-      });
-    },
-  });
-
-  const onSubmit = (data: InsertContact) => {
-    mutation.mutate(data);
+  const reloadCaptcha = () => {
+    if (captchaRef.current) {
+      const src = captchaRef.current.src;
+      if (src.indexOf('&d') !== -1) {
+        captchaRef.current.src = src.substring(0, src.indexOf('&d')) + '&d' + new Date().getTime();
+      } else {
+        captchaRef.current.src = src + '&d' + new Date().getTime();
+      }
+    }
   };
 
-  if (submitted) {
-    return (
-      <Card data-testid="card-success">
-        <CardContent className="p-8 text-center">
-          <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
-            <CheckCircle className="h-8 w-8 text-primary" />
-          </div>
-          <h3 className="text-2xl font-bold mb-4">Thank You!</h3>
-          <p className="text-muted-foreground mb-6">
-            Your message has been received. One of our team members will contact you within 24 hours.
-          </p>
-          <Button onClick={() => setSubmitted(false)} data-testid="button-send-another">
-            Send Another Message
-          </Button>
-        </CardContent>
-      </Card>
-    );
-  }
+  useEffect(() => {
+    const validateEmail = () => {
+      const form = document.forms.namedItem('WebToLeads1691948000001924023');
+      if (!form) return true;
+      const emailFld = form.querySelectorAll('[data-ftype="email"]');
+      for (let i = 0; i < emailFld.length; i++) {
+        const emailInput = emailFld[i] as HTMLInputElement;
+        const emailVal = emailInput.value;
+        if (emailVal.replace(/^\s+|\s+$/g, '').length !== 0) {
+          const atpos = emailVal.indexOf('@');
+          const dotpos = emailVal.lastIndexOf('.');
+          if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= emailVal.length) {
+            alert('Please enter a valid email address.');
+            emailInput.focus();
+            return false;
+          }
+        }
+      }
+      return true;
+    };
+
+    const historyBack = () => {
+      const submitBtn = document.querySelector('.formsubmit') as HTMLButtonElement;
+      if (submitBtn) {
+        submitBtn.removeAttribute('disabled');
+      }
+      reloadCaptcha();
+      window.removeEventListener('focus', historyBack);
+    };
+
+    const trackVisitor = () => {
+      try {
+        const $zoho = (window as any).$zoho;
+        if ($zoho) {
+          const form = document.forms.namedItem('WebToLeads1691948000001924023');
+          if (form) {
+            const LDTuvidObj = form.elements.namedItem('LDTuvid') as HTMLInputElement;
+            if (LDTuvidObj && $zoho.salesiq?.visitor?.uniqueid) {
+              LDTuvidObj.value = $zoho.salesiq.visitor.uniqueid();
+            }
+            let name = '';
+            const lastnameObj = form.elements.namedItem('Last Name') as HTMLInputElement;
+            if (lastnameObj) {
+              name = lastnameObj.value;
+            }
+            const firstnameObj = form.elements.namedItem('First Name') as HTMLInputElement;
+            if (firstnameObj) {
+              name = firstnameObj.value + ' ' + name;
+            }
+            if ($zoho.salesiq?.visitor?.name) {
+              $zoho.salesiq.visitor.name(name);
+            }
+            const emailObj = form.elements.namedItem('Email') as HTMLInputElement;
+            if (emailObj && $zoho.salesiq?.visitor?.email) {
+              $zoho.salesiq.visitor.email(emailObj.value);
+            }
+          }
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    };
+
+    const checkMandatory = (e: Event) => {
+      const mndFields = ['Company', 'Last Name'];
+      const fldLangVal = ['Company', 'Last Name'];
+      const form = document.forms.namedItem('WebToLeads1691948000001924023');
+      if (!form) return true;
+      
+      for (let i = 0; i < mndFields.length; i++) {
+        const fieldObj = form.elements.namedItem(mndFields[i]) as HTMLInputElement;
+        if (fieldObj) {
+          if (fieldObj.value.replace(/^\s+|\s+$/g, '').length === 0) {
+            alert(fldLangVal[i] + ' cannot be empty.');
+            fieldObj.focus();
+            e.preventDefault();
+            return false;
+          }
+        }
+      }
+      
+      if (!validateEmail()) {
+        e.preventDefault();
+        return false;
+      }
+
+      trackVisitor();
+      
+      const urlparams = new URLSearchParams(window.location.search);
+      if (urlparams.has('service') && urlparams.get('service') === 'smarturl') {
+        const webform = document.getElementById('webform1691948000001924023');
+        if (webform) {
+          const service = urlparams.get('service');
+          const smarturlfield = document.createElement('input');
+          smarturlfield.setAttribute('type', 'hidden');
+          smarturlfield.setAttribute('value', service || '');
+          smarturlfield.setAttribute('name', 'service');
+          webform.appendChild(smarturlfield);
+        }
+      }
+
+      const submitBtn = document.querySelector('.formsubmit') as HTMLButtonElement;
+      if (submitBtn) {
+        submitBtn.setAttribute('disabled', 'true');
+      }
+      window.addEventListener('focus', historyBack);
+      
+      return true;
+    };
+
+    const form = document.getElementById('webform1691948000001924023');
+    if (form) {
+      form.addEventListener('submit', checkMandatory);
+    }
+
+    // Load analytics script
+    const analyticsScript = document.createElement('script');
+    analyticsScript.id = 'wf_anal';
+    analyticsScript.src = 'https://crm.zohopublic.com/crm/WebFormAnalyticsServeServlet?rid=679e863ff3e97f3a451532a00589220ea60ee625fe6676cc1fc6c49dccf0bf3f998d65010409a18ff9ccbad5ec640fd5gid7cd2178fbe1121bd47e274885dd18a21716dce0b63a17c54298c981c45625e02gidcdc3c4e3eb4e61f8d94616bbe6ceb878a0279b6cd02fe0e5c6dbb6384bd81f30gid579ccd6bcad6b59ac5e4d5a3eefbcc13e8fc5e4295e9c8e4ecfc6eacc00eaeaf&tw=bbf6308683776fac498af5192205b77351434b0e0065b63370a6463442bd6737';
+    document.body.appendChild(analyticsScript);
+
+    return () => {
+      if (form) {
+        form.removeEventListener('submit', checkMandatory);
+      }
+      if (analyticsScript.parentNode) {
+        analyticsScript.parentNode.removeChild(analyticsScript);
+      }
+    };
+  }, []);
 
   return (
     <Card data-testid="card-contact-form">
       <CardContent className="p-8">
         <h2 className="text-2xl font-bold mb-6">Send Us a Message</h2>
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Full Name *</FormLabel>
-                    <FormControl>
-                      <Input placeholder="John Smith" {...field} data-testid="input-name" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email Address *</FormLabel>
-                    <FormControl>
-                      <Input placeholder="john@company.com" type="email" {...field} data-testid="input-email" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+        <form 
+          id="webform1691948000001924023"
+          action="https://crm.zoho.com/crm/WebToLeadForm"
+          name="WebToLeads1691948000001924023"
+          method="POST"
+          acceptCharset="UTF-8"
+          className="space-y-6"
+          target="captchaFrame"
+        >
+          <input type="hidden" name="xnQsjsdp" value="3b5b6f9a5120a084799e7561fb70ee5fc096c127faee986b2a5b3e6b9a7c2396" />
+          <input type="hidden" name="zc_gad" id="zc_gad" value="" />
+          <input type="hidden" name="xmIwtLD" value="82dc63325867e829e189ef2e3715b723eeda9a099fc20d18651e1e176efb14e7021e53fad9c87050d7a6b2c0380137a4" />
+          <input type="hidden" name="actionType" value="TGVhZHM=" />
+          <input type="hidden" name="returnURL" value="null" />
+          <input type="hidden" id="ldeskuid" name="ldeskuid" />
+          <input type="hidden" id="LDTuvid" name="LDTuvid" />
+          <input type="hidden" name="Lead Source" value="OnlineStore" />
+          <input type="hidden" name="aG9uZXlwb3Q" value="" />
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <Label htmlFor="Company">
+                Company <span className="text-destructive">*</span>
+              </Label>
+              <Input 
+                type="text" 
+                id="Company" 
+                name="Company" 
+                maxLength={200}
+                required
+                data-testid="input-company"
               />
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <FormField
-                control={form.control}
-                name="company"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Company Name</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Your Company Ltd." {...field} value={field.value || ""} data-testid="input-company" />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="serviceInterest"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Service Interest</FormLabel>
-                    <Select onValueChange={field.onChange} value={field.value || ""}>
-                      <FormControl>
-                        <SelectTrigger data-testid="select-service">
-                          <SelectValue placeholder="Select a service" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {serviceOptions.map((option) => (
-                          <SelectItem key={option.value} value={option.value}>
-                            {option.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
+            <div className="space-y-2">
+              <Label htmlFor="First_Name">First Name</Label>
+              <Input 
+                type="text" 
+                id="First_Name" 
+                name="First Name" 
+                maxLength={40}
+                data-testid="input-first-name"
               />
             </div>
+          </div>
 
-            <FormField
-              control={form.control}
-              name="message"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Message *</FormLabel>
-                  <FormControl>
-                    <Textarea 
-                      placeholder="Tell us about your project or inquiry..." 
-                      className="min-h-[150px] resize-none"
-                      {...field} 
-                      data-testid="textarea-message"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <Label htmlFor="Last_Name">
+                Last Name <span className="text-destructive">*</span>
+              </Label>
+              <Input 
+                type="text" 
+                id="Last_Name" 
+                name="Last Name" 
+                maxLength={80}
+                required
+                data-testid="input-last-name"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="Email">Email</Label>
+              <Input 
+                type="email" 
+                id="Email" 
+                name="Email" 
+                maxLength={100}
+                data-ftype="email"
+                data-testid="input-email"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="Phone">Phone</Label>
+            <Input 
+              type="tel" 
+              id="Phone" 
+              name="Phone" 
+              maxLength={30}
+              data-testid="input-phone"
             />
+          </div>
 
-            {mutation.isError && (
-              <div className="p-4 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-sm" data-testid="text-form-error">
-                {mutation.error instanceof Error 
-                  ? mutation.error.message 
-                  : "Something went wrong. Please check your information and try again."}
-              </div>
-            )}
+          <div className="space-y-2">
+            <Label htmlFor="Description">Message</Label>
+            <Textarea 
+              id="Description" 
+              name="Description"
+              className="min-h-[150px] resize-none"
+              placeholder="Tell us about your project or inquiry..."
+              data-testid="textarea-message"
+            />
+          </div>
 
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="captchaField">Enter the Captcha</Label>
+              <Input 
+                type="text" 
+                id="captchaField1691948000001924023" 
+                name="enterdigest"
+                maxLength={10}
+                data-testid="input-captcha"
+              />
+            </div>
+            <div className="flex items-center gap-4">
+              <img 
+                ref={captchaRef}
+                id="imgid1691948000001924023"
+                src="https://crm.zoho.com/crm/CaptchaServlet?formId=82dc63325867e829e189ef2e3715b723eeda9a099fc20d18651e1e176efb14e7021e53fad9c87050d7a6b2c0380137a4&grpid=3b5b6f9a5120a084799e7561fb70ee5fc096c127faee986b2a5b3e6b9a7c2396"
+                alt="Captcha"
+                className="border rounded"
+              />
+              <Button 
+                type="button" 
+                variant="outline" 
+                size="sm"
+                onClick={reloadCaptcha}
+                className="gap-2"
+                data-testid="button-reload-captcha"
+              >
+                <RefreshCw className="h-4 w-4" />
+                Reload
+              </Button>
+            </div>
+          </div>
+
+          <div className="flex gap-4">
             <Button 
               type="submit" 
-              size="lg" 
-              className="w-full gap-2"
-              disabled={mutation.isPending}
+              size="lg"
+              className="formsubmit flex-1"
               data-testid="button-submit"
             >
-              {mutation.isPending ? (
-                "Sending..."
-              ) : (
-                <>
-                  Send Message
-                  <Send className="h-4 w-4" />
-                </>
-              )}
+              Submit
             </Button>
-          </form>
-        </Form>
+            <Button 
+              type="reset" 
+              variant="outline"
+              size="lg"
+              data-testid="button-reset"
+            >
+              Reset
+            </Button>
+          </div>
+        </form>
+        <iframe name="captchaFrame" style={{ display: 'none' }} title="Captcha Frame" />
       </CardContent>
     </Card>
   );

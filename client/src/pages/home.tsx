@@ -535,7 +535,7 @@ function SupportSection() {
       title: "Ticket Portal",
       description: "Submit and track support tickets through our Zoho Desk portal.",
       action: "Open Portal",
-      link: "https://desk.zoho.com",
+      link: "https://support.vertisjm.com/portal/en/home",
       external: true
     }
   ];

@@ -1,0 +1,131 @@
+Build a modern, responsive, and professional website for a Managed IT Services company named Vertis Technology.
+The current website is vertisjm.com. Use it as a reference for tone, content direction, and brand positioning, but improve the design, navigation, and overall user experience.
+
+Business Description
+
+Vertis Technology is a Jamaica-based Managed IT Services and Solutions Provider offering enterprise-grade IT support, network infrastructure services, cloud solutions, and IT security consulting. The company provides end-to-end technology management for medium and large enterprises.
+
+Website Requirements
+1. Core Pages
+
+Create a full multi-page website with the following sections:
+
+Home
+
+Hero banner with strong value proposition
+
+Highlights: Managed IT Services, Network Design, IT Security, Cloud Services, IT Staff Augmentation
+
+Display technology partner logos (Microsoft, Dell, HP, Fortinet, Sophos, CrowdStrike, Synology, Cisco, Grandstream, 3CX, Veeam)
+
+Customer testimonial carousel
+
+CTA buttons for “Request Support”, “Schedule Consultation”, and “Contact Us”
+
+About Us
+
+Overview of company mission, values, and leadership
+
+Why customers choose Vertis Technology
+
+Industry verticals served
+
+Services
+Create detailed service sub-pages or sections:
+
+Managed IT Services
+
+Network Design & Infrastructure
+
+IT Security Services (including SOC, endpoint security, vulnerability management)
+
+Cloud Services (Microsoft 365, Azure, cloud migrations)
+
+IT Staff Augmentation & Outsourcing
+Each service page must include: description, service features, business benefits, technologies used, and CTA.
+
+Technology Partners
+
+Logos and brief partner descriptions
+
+Grid layout showcasing Microsoft, Dell, HP, Fortinet, Sophos, CrowdStrike, Synology, Cisco, Grandstream, 3CX, Veeam
+
+Testimonials
+
+Customer quotes
+
+Name, role, and company (use placeholders)
+
+Job Board
+
+Integrate link to Zoho-powered job board
+
+Use a clearly labeled button: “View Open Positions”
+
+Support / Ticket Logging
+
+Prominent button linking to Zoho Desk ticketing portal
+
+Support instructions and SLAs (use placeholder text)
+
+Contact
+
+Contact form
+
+Google Maps embed for office location
+
+Basic contact information (phone, email, office hours)
+
+Zoho Integrations
+
+Include the following integrations exactly as required:
+
+Zoho Desk for ticket logging (use embedded link/button)
+
+Zoho CRM chat widget for real-time customer chat (use placeholder script block)
+
+Zoho-powered job board link
+
+Design Requirements
+
+Modern, clean, enterprise-grade UI
+
+Use a blue/white/grey technology-focused color palette
+
+Consistent professional typography
+
+Responsive design optimized for laptop, tablet, and mobile
+
+Smooth transitions and subtle animations
+
+Include icons for IT-related features and benefits
+
+Functional Requirements
+
+Fast-loading pages
+
+SEO-friendly structure
+
+Header with dropdowns for Services
+
+Footer with: Services list, Contact info, Partners, Social Links
+
+Add placeholders for all APIs/scripts for Zoho Desk and Zoho CRM chat
+
+Output Format
+
+Generate a complete, ready-to-deploy website codebase
+
+Include:
+
+HTML files (or React/Vite if supported)
+
+CSS or Tailwind
+
+JavaScript where appropriate
+
+Components for testimonials, partners, services sections
+
+Placeholder images and icons
+
+Comments indicating where to insert Zoho scripts

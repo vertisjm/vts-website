@@ -68,6 +68,7 @@ export const testimonials = pgTable("testimonials", {
   name: text("name").notNull(),
   role: text("role").notNull(),
   company: text("company").notNull(),
+  companyLogo: text("company_logo"),
   isFeatured: boolean("is_featured").default(true),
   displayOrder: integer("display_order").default(0),
   createdAt: timestamp("created_at").defaultNow(),
@@ -128,4 +129,5 @@ export interface Testimonial {
   name: string;
   role: string;
   company: string;
+  companyLogo?: string | null;
 }

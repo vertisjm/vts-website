@@ -2,7 +2,26 @@
 
 ## Overview
 
-This is a professional multi-page website for Vertis Technology, a Jamaica-based Managed IT Services and Solutions Provider. The website showcases enterprise-grade IT support, network infrastructure services, cloud solutions, and IT security consulting services. Built as a modern, responsive web application with a React frontend and Express backend, it targets medium to large enterprises in Jamaica and the Caribbean region.
+This is a professional single-page website for Vertis Technology, a Jamaica-based Managed IT Services and Solutions Provider. The website showcases enterprise-grade IT support, network infrastructure services, cloud solutions, and IT security consulting services. Built as a modern, responsive web application with a React frontend and Express backend, it targets medium to large enterprises in Jamaica and the Caribbean region.
+
+## Site Structure
+
+The website is a single-page application with anchor-based navigation:
+- **Homepage (/)** - Contains all main content sections:
+  - Hero section with main value proposition
+  - Stats section with company metrics
+  - About section (#about) - Mission, vision, and core values
+  - Services section (#services) - Expandable service cards
+  - Industries section - Sectors served
+  - Partners section (#partners) - Technology partner logos
+  - Testimonials section - Customer quotes carousel
+  - Support section (#support) - Support options and ticket portal links
+  - Why Choose Us section
+  - CTA section
+
+- **Separate Pages:**
+  - **/contact** - Contact form with database persistence
+  - **/careers** - Job board with Zoho Recruit integration link
 
 ## User Preferences
 

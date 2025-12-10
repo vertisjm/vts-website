@@ -17,30 +17,37 @@ import {
 } from "@/components/ui/sheet";
 import vertisLogo from "@assets/vertis-logo.svg";
 
-const serviceLinks = [
-  { href: "/services/managed-it", label: "Managed IT Services", icon: Server },
-  { href: "/services/network-infrastructure", label: "Network Design & Infrastructure", icon: Network },
-  { href: "/services/it-security", label: "IT Security Services", icon: Shield },
-  { href: "/services/cloud-services", label: "Cloud Services", icon: Cloud },
-  { href: "/services/staff-augmentation", label: "IT Staff Augmentation", icon: Users },
+const sectionLinks = [
+  { href: "/#about", label: "About", anchor: true },
+  { href: "/#services", label: "Services", anchor: true },
+  { href: "/#partners", label: "Partners", anchor: true },
+  { href: "/#support", label: "Support", anchor: true },
 ];
 
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About Us" },
-  { href: "/partners", label: "Partners" },
-  { href: "/support", label: "Support" },
-  { href: "/careers", label: "Careers" },
-  { href: "/contact", label: "Contact" },
+const serviceAnchors = [
+  { id: "managed-it", label: "Managed IT Services", icon: Server },
+  { id: "network-infrastructure", label: "Network Design & Infrastructure", icon: Network },
+  { id: "it-security", label: "IT Security Services", icon: Shield },
+  { id: "cloud-services", label: "Cloud Services", icon: Cloud },
+  { id: "staff-augmentation", label: "IT Staff Augmentation", icon: Users },
 ];
+
+function scrollToSection(hash: string) {
+  const element = document.querySelector(hash);
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth" });
+  }
+}
 
 export function Navigation() {
   const [location] = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  const isActive = (path: string) => {
-    if (path === "/") return location === "/";
-    return location.startsWith(path);
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, hash: string) => {
+    if (location === "/") {
+      e.preventDefault();
+      scrollToSection(hash);
+    }
   };
 
   return (
@@ -57,21 +64,25 @@ export function Navigation() {
 
           <nav className="hidden lg:flex items-center gap-1">
             <Link href="/" data-testid="link-home">
-              <Button variant={isActive("/") && location === "/" ? "secondary" : "ghost"} size="sm">
+              <Button variant={location === "/" ? "secondary" : "ghost"} size="sm">
                 Home
               </Button>
             </Link>
             
-            <Link href="/about" data-testid="link-about">
-              <Button variant={isActive("/about") ? "secondary" : "ghost"} size="sm">
-                About Us
+            <a 
+              href="/#about" 
+              onClick={(e) => handleAnchorClick(e, "#about")}
+              data-testid="link-about"
+            >
+              <Button variant="ghost" size="sm">
+                About
               </Button>
-            </Link>
+            </a>
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button 
-                  variant={isActive("/services") ? "secondary" : "ghost"} 
+                  variant="ghost" 
                   size="sm"
                   className="gap-1"
                   data-testid="button-services-dropdown"
@@ -81,31 +92,44 @@ export function Navigation() {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-64">
-                {serviceLinks.map((service) => (
-                  <DropdownMenuItem key={service.href} asChild>
-                    <Link href={service.href} className="flex items-center gap-2 cursor-pointer" data-testid={`link-${service.href.split('/').pop()}`}>
+                {serviceAnchors.map((service) => (
+                  <DropdownMenuItem key={service.id} asChild>
+                    <a 
+                      href="/#services" 
+                      onClick={(e) => handleAnchorClick(e, "#services")}
+                      className="flex items-center gap-2 cursor-pointer" 
+                      data-testid={`link-${service.id}`}
+                    >
                       <service.icon className="h-4 w-4 text-muted-foreground" />
                       {service.label}
-                    </Link>
+                    </a>
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Link href="/partners" data-testid="link-partners">
-              <Button variant={isActive("/partners") ? "secondary" : "ghost"} size="sm">
+            <a 
+              href="/#partners" 
+              onClick={(e) => handleAnchorClick(e, "#partners")}
+              data-testid="link-partners"
+            >
+              <Button variant="ghost" size="sm">
                 Partners
               </Button>
-            </Link>
+            </a>
 
-            <Link href="/support" data-testid="link-support">
-              <Button variant={isActive("/support") ? "secondary" : "ghost"} size="sm">
+            <a 
+              href="/#support" 
+              onClick={(e) => handleAnchorClick(e, "#support")}
+              data-testid="link-support"
+            >
+              <Button variant="ghost" size="sm">
                 Support
               </Button>
-            </Link>
+            </a>
 
             <Link href="/careers" data-testid="link-careers">
-              <Button variant={isActive("/careers") ? "secondary" : "ghost"} size="sm">
+              <Button variant={location === "/careers" ? "secondary" : "ghost"} size="sm">
                 Careers
               </Button>
             </Link>
@@ -115,9 +139,9 @@ export function Navigation() {
             <ThemeToggle />
             
             <div className="hidden md:flex items-center gap-2">
-              <Link href="/support" data-testid="link-request-support">
+              <a href="/#support" onClick={(e) => handleAnchorClick(e, "#support")} data-testid="link-request-support">
                 <Button variant="outline" size="sm">Request Support</Button>
-              </Link>
+              </a>
               <Link href="/contact" data-testid="link-contact-cta">
                 <Button size="sm">Contact Us</Button>
               </Link>
@@ -139,38 +163,53 @@ export function Navigation() {
                     />
                   </div>
                   
-                  {navLinks.map((link) => (
+                  <SheetClose asChild>
+                    <Link href="/" data-testid="mobile-link-home">
+                      <Button variant={location === "/" ? "secondary" : "ghost"} className="w-full justify-start">
+                        Home
+                      </Button>
+                    </Link>
+                  </SheetClose>
+
+                  {sectionLinks.map((link) => (
                     <SheetClose asChild key={link.href}>
-                      <Link href={link.href} data-testid={`mobile-link-${link.label.toLowerCase().replace(/\s+/g, '-')}`}>
-                        <Button 
-                          variant={isActive(link.href) && (link.href !== "/" || location === "/") ? "secondary" : "ghost"} 
-                          className="w-full justify-start"
-                        >
+                      <a 
+                        href={link.href} 
+                        onClick={(e) => {
+                          if (location === "/") {
+                            e.preventDefault();
+                            scrollToSection(link.href.replace("/#", "#"));
+                            setMobileOpen(false);
+                          }
+                        }}
+                        data-testid={`mobile-link-${link.label.toLowerCase()}`}
+                      >
+                        <Button variant="ghost" className="w-full justify-start">
                           {link.label}
                         </Button>
-                      </Link>
+                      </a>
                     </SheetClose>
                   ))}
 
-                  <div className="border-t pt-4 mt-2">
-                    <p className="text-sm font-medium text-muted-foreground mb-3 px-4">Services</p>
-                    {serviceLinks.map((service) => (
-                      <SheetClose asChild key={service.href}>
-                        <Link href={service.href} data-testid={`mobile-link-${service.href.split('/').pop()}`}>
-                          <Button variant="ghost" className="w-full justify-start gap-2">
-                            <service.icon className="h-4 w-4 text-muted-foreground" />
-                            {service.label}
-                          </Button>
-                        </Link>
-                      </SheetClose>
-                    ))}
-                  </div>
+                  <SheetClose asChild>
+                    <Link href="/careers" data-testid="mobile-link-careers">
+                      <Button variant={location === "/careers" ? "secondary" : "ghost"} className="w-full justify-start">
+                        Careers
+                      </Button>
+                    </Link>
+                  </SheetClose>
 
                   <div className="border-t pt-4 mt-2 flex flex-col gap-2">
                     <SheetClose asChild>
-                      <Link href="/support">
+                      <a href="/#support" onClick={(e) => {
+                        if (location === "/") {
+                          e.preventDefault();
+                          scrollToSection("#support");
+                          setMobileOpen(false);
+                        }
+                      }}>
                         <Button variant="outline" className="w-full">Request Support</Button>
-                      </Link>
+                      </a>
                     </SheetClose>
                     <SheetClose asChild>
                       <Link href="/contact">

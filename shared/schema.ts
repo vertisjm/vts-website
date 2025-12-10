@@ -55,6 +55,7 @@ export interface Partner {
   name: string;
   description: string;
   logo: string;
+  url: string;
 }
 
 export interface Testimonial {

@@ -196,7 +196,7 @@ export const partners: Partner[] = [
     id: "3cx",
     name: "3CX",
     description: "Software-based PBX and unified communications platform for voice and video.",
-    logo: "https://upload.wikimedia.org/wikipedia/commons/0/0d/3CX_Logo_-_Wiki.svg",
+    logo: "https://www.3cx.com/wp-content/uploads/2018/08/logo-3.png",
     url: "https://www.3cx.com"
   },
   {

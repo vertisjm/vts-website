@@ -1,18 +1,36 @@
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook } from "lucide-react";
 import { services, partners } from "@/lib/data";
+import vertisLogo from "@assets/vertis-logo.svg";
+
+function scrollToSection(hash: string) {
+  const element = document.querySelector(hash);
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth" });
+  }
+}
 
 export function Footer() {
+  const [location] = useLocation();
+
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, hash: string) => {
+    if (location === "/") {
+      e.preventDefault();
+      scrollToSection(hash);
+    }
+  };
+
   return (
     <footer className="bg-foreground text-background">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           <div>
             <div className="flex items-center gap-2 mb-6">
-              <div className="flex items-center justify-center w-10 h-10 rounded-md bg-primary text-primary-foreground font-bold text-lg">
-                V
-              </div>
-              <span className="font-semibold text-lg">Vertis Technology</span>
+              <img 
+                src={vertisLogo} 
+                alt="Vertis Technology" 
+                className="h-10 w-auto brightness-0 invert"
+              />
             </div>
             <p className="text-sm opacity-80 leading-relaxed mb-6">
               Jamaica's leading Managed IT Services provider offering enterprise-grade IT support, network infrastructure, cloud solutions, and IT security consulting.
@@ -56,39 +74,68 @@ export function Footer() {
             <ul className="space-y-3">
               {services.map((service) => (
                 <li key={service.id}>
-                  <Link 
-                    href={`/services/${service.id}`} 
+                  <a 
+                    href="/#services"
+                    onClick={(e) => handleAnchorClick(e, "#services")}
                     className="text-sm opacity-80 hover:opacity-100 transition-opacity"
                     data-testid={`footer-link-${service.id}`}
                   >
                     {service.title}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
           </div>
 
           <div>
-            <h3 className="font-semibold text-lg mb-6">Technology Partners</h3>
+            <h3 className="font-semibold text-lg mb-6">Quick Links</h3>
             <ul className="space-y-3">
-              {partners.slice(0, 6).map((partner) => (
-                <li key={partner.id}>
-                  <Link 
-                    href="/partners" 
-                    className="text-sm opacity-80 hover:opacity-100 transition-opacity"
-                    data-testid={`footer-link-partner-${partner.id}`}
-                  >
-                    {partner.name}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <a 
+                  href="/#about"
+                  onClick={(e) => handleAnchorClick(e, "#about")}
+                  className="text-sm opacity-80 hover:opacity-100 transition-opacity"
+                  data-testid="footer-link-about"
+                >
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/#partners"
+                  onClick={(e) => handleAnchorClick(e, "#partners")}
+                  className="text-sm opacity-80 hover:opacity-100 transition-opacity"
+                  data-testid="footer-link-partners"
+                >
+                  Technology Partners
+                </a>
+              </li>
+              <li>
+                <a 
+                  href="/#support"
+                  onClick={(e) => handleAnchorClick(e, "#support")}
+                  className="text-sm opacity-80 hover:opacity-100 transition-opacity"
+                  data-testid="footer-link-support"
+                >
+                  Support
+                </a>
+              </li>
               <li>
                 <Link 
-                  href="/partners" 
-                  className="text-sm text-primary hover:underline"
-                  data-testid="footer-link-all-partners"
+                  href="/careers"
+                  className="text-sm opacity-80 hover:opacity-100 transition-opacity"
+                  data-testid="footer-link-careers"
                 >
-                  View All Partners
+                  Careers
+                </Link>
+              </li>
+              <li>
+                <Link 
+                  href="/contact"
+                  className="text-sm opacity-80 hover:opacity-100 transition-opacity"
+                  data-testid="footer-link-contact"
+                >
+                  Contact Us
                 </Link>
               </li>
             </ul>
@@ -139,14 +186,11 @@ export function Footer() {
               &copy; {new Date().getFullYear()} Vertis Technology. All rights reserved.
             </p>
             <div className="flex gap-6">
-              <Link href="/privacy" className="text-sm opacity-60 hover:opacity-100 transition-opacity" data-testid="footer-link-privacy">
-                Privacy Policy
-              </Link>
-              <Link href="/terms" className="text-sm opacity-60 hover:opacity-100 transition-opacity" data-testid="footer-link-terms">
-                Terms of Service
-              </Link>
-              <Link href="/support" className="text-sm opacity-60 hover:opacity-100 transition-opacity" data-testid="footer-link-support">
+              <a href="/#support" onClick={(e) => handleAnchorClick(e, "#support")} className="text-sm opacity-60 hover:opacity-100 transition-opacity" data-testid="footer-link-support-portal">
                 Support Portal
+              </a>
+              <Link href="/contact" className="text-sm opacity-60 hover:opacity-100 transition-opacity" data-testid="footer-link-contact-us">
+                Contact
               </Link>
             </div>
           </div>

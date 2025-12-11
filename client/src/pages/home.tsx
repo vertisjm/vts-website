@@ -63,7 +63,7 @@ function HeroSection() {
             Vertis Technology delivers comprehensive managed IT services, network infrastructure, cybersecurity, and cloud solutions for medium to large enterprises across Jamaica and the Caribbean.
           </p>
           <div className="flex flex-wrap gap-4">
-            <Link href="/contact">
+            <Link href="/contact#contact-form">
               <Button size="lg" className="gap-2" data-testid="button-hero-consultation">
                 Schedule Consultation
                 <ArrowRight className="h-4 w-4" />
@@ -603,7 +603,7 @@ function IndustriesSection() {
             <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
               We understand that different industries have unique technology requirements and compliance needs. Our team has deep experience serving organizations across multiple sectors.
             </p>
-            <Link href="/contact">
+            <Link href="/contact#contact-form">
               <Button className="gap-2" data-testid="button-discuss-needs">
                 Discuss Your Needs
                 <ArrowRight className="h-4 w-4" />
@@ -999,7 +999,7 @@ function CTASection() {
             Let's discuss how Vertis Technology can help your organization achieve its technology goals. Schedule a free consultation with our experts today.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/contact">
+            <Link href="/contact#contact-form">
               <Button size="lg" className="gap-2 bg-[#33C3F0] hover:bg-[#33C3F0]/90 text-[#0B1F3A] font-semibold" data-testid="button-cta-consultation">
                 Schedule Consultation
                 <ArrowRight className="h-4 w-4" />

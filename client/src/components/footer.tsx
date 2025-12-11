@@ -197,9 +197,17 @@ export function Footer() {
               <a href="/#support" onClick={(e) => handleAnchorClick(e, "#support")} className="text-sm opacity-60 hover:opacity-100 transition-opacity" data-testid="footer-link-support-portal">
                 Support Portal
               </a>
-              <Link href="/contact#contact-form" className="text-sm opacity-60 hover:opacity-100 transition-opacity" data-testid="footer-link-contact-us">
+              <a 
+                href="/contact#contact-form" 
+                className="text-sm opacity-60 hover:opacity-100 transition-opacity" 
+                data-testid="footer-link-contact-us"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.location.href = "/contact#contact-form";
+                }}
+              >
                 Contact
-              </Link>
+              </a>
             </div>
           </div>
         </div>

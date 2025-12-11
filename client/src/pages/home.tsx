@@ -334,7 +334,7 @@ const keyEmployees = [
     role: "Service Delivery Manager",
     initials: "CM",
     image: cassandraLeighImg,
-    imageClass: "object-[center_20%]"
+    imageClass: "object-[center_35%]"
   },
   {
     name: "Sanjay Stephens",

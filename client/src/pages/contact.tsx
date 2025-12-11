@@ -564,7 +564,7 @@ function ContactInfoSection() {
         <CardContent className="p-0 overflow-hidden">
           <div className="aspect-[4/3] bg-muted">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d946.7!2d-76.78847!3d18.00827!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8edb3f77c5b2f9e5%3A0x4c5b4c5b4c5b4c5b!2s1b%20Braemar%20Avenue%2C%20Kingston%2010%2C%20Jamaica!5e0!3m2!1sen!2sjm!4v1702234567890!5m2!1sen!2sjm"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d236.7!2d-76.7826658!3d18.0090692!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8edb3fa9aaa2856f%3A0xd2cadc6203972672!2s1b%20Braemar%20Ave%2C%20Kingston%2C%20Jamaica!5e0!3m2!1sen!2sjm!4v1702234567890!5m2!1sen!2sjm"
               width="100%"
               height="100%"
               style={{ border: 0 }}

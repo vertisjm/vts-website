@@ -596,8 +596,22 @@ function IndustriesSection() {
 
 function PartnersSection() {
   return (
-    <section id="partners" className="py-20 lg:py-24 bg-gradient-to-br from-primary/5 via-background to-accent/10 scroll-mt-16">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section id="partners" className="py-20 lg:py-24 scroll-mt-16 relative overflow-hidden">
+      {/* Tech-savvy background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0B1F3A] via-[#1755B5]/90 to-[#0B1F3A]" />
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-0 left-0 w-full h-full" style={{
+          backgroundImage: `radial-gradient(circle at 25% 25%, rgba(51, 195, 240, 0.3) 0%, transparent 50%),
+                           radial-gradient(circle at 75% 75%, rgba(23, 85, 181, 0.3) 0%, transparent 50%),
+                           linear-gradient(to right, rgba(51, 195, 240, 0.1) 1px, transparent 1px),
+                           linear-gradient(to bottom, rgba(51, 195, 240, 0.1) 1px, transparent 1px)`,
+          backgroundSize: '100% 100%, 100% 100%, 40px 40px, 40px 40px'
+        }} />
+      </div>
+      <div className="absolute top-20 right-20 w-64 h-64 bg-[#33C3F0]/10 rounded-full blur-3xl" />
+      <div className="absolute bottom-20 left-20 w-80 h-80 bg-[#1755B5]/20 rounded-full blur-3xl" />
+      
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div 
           className="text-center mb-12"
           initial={{ opacity: 0, y: 30 }}
@@ -605,11 +619,11 @@ function PartnersSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <Badge variant="secondary" className="mb-4">Technology Partners</Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" data-testid="text-partners-title">
+          <Badge className="mb-4 bg-white/15 text-white border-white/20 backdrop-blur-sm">Technology Partners</Badge>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 text-white" data-testid="text-partners-title">
             Powered by Industry Leaders
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-lg text-white/80 max-w-2xl mx-auto">
             We partner with the world's leading technology providers to deliver best-in-class solutions for your business.
           </p>
         </motion.div>
@@ -620,8 +634,8 @@ function PartnersSection() {
               href={partner.url}
               target="_blank"
               rel="noopener noreferrer"
-              className={`flex items-center justify-center p-6 rounded-lg border hover:border-primary/30 transition-all group hover-elevate aspect-[3/2] ${
-                partner.id === "3cx" ? "bg-slate-800" : "bg-background"
+              className={`flex items-center justify-center p-6 rounded-lg border border-white/10 hover:border-white/30 transition-all group hover-elevate aspect-[3/2] backdrop-blur-sm ${
+                partner.id === "3cx" ? "bg-slate-800" : "bg-white/10"
               }`}
               data-testid={`partner-logo-${partner.id}`}
               title={partner.name}
@@ -633,16 +647,9 @@ function PartnersSection() {
               <img
                 src={partner.logo}
                 alt={`${partner.name} logo`}
-                className={`w-auto max-w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity ${
+                className={`w-auto max-w-full object-contain opacity-80 group-hover:opacity-100 transition-opacity brightness-0 invert ${
                   ["synology", "cisco", "vmware"].includes(partner.id) ? "h-12 sm:h-14" : "h-8 sm:h-10"
-                } ${
-                  ["fortinet", "crowdstrike"].includes(partner.id) ? "brightness-0 saturate-100 invert sepia saturate-[10000%] hue-rotate-[0deg]" :
-                  ["hp", "cisco"].includes(partner.id) ? "brightness-0 saturate-100 invert sepia saturate-[10000%] hue-rotate-[200deg]" : ""
                 }`}
-                style={
-                  ["fortinet", "crowdstrike"].includes(partner.id) ? { filter: "brightness(0) saturate(100%) invert(21%) sepia(100%) saturate(3000%) hue-rotate(0deg) brightness(90%)" } :
-                  ["hp", "cisco"].includes(partner.id) ? { filter: "brightness(0) saturate(100%) invert(30%) sepia(100%) saturate(2000%) hue-rotate(200deg) brightness(90%)" } : undefined
-                }
               />
             </motion.a>
           ))}
@@ -677,22 +684,8 @@ function TestimonialsSection() {
   }
 
   return (
-    <section id="testimonials" className="py-20 lg:py-24 scroll-mt-16 relative overflow-hidden">
-      {/* Tech-savvy background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#0B1F3A] via-[#1755B5]/90 to-[#0B1F3A]" />
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-0 left-0 w-full h-full" style={{
-          backgroundImage: `radial-gradient(circle at 25% 25%, rgba(51, 195, 240, 0.3) 0%, transparent 50%),
-                           radial-gradient(circle at 75% 75%, rgba(23, 85, 181, 0.3) 0%, transparent 50%),
-                           linear-gradient(to right, rgba(51, 195, 240, 0.1) 1px, transparent 1px),
-                           linear-gradient(to bottom, rgba(51, 195, 240, 0.1) 1px, transparent 1px)`,
-          backgroundSize: '100% 100%, 100% 100%, 40px 40px, 40px 40px'
-        }} />
-      </div>
-      <div className="absolute top-20 right-20 w-64 h-64 bg-[#33C3F0]/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 left-20 w-80 h-80 bg-[#1755B5]/20 rounded-full blur-3xl" />
-      
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+    <section id="testimonials" className="py-20 lg:py-24 scroll-mt-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div 
           className="text-center mb-12"
           initial={{ opacity: 0, y: 30 }}
@@ -700,8 +693,8 @@ function TestimonialsSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <Badge className="mb-4 bg-white/15 text-white border-white/20 backdrop-blur-sm">Testimonials</Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4 text-white" data-testid="text-testimonials-title">
+          <Badge variant="secondary" className="mb-4">Testimonials</Badge>
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" data-testid="text-testimonials-title">
             Trusted by Leading Organizations
           </h2>
         </motion.div>
@@ -713,21 +706,21 @@ function TestimonialsSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <Card className="relative overflow-visible bg-white/10 backdrop-blur-md border-white/20" data-testid="card-testimonial">
+          <Card className="relative overflow-visible" data-testid="card-testimonial">
             <CardContent className="p-8 sm:p-12">
-              <Quote className="h-10 w-10 text-[#33C3F0]/40 mb-6" />
+              <Quote className="h-10 w-10 text-primary/20 mb-6" />
               <div className="flex gap-1 mb-4" data-testid="rating-stars">
                 {[...Array(5)].map((_, i) => (
                   <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                 ))}
               </div>
-              <p className="text-lg sm:text-xl leading-relaxed mb-8 text-white/90" data-testid="text-testimonial-quote">
+              <p className="text-lg sm:text-xl leading-relaxed mb-8" data-testid="text-testimonial-quote">
                 {testimonials[currentIndex]?.quote}
               </p>
               <div className="flex items-center justify-between flex-wrap gap-4">
                 <div className="flex items-center gap-4">
                   {testimonials[currentIndex]?.companyLogo ? (
-                    <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center overflow-hidden p-1.5">
+                    <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center overflow-hidden p-1.5">
                       <img 
                         src={testimonials[currentIndex].companyLogo} 
                         alt={`${testimonials[currentIndex]?.company} logo`}
@@ -736,15 +729,15 @@ function TestimonialsSection() {
                       />
                     </div>
                   ) : (
-                    <div className="w-12 h-12 rounded-full bg-[#33C3F0]/20 flex items-center justify-center text-[#33C3F0] font-semibold">
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold">
                       {testimonials[currentIndex]?.name?.charAt(0)}
                     </div>
                   )}
                   <div>
-                    <p className="font-semibold text-white" data-testid="text-testimonial-name">
+                    <p className="font-semibold" data-testid="text-testimonial-name">
                       {testimonials[currentIndex]?.name}
                     </p>
-                    <p className="text-sm text-white/70" data-testid="text-testimonial-role">
+                    <p className="text-sm text-muted-foreground" data-testid="text-testimonial-role">
                       {testimonials[currentIndex]?.role}, {testimonials[currentIndex]?.company}
                     </p>
                   </div>
@@ -754,7 +747,7 @@ function TestimonialsSection() {
                     <img 
                       src={testimonials[currentIndex].companyLogo} 
                       alt={`${testimonials[currentIndex]?.company} logo`}
-                      className="h-full w-auto object-contain max-w-[120px] brightness-0 invert opacity-70"
+                      className="h-full w-auto object-contain max-w-[120px] dark:invert dark:opacity-70"
                       data-testid="img-testimonial-company-logo"
                     />
                   </div>
@@ -769,7 +762,7 @@ function TestimonialsSection() {
                 key={index}
                 onClick={() => setCurrentIndex(index)}
                 className={`w-2 h-2 rounded-full transition-colors ${
-                  index === currentIndex ? "bg-[#33C3F0]" : "bg-white/30"
+                  index === currentIndex ? "bg-primary" : "bg-primary/30"
                 }`}
                 aria-label={`Go to testimonial ${index + 1}`}
                 data-testid={`button-testimonial-dot-${index}`}

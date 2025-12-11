@@ -246,11 +246,11 @@ function ContactFormSection() {
             method="POST" 
             acceptCharset="UTF-8"
           >
-            <input type="text" style={{ display: 'none' }} name="xnQsjsdp" defaultValue="593bb5a62e5f5409baa9ec026461975948e2a01a02ae2f216d594b385ff2323d" />
+            <input type="text" style={{ display: 'none' }} name="xnQsjsdp" defaultValue="cc9cef7215845fdc5085f4f913be79c0ddc756b44a0f3f50a75c0b998844413b" />
             <input type="hidden" name="zc_gad" id="zc_gad" defaultValue="" />
-            <input type="text" style={{ display: 'none' }} name="xmIwtLD" defaultValue="c87fd8d2e2738822b5cefd78d54302c3ca9c9a09537961b6229a120b0c4df63cd1cdb7ae09b47d5ca6f240ceda2cac20" />
+            <input type="text" style={{ display: 'none' }} name="xmIwtLD" defaultValue="76cf845645cc0079849ff9635a862120e90a99538df18a3951b1a984b2f9afbff6e34abf9e201c187dcde73847a3f090" />
             <input type="text" style={{ display: 'none' }} name="actionType" defaultValue="TGVhZHM=" />
-            <input type="text" style={{ display: 'none' }} name="returnURL" defaultValue="null" />
+            <input type="text" style={{ display: 'none' }} name="returnURL" defaultValue="https://vertisjm.com" />
             <input type="text" style={{ display: 'none' }} id="ldeskuid" name="ldeskuid" />
             <input type="text" style={{ display: 'none' }} id="LDTuvid" name="LDTuvid" />
 

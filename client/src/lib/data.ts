@@ -268,34 +268,6 @@ export const partners: Partner[] = [
 export const testimonials: Testimonial[] = [
   {
     id: "1",
-    quote: "Vertis Technology transformed our IT infrastructure. Their managed services have reduced our downtime by 95% and their team is always responsive to our needs. They truly understand the challenges of running a modern enterprise.",
-    name: "Marcus Johnson",
-    role: "Chief Technology Officer",
-    company: "Caribbean Financial Group"
-  },
-  {
-    id: "2",
-    quote: "The network redesign project was executed flawlessly. Our employees now have reliable connectivity across all locations, and the new VoIP system has cut our communication costs significantly. Exceptional service!",
-    name: "Sandra Williams",
-    role: "IT Director",
-    company: "Island Manufacturing Ltd."
-  },
-  {
-    id: "3",
-    quote: "When we needed to migrate to the cloud, Vertis made the transition seamless. Their expertise in Microsoft 365 and Azure helped us modernize without disrupting our operations. A trusted partner for any IT initiative.",
-    name: "David Chen",
-    role: "Operations Manager",
-    company: "Kingston Logistics Inc."
-  },
-  {
-    id: "4",
-    quote: "The cybersecurity assessment revealed vulnerabilities we didn't know existed. Vertis implemented a comprehensive security framework that now protects our sensitive financial data. Their SOC team gives us peace of mind.",
-    name: "Patricia Morrison",
-    role: "VP of Information Security",
-    company: "First Regional Credit Union"
-  },
-  {
-    id: "5",
     quote: "We needed a SD-WAN solution to be implemented to meet the needs of our infrastructure. Vertis Technology Solutions Ltd partnered with us to implement the solution across our locations. THANK YOU, VERTIS!",
     name: "Fabian Webb",
     role: "IT Manager",
@@ -303,7 +275,7 @@ export const testimonials: Testimonial[] = [
     companyLogo: "https://jtacreditunion.com/storage/storage/upload/medialibrary/April2025/jljVeJsLz8p7YKUuBygaPtFaN7ZJsWcgOjmVv6MX.png"
   },
   {
-    id: "6",
+    id: "2",
     quote: "For me being able to rely completely on your partner, is probably the single most important thing, and that for me has been a differentiator for Vertis. Vertis has not let me down, and I don't believe it's in them to let a customer down.",
     name: "Shane Monroe",
     role: "IT Manager",

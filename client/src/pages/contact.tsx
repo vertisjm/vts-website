@@ -23,19 +23,39 @@ function HeroSection() {
 
 function ContactFormSection() {
   useEffect(() => {
+    const container = document.getElementById('zoho-form-container');
+    if (!container) return;
+
     // Load Zoho CRM embedded form script
     const existingScript = document.getElementById('formScript1691948000001924023');
     if (!existingScript) {
       const script = document.createElement('script');
       script.id = 'formScript1691948000001924023';
       script.src = 'https://crm.zoho.com/crm/WebFormServeServlet?rid=b3a0f7daf5aedb76f2693b3c0e047472ed4fd2c2bacf36385d6544170cdbd4abac463ab40bbd1b8a2d99a3e7cc544fadgide85762870958b64b609dcd94fdcabf79a2d430b6ba6c56168bde1a6662f02a85&script=$sYG';
-      const container = document.getElementById('zoho-form-container');
-      if (container) {
-        container.appendChild(script);
-      }
+      document.body.appendChild(script);
     }
 
+    // Watch for the Zoho form to be added and move it to our container
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        Array.from(mutation.addedNodes).forEach((node) => {
+          if (node instanceof HTMLElement) {
+            // Check if this is the Zoho form container
+            const zohoForm = node.querySelector?.('#crmWebToEntityForm') || 
+                           (node.id === 'crmWebToEntityForm' ? node : null);
+            if (zohoForm) {
+              container.appendChild(node);
+              observer.disconnect();
+            }
+          }
+        });
+      });
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
     return () => {
+      observer.disconnect();
       const script = document.getElementById('formScript1691948000001924023');
       if (script) {
         script.remove();

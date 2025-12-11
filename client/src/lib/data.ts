@@ -289,6 +289,14 @@ export const testimonials: Testimonial[] = [
     role: "IT Manager",
     company: "Sangster's International Airport",
     companyLogo: "https://www.mbjairport.com/template/logo2019.png"
+  },
+  {
+    id: "4",
+    quote: "Vertis solved our network security needs with the implementation of a Unified Threat Management device that improved our security exponentially. Vertis attention to detail is quite refreshing.",
+    name: "Steven Mullings",
+    role: "IT Manager",
+    company: "Purity Bakery",
+    companyLogo: "https://vertisjm.com/wp-content/uploads/2025/02/purity.png"
   }
 ];
 

@@ -564,14 +564,14 @@ function ContactInfoSection() {
         <CardContent className="p-0 overflow-hidden">
           <div className="aspect-[4/3] bg-muted">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1897.2!2d-76.7877!3d18.0085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8edb3f8d9c8a2f1b%3A0x0!2sBraemar%20Avenue%2C%20Kingston%2010%2C%20Jamaica!5e0!3m2!1sen!2s!4v1702234567890"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d946.7!2d-76.78847!3d18.00827!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8edb3f77c5b2f9e5%3A0x4c5b4c5b4c5b4c5b!2s1b%20Braemar%20Avenue%2C%20Kingston%2010%2C%20Jamaica!5e0!3m2!1sen!2sjm!4v1702234567890!5m2!1sen!2sjm"
               width="100%"
               height="100%"
               style={{ border: 0 }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Vertis Technology Office Location"
+              title="Vertis Technology Office - 1b Braemar Avenue, Kingston 10, Jamaica"
               className="rounded-b-lg"
             />
           </div>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, ChevronDown, Server, Network, Shield, Cloud, Users, Info, Star, Code, Handshake } from "lucide-react";
+import { Menu, ChevronDown, Server, Network, Shield, Cloud, Users, Info, Star, Code, Handshake, HardDrive } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "./theme-toggle";
 import {
@@ -36,6 +36,7 @@ const serviceAnchors = [
   { id: "cloud-services", label: "Cloud Services", icon: Cloud },
   { id: "application-development", label: "Application Development", icon: Code },
   { id: "staff-augmentation", label: "IT Staff Augmentation", icon: Users },
+  { id: "backup-as-a-service", label: "Backup as a Service (BaaS)", icon: HardDrive },
 ];
 
 function scrollToSection(hash: string) {

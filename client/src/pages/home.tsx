@@ -647,7 +647,9 @@ function PartnersSection() {
               <img
                 src={partner.logo}
                 alt={`${partner.name} logo`}
-                className={`w-auto max-w-full object-contain opacity-80 group-hover:opacity-100 transition-opacity brightness-0 invert ${
+                className={`w-auto max-w-full object-contain opacity-80 group-hover:opacity-100 transition-opacity ${
+                  partner.id === "veeam" ? "" : "brightness-0 invert"
+                } ${
                   ["synology", "cisco", "vmware"].includes(partner.id) ? "h-12 sm:h-14" : "h-8 sm:h-10"
                 }`}
               />

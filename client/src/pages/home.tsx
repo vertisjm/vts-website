@@ -554,7 +554,19 @@ function ServicesSection() {
                         variant="ghost" 
                         size="sm" 
                         className="gap-2 -ml-3 mt-2"
-                        onClick={() => setExpandedService(isExpanded ? null : service.id)}
+                        onClick={() => {
+                          if (!isExpanded) {
+                            setExpandedService(service.id);
+                            setTimeout(() => {
+                              const card = document.getElementById(`service-card-${service.id}`);
+                              if (card) {
+                                card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                              }
+                            }, 100);
+                          } else {
+                            setExpandedService(null);
+                          }
+                        }}
                         data-testid={`button-toggle-${service.id}`}
                       >
                         {isExpanded ? 'Show Less' : 'Learn More'}

@@ -4,10 +4,8 @@ import { ArrowRight, Server, Network, Shield, Cloud, Users, CheckCircle, Quote, 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { services, partners, testimonials as fallbackTestimonials, companyStats, industries } from "@/lib/data";
+import { services, partners, testimonials, companyStats, industries } from "@/lib/data";
 import { useState, useEffect, useRef } from "react";
-import { useQuery } from "@tanstack/react-query";
-import type { TestimonialRecord } from "@shared/schema";
 
 import heroImage1 from "@assets/stock_images/black_professionals__57cc3629.jpg";
 import heroImage2 from "@assets/stock_images/black_professionals__5b030cf6.jpg";
@@ -663,14 +661,6 @@ function PartnersSection() {
 
 function TestimonialsSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  
-  const { data: dbTestimonials } = useQuery<TestimonialRecord[]>({
-    queryKey: ["/api/testimonials"],
-  });
-
-  const testimonials = dbTestimonials && dbTestimonials.length > 0 
-    ? dbTestimonials 
-    : fallbackTestimonials;
 
   useEffect(() => {
     if (testimonials.length > 0) {

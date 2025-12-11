@@ -301,6 +301,14 @@ export const testimonials: Testimonial[] = [
     role: "IT Manager",
     company: "JTA Credit Union",
     companyLogo: "https://jtacreditunion.com/storage/storage/upload/medialibrary/April2025/jljVeJsLz8p7YKUuBygaPtFaN7ZJsWcgOjmVv6MX.png"
+  },
+  {
+    id: "6",
+    quote: "For me being able to rely completely on your partner, is probably the single most important thing, and that for me has been a differentiator for Vertis. Vertis has not let me down, and I don't believe it's in them to let a customer down.",
+    name: "Shane Monroe",
+    role: "IT Manager",
+    company: "Sangster's International Airport",
+    companyLogo: "https://www.mbjairport.com/template/logo2019.png"
   }
 ];
 

@@ -144,8 +144,8 @@ function ContactFormSection() {
     };
 
     (window as any).checkMandatory1691948000001924023 = function() {
-      const mndFileds = ['Company', 'Last Name'];
-      const fldLangVal = ['Company', 'Last Name'];
+      const mndFileds = ['Company', 'Last Name', 'Email'];
+      const fldLangVal = ['Company', 'Last Name', 'Email'];
       const form = document.forms['WebToLeads1691948000001924023' as any];
       
       for (let i = 0; i < mndFileds.length; i++) {
@@ -405,10 +405,10 @@ function ContactFormSection() {
 
             <div className="zcwf_row">
               <div className="zcwf_col_lab">
-                <label htmlFor="Email">Email</label>
+                <label htmlFor="Email">Email <span className="text-destructive">*</span></label>
               </div>
               <div className="zcwf_col_fld">
-                <input type="text" id="Email" aria-required="false" aria-label="Email" name="Email" maxLength={100} data-testid="input-email" />
+                <input type="text" id="Email" aria-required="true" aria-label="Email" name="Email" maxLength={100} data-testid="input-email" required />
               </div>
             </div>
 

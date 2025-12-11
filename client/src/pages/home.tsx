@@ -1,6 +1,6 @@
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { ArrowRight, Server, Network, Shield, Cloud, Users, CheckCircle, Quote, Target, Eye, Award, Building2, Briefcase, Headphones, Clock, ExternalLink, Zap, Star, Code, Landmark, Heart, Factory, Truck, ShoppingCart, GraduationCap } from "lucide-react";
+import { ArrowRight, Server, Network, Shield, Cloud, Users, CheckCircle, Quote, Target, Eye, Award, Building2, Briefcase, Headphones, Clock, ExternalLink, Zap, Star, Code, Landmark, Heart, Factory, Truck, ShoppingCart, GraduationCap, HardDrive } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -15,7 +15,7 @@ import techInnovationImage from "@assets/stock_images/technology_innovatio_c4bf1
 const heroImages = [heroImage1, heroImage2, heroImage3];
 
 const serviceIcons: Record<string, typeof Server> = {
-  Server, Network, Shield, Cloud, Users, Code
+  Server, Network, Shield, Cloud, Users, Code, HardDrive
 };
 
 const industryIcons: Record<string, typeof Server> = {

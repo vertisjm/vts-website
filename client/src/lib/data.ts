@@ -150,6 +150,31 @@ export const services: Service[] = [
     ],
     technologies: ["Microsoft", "Dell", "HP", "Cisco", "Various Platforms"],
     icon: "Users"
+  },
+  {
+    id: "backup-as-a-service",
+    title: "Vertis Backup as a Service (BaaS)",
+    shortDescription: "Enterprise backup and disaster recovery with ransomware protection.",
+    description: "Protect your critical business data with our comprehensive Backup as a Service solution. We provide enterprise-grade backup, disaster recovery, and ransomware protection for servers and applications, ensuring business continuity and rapid recovery when you need it most.",
+    features: [
+      "Automated Server & Application Backup",
+      "Ransomware Detection & Protection",
+      "Instant VM Recovery",
+      "Offsite & Cloud Backup Replication",
+      "Bare Metal Recovery",
+      "Application-Aware Backup (SQL, Exchange, SharePoint)",
+      "Backup Monitoring & Reporting",
+      "Recovery Point & Time Objectives (RPO/RTO) Management"
+    ],
+    benefits: [
+      "Protect against ransomware with immutable backups",
+      "Minimize downtime with rapid disaster recovery",
+      "Ensure compliance with data retention requirements",
+      "Reduce risk of data loss with automated backups",
+      "Achieve peace of mind with tested recovery procedures"
+    ],
+    technologies: ["Veeam", "Azure", "Synology", "Dell", "Microsoft 365"],
+    icon: "HardDrive"
   }
 ];
 

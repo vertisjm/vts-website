@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -21,64 +20,9 @@ function HeroSection() {
   );
 }
 
-function ContactFormSection() {
-  useEffect(() => {
-    const container = document.getElementById('zoho-form-container');
-    if (!container) return;
-
-    // Load Zoho CRM embedded form script
-    const existingScript = document.getElementById('formScript1691948000001924023');
-    if (!existingScript) {
-      const script = document.createElement('script');
-      script.id = 'formScript1691948000001924023';
-      script.src = 'https://crm.zoho.com/crm/WebFormServeServlet?rid=b3a0f7daf5aedb76f2693b3c0e047472ed4fd2c2bacf36385d6544170cdbd4abac463ab40bbd1b8a2d99a3e7cc544fadgide85762870958b64b609dcd94fdcabf79a2d430b6ba6c56168bde1a6662f02a85&script=$sYG';
-      document.body.appendChild(script);
-    }
-
-    // Watch for the Zoho form to be added and move it to our container
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        Array.from(mutation.addedNodes).forEach((node) => {
-          if (node instanceof HTMLElement) {
-            // Check if this is the Zoho form container
-            const zohoForm = node.querySelector?.('#crmWebToEntityForm') || 
-                           (node.id === 'crmWebToEntityForm' ? node : null);
-            if (zohoForm) {
-              container.appendChild(node);
-              observer.disconnect();
-            }
-          }
-        });
-      });
-    });
-
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    return () => {
-      observer.disconnect();
-      const script = document.getElementById('formScript1691948000001924023');
-      if (script) {
-        script.remove();
-      }
-    };
-  }, []);
-
-  return (
-    <Card id="contact-form" data-testid="card-contact-form">
-      <CardContent className="p-8">
-        <h2 className="text-2xl font-bold mb-6">Send Us a Message</h2>
-        
-        <div id="zoho-form-container" data-testid="zoho-form-container">
-          {/* Zoho CRM embedded form will be loaded here */}
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
 function ContactInfoSection() {
   return (
-    <div className="space-y-6">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
       <Card data-testid="card-contact-info">
         <CardContent className="p-6">
           <h3 className="text-lg font-semibold mb-6">Contact Information</h3>
@@ -138,18 +82,18 @@ function ContactInfoSection() {
       </Card>
 
       <Card data-testid="card-map">
-        <CardContent className="p-0 overflow-hidden">
-          <div className="aspect-[4/3] bg-muted">
+        <CardContent className="p-0 overflow-hidden h-full">
+          <div className="h-full min-h-[300px] bg-muted">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1897.2!2d-76.7877!3d18.0085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8edb3f8d9c8a2f1b%3A0x0!2sBraemar%20Avenue%2C%20Kingston%2010%2C%20Jamaica!5e0!3m2!1sen!2s!4v1702234567890"
               width="100%"
               height="100%"
-              style={{ border: 0 }}
+              style={{ border: 0, minHeight: '300px' }}
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               title="Vertis Technology Office Location"
-              className="rounded-b-lg"
+              className="rounded-lg"
             />
           </div>
         </CardContent>
@@ -159,30 +103,12 @@ function ContactInfoSection() {
 }
 
 export default function Contact() {
-  useEffect(() => {
-    if (window.location.hash === '#contact-form') {
-      setTimeout(() => {
-        const form = document.getElementById('contact-form');
-        if (form) {
-          form.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 100);
-    }
-  }, []);
-
   return (
     <>
       <HeroSection />
       <section className="py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-            <div className="lg:col-span-3">
-              <ContactFormSection />
-            </div>
-            <div className="lg:col-span-2">
-              <ContactInfoSection />
-            </div>
-          </div>
+          <ContactInfoSection />
         </div>
       </section>
     </>

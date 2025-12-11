@@ -172,11 +172,11 @@ export function Footer() {
               <li className="flex items-center gap-3">
                 <Mail className="h-5 w-5 flex-shrink-0 opacity-80" />
                 <a 
-                  href="mailto:info@vertisjm.com" 
+                  href="mailto:sales@vertisjm.com" 
                   className="text-sm opacity-80 hover:opacity-100 transition-opacity"
                   data-testid="footer-link-email"
                 >
-                  info@vertisjm.com
+                  sales@vertisjm.com
                 </a>
               </li>
             </ul>

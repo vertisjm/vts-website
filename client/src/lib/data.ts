@@ -293,6 +293,14 @@ export const testimonials: Testimonial[] = [
     name: "Patricia Morrison",
     role: "VP of Information Security",
     company: "First Regional Credit Union"
+  },
+  {
+    id: "5",
+    quote: "We needed a SD-WAN solution to be implemented to meet the needs of our infrastructure. Vertis Technology Solutions Ltd partnered with us to implement the solution across our locations. THANK YOU, VERTIS!",
+    name: "Fabian Webb",
+    role: "IT Manager",
+    company: "JTA Credit Union",
+    companyLogo: "https://jtacreditunion.com/storage/storage/upload/medialibrary/April2025/jljVeJsLz8p7YKUuBygaPtFaN7ZJsWcgOjmVv6MX.png"
   }
 ];
 

@@ -582,6 +582,21 @@ function ContactInfoSection() {
 }
 
 export default function Contact() {
+  useEffect(() => {
+    if (window.location.hash === "#contact-form") {
+      setTimeout(() => {
+        const formElement = document.getElementById("contact-form");
+        if (formElement) {
+          formElement.scrollIntoView({ behavior: "smooth", block: "start" });
+          const firstInput = formElement.querySelector("input[type='text']") as HTMLInputElement;
+          if (firstInput) {
+            firstInput.focus();
+          }
+        }
+      }, 100);
+    }
+  }, []);
+
   return (
     <>
       <HeroSection />

@@ -268,6 +268,14 @@ export const partners: Partner[] = [
 export const testimonials: Testimonial[] = [
   {
     id: "1",
+    quote: "Vertis was able to resolve our network concerns in one week where other service providers were saying they needed 2 months. We chose Vertis Technology Solutions Ltd, for our Managed Service partner a decision that has yielded great rewards.",
+    name: "Maurice Bolt",
+    role: "Gen. Manager - Technology & Operations",
+    company: "IronRock Insurance Company Limited",
+    companyLogo: "https://www.ironrockjamaica.com/wp-content/uploads/2019/07/IronRock-Logo-svg.png"
+  },
+  {
+    id: "2",
     quote: "We needed a SD-WAN solution to be implemented to meet the needs of our infrastructure. Vertis Technology Solutions Ltd partnered with us to implement the solution across our locations. THANK YOU, VERTIS!",
     name: "Fabian Webb",
     role: "IT Manager",
@@ -275,7 +283,7 @@ export const testimonials: Testimonial[] = [
     companyLogo: "https://jtacreditunion.com/storage/storage/upload/medialibrary/April2025/jljVeJsLz8p7YKUuBygaPtFaN7ZJsWcgOjmVv6MX.png"
   },
   {
-    id: "2",
+    id: "3",
     quote: "For me being able to rely completely on your partner, is probably the single most important thing, and that for me has been a differentiator for Vertis. Vertis has not let me down, and I don't believe it's in them to let a customer down.",
     name: "Shane Monroe",
     role: "IT Manager",

@@ -170,7 +170,7 @@ function ContactFormSection() {
   }, []);
 
   return (
-    <Card data-testid="card-contact-form">
+    <Card id="contact-form" data-testid="card-contact-form">
       <CardContent className="p-8">
         <h2 className="text-2xl font-bold mb-6">Send Us a Message</h2>
         <form 
@@ -408,6 +408,17 @@ function ContactInfoSection() {
 }
 
 export default function Contact() {
+  useEffect(() => {
+    if (window.location.hash === '#contact-form') {
+      setTimeout(() => {
+        const form = document.getElementById('contact-form');
+        if (form) {
+          form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 100);
+    }
+  }, []);
+
   return (
     <>
       <HeroSection />

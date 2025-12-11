@@ -197,7 +197,7 @@ export function Footer() {
               <a href="/#support" onClick={(e) => handleAnchorClick(e, "#support")} className="text-sm opacity-60 hover:opacity-100 transition-opacity" data-testid="footer-link-support-portal">
                 Support Portal
               </a>
-              <Link href="/contact" className="text-sm opacity-60 hover:opacity-100 transition-opacity" data-testid="footer-link-contact-us">
+              <Link href="/contact#contact-form" className="text-sm opacity-60 hover:opacity-100 transition-opacity" data-testid="footer-link-contact-us">
                 Contact
               </Link>
             </div>

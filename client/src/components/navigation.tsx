@@ -24,6 +24,7 @@ const sectionLinks = [
 
 const aboutAnchors = [
   { id: "about", label: "About Us", icon: Info, hash: "#about" },
+  { id: "team", label: "Our Team", icon: Users, hash: "#team" },
   { id: "testimonials", label: "Testimonials", icon: Star, hash: "#testimonials" },
   { id: "partners", label: "Partners", icon: Handshake, hash: "#partners" },
 ];

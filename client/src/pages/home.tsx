@@ -219,7 +219,7 @@ function AboutSection() {
             Your Trusted IT Partner in Jamaica
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            For over 50 years, Vertis Technology has been empowering businesses across Jamaica and the Caribbean with enterprise-grade IT solutions and exceptional service.
+            For over 10 years, Vertis Technology has been empowering businesses across Jamaica and the Caribbean with enterprise-grade IT solutions and exceptional service.
           </p>
         </motion.div>
 

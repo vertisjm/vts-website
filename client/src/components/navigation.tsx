@@ -129,8 +129,16 @@ export function Navigation() {
                 {serviceAnchors.map((service) => (
                   <DropdownMenuItem key={service.id} asChild>
                     <a 
-                      href="/#services" 
-                      onClick={(e) => handleAnchorClick(e, "#services")}
+                      href={`/#service-${service.id}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        if (location !== "/") {
+                          window.location.href = `/#service-${service.id}`;
+                        } else {
+                          window.dispatchEvent(new CustomEvent('expandService', { detail: service.id }));
+                          scrollToSection("#services");
+                        }
+                      }}
                       className="flex items-center gap-2 cursor-pointer" 
                       data-testid={`link-${service.id}`}
                     >

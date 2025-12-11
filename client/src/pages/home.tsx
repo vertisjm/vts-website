@@ -442,9 +442,34 @@ function TeamSection() {
 
 function ServicesSection() {
   const [expandedService, setExpandedService] = useState<string | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const handleExpandService = (e: CustomEvent<string>) => {
+      setExpandedService(e.detail);
+    };
+
+    const checkHashOnLoad = () => {
+      const hash = window.location.hash;
+      if (hash.startsWith('#service-')) {
+        const serviceId = hash.replace('#service-', '');
+        setExpandedService(serviceId);
+        setTimeout(() => {
+          sectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    };
+
+    window.addEventListener('expandService', handleExpandService as EventListener);
+    checkHashOnLoad();
+
+    return () => {
+      window.removeEventListener('expandService', handleExpandService as EventListener);
+    };
+  }, []);
 
   return (
-    <section id="services" className="py-20 lg:py-24 bg-card scroll-mt-16">
+    <section ref={sectionRef} id="services" className="py-20 lg:py-24 bg-card scroll-mt-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <motion.div 
           className="text-center mb-16"

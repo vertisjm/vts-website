@@ -444,9 +444,19 @@ function ServicesSection() {
   const [expandedService, setExpandedService] = useState<string | null>(null);
   const sectionRef = useRef<HTMLElement>(null);
 
+  const scrollToService = (serviceId: string) => {
+    setTimeout(() => {
+      const element = document.getElementById(`service-card-${serviceId}`);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
+  };
+
   useEffect(() => {
     const handleExpandService = (e: CustomEvent<string>) => {
       setExpandedService(e.detail);
+      scrollToService(e.detail);
     };
 
     const checkHashOnLoad = () => {
@@ -454,9 +464,7 @@ function ServicesSection() {
       if (hash.startsWith('#service-')) {
         const serviceId = hash.replace('#service-', '');
         setExpandedService(serviceId);
-        setTimeout(() => {
-          sectionRef.current?.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
+        scrollToService(serviceId);
       }
     };
 
@@ -493,11 +501,12 @@ function ServicesSection() {
             return (
               <motion.div
                 key={service.id}
+                id={`service-card-${service.id}`}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: serviceIndex * 0.08 }}
-                className={isExpanded ? 'md:col-span-2 lg:col-span-3' : ''}
+                className={`scroll-mt-24 ${isExpanded ? 'md:col-span-2 lg:col-span-3' : ''}`}
               >
               <Card 
                 className={`group transition-all duration-300 h-full ${!isExpanded ? 'hover-elevate' : ''}`}

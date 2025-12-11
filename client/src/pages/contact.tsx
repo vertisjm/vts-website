@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -22,29 +22,17 @@ function HeroSection() {
 }
 
 function ContactFormSection() {
-  const formContainerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (formContainerRef.current) {
-      const script = document.createElement('script');
-      script.id = 'formScript1691948000001924023';
-      script.src = 'https://crm.zoho.com/crm/WebFormServeServlet?rid=2c47216279a2bc2a883fa90944282fccc1bfa0203eacaa298cf6b2ea77fb5626bc4a868ee2742770fe265750ae30340egid552d41c43e43077ab8f8fb3def9e4141bbcd00dc0acb068c8e680b732b5b693b&script=$sYG';
-      formContainerRef.current.appendChild(script);
-
-      return () => {
-        const existingScript = document.getElementById('formScript1691948000001924023');
-        if (existingScript) {
-          existingScript.remove();
-        }
-      };
-    }
-  }, []);
-
   return (
     <Card id="contact-form" data-testid="card-contact-form">
       <CardContent className="p-8">
         <h2 className="text-2xl font-bold mb-6">Send Us a Message</h2>
-        <div ref={formContainerRef} data-testid="zoho-form-container" />
+        <iframe 
+          src="https://crm.zoho.com/crm/WebFormServeServlet?rid=2c47216279a2bc2a883fa90944282fccc1bfa0203eacaa298cf6b2ea77fb5626bc4a868ee2742770fe265750ae30340egid552d41c43e43077ab8f8fb3def9e4141bbcd00dc0acb068c8e680b732b5b693b"
+          title="Contact Form"
+          className="w-full border-0"
+          style={{ minHeight: '600px' }}
+          data-testid="zoho-form-iframe"
+        />
       </CardContent>
     </Card>
   );

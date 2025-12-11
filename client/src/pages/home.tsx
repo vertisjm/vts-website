@@ -333,7 +333,8 @@ const keyEmployees = [
     name: "Cassandra-Leigh Masters",
     role: "Service Delivery Manager",
     initials: "CM",
-    image: cassandraLeighImg
+    image: cassandraLeighImg,
+    imageClass: "object-[center_20%]"
   },
   {
     name: "Sanjay Stephens",

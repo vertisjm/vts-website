@@ -22,17 +22,325 @@ function HeroSection() {
 }
 
 function ContactFormSection() {
+  useEffect(() => {
+    const validateEmail = () => {
+      const form = document.forms.namedItem('WebToLeads1691948000001924023');
+      if (!form) return true;
+      const emailFld = form.querySelectorAll('[ftype=email]');
+      for (let i = 0; i < emailFld.length; i++) {
+        const emailInput = emailFld[i] as HTMLInputElement;
+        const emailVal = emailInput.value;
+        if (emailVal.replace(/^\s+|\s+$/g, '').length !== 0) {
+          const atpos = emailVal.indexOf('@');
+          const dotpos = emailVal.lastIndexOf('.');
+          if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= emailVal.length) {
+            alert('Please enter a valid email address.');
+            emailInput.focus();
+            return false;
+          }
+        }
+      }
+      return true;
+    };
+
+    const checkMandatory = (e: Event) => {
+      const mndFields = ['Company', 'Last Name'];
+      const fldLangVal = ['Company', 'Last Name'];
+      const form = document.forms.namedItem('WebToLeads1691948000001924023');
+      if (!form) return true;
+
+      for (let i = 0; i < mndFields.length; i++) {
+        const fieldObj = form.elements.namedItem(mndFields[i]) as HTMLInputElement;
+        if (fieldObj) {
+          if (fieldObj.value.replace(/^\s+|\s+$/g, '').length === 0) {
+            if (fieldObj.type === 'file') {
+              alert('Please select a file to upload.');
+              fieldObj.focus();
+              e.preventDefault();
+              return false;
+            }
+            alert(fldLangVal[i] + ' cannot be empty.');
+            fieldObj.focus();
+            e.preventDefault();
+            return false;
+          } else if (fieldObj.nodeName === 'SELECT') {
+            if ((fieldObj as unknown as HTMLSelectElement).options[(fieldObj as unknown as HTMLSelectElement).selectedIndex].value === '-None-') {
+              alert(fldLangVal[i] + ' cannot be none.');
+              fieldObj.focus();
+              e.preventDefault();
+              return false;
+            }
+          } else if (fieldObj.type === 'checkbox') {
+            if (!fieldObj.checked) {
+              alert('Please accept ' + fldLangVal[i]);
+              fieldObj.focus();
+              e.preventDefault();
+              return false;
+            }
+          }
+        }
+      }
+
+      if (!validateEmail()) {
+        e.preventDefault();
+        return false;
+      }
+
+      try {
+        const $zoho = (window as any).$zoho;
+        if ($zoho && $zoho.salesiq) {
+          const LDTuvidObj = form.elements.namedItem('LDTuvid') as HTMLInputElement;
+          if (LDTuvidObj && $zoho.salesiq.visitor?.uniqueid) {
+            LDTuvidObj.value = $zoho.salesiq.visitor.uniqueid();
+          }
+          let name = '';
+          const lastnameObj = form.elements.namedItem('Last Name') as HTMLInputElement;
+          if (lastnameObj) {
+            name = lastnameObj.value;
+          }
+          const firstnameObj = form.elements.namedItem('First Name') as HTMLInputElement;
+          if (firstnameObj) {
+            name = firstnameObj.value + ' ' + name;
+          }
+          if ($zoho.salesiq.visitor?.name) {
+            $zoho.salesiq.visitor.name(name);
+          }
+          const emailObj = form.elements.namedItem('Email') as HTMLInputElement;
+          if (emailObj && $zoho.salesiq.visitor?.email) {
+            $zoho.salesiq.visitor.email(emailObj.value);
+          }
+        }
+      } catch (err) {
+        console.error(err);
+      }
+
+      return true;
+    };
+
+    const form = document.getElementById('webform1691948000001924023');
+    if (form) {
+      form.addEventListener('submit', checkMandatory);
+    }
+
+    return () => {
+      if (form) {
+        form.removeEventListener('submit', checkMandatory);
+      }
+    };
+  }, []);
+
   return (
     <Card id="contact-form" data-testid="card-contact-form">
       <CardContent className="p-8">
         <h2 className="text-2xl font-bold mb-6">Send Us a Message</h2>
-        <iframe 
-          src="https://crm.zoho.com/crm/WebFormServeServlet?rid=2c47216279a2bc2a883fa90944282fccc1bfa0203eacaa298cf6b2ea77fb5626bc4a868ee2742770fe265750ae30340egid552d41c43e43077ab8f8fb3def9e4141bbcd00dc0acb068c8e680b732b5b693b"
-          title="Contact Form"
-          className="w-full border-0"
-          style={{ minHeight: '600px' }}
-          data-testid="zoho-form-iframe"
-        />
+        
+        <style dangerouslySetInnerHTML={{ __html: `
+          #crmWebToEntityForm.zcwf_lblLeft {
+            width: 100%;
+            box-sizing: border-box;
+          }
+          #crmWebToEntityForm.zcwf_lblLeft * {
+            box-sizing: border-box;
+          }
+          #crmWebToEntityForm {
+            text-align: left;
+          }
+          #crmWebToEntityForm * {
+            direction: ltr;
+          }
+          .zcwf_lblLeft .zcwf_title {
+            word-wrap: break-word;
+            padding: 0px 6px 10px;
+            font-weight: bold;
+          }
+          .zcwf_lblLeft .zcwf_col_fld input[type=text],
+          .zcwf_lblLeft .zcwf_col_fld input[type=password],
+          .zcwf_lblLeft .zcwf_col_fld textarea {
+            width: 100%;
+            border: 1px solid hsl(var(--border)) !important;
+            resize: vertical;
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-size: 14px;
+            background: hsl(var(--background));
+            color: hsl(var(--foreground));
+          }
+          .zcwf_lblLeft .zcwf_col_fld input:focus,
+          .zcwf_lblLeft .zcwf_col_fld textarea:focus {
+            outline: none;
+            border-color: hsl(var(--primary)) !important;
+            box-shadow: 0 0 0 2px hsl(var(--primary) / 0.2);
+          }
+          .zcwf_lblLeft .zcwf_col_lab {
+            word-break: break-word;
+            padding: 0px 0px 6px;
+            font-size: 14px;
+            font-weight: 500;
+            color: hsl(var(--foreground));
+          }
+          .zcwf_lblLeft .zcwf_col_fld {
+            width: 100%;
+            padding: 0px;
+            position: relative;
+            margin-bottom: 16px;
+          }
+          .zcwf_lblLeft .wfrm_fld_dpNn {
+            display: none;
+          }
+          .zcwf_lblLeft .zcwf_col_fld_slt {
+            width: 100%;
+            border: 1px solid hsl(var(--border));
+            background: hsl(var(--background));
+            border-radius: 6px;
+            font-size: 14px;
+            padding: 8px 12px;
+            color: hsl(var(--foreground));
+          }
+          .zcwf_lblLeft .zcwf_row {
+            margin: 0 0 16px 0;
+          }
+          .zcwf_lblLeft .zcwf_col_help {
+            display: none;
+          }
+          .zcwf_lblLeft .formsubmit {
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            padding: 10px 24px;
+            border-radius: 6px;
+            transition: all 0.2s;
+          }
+          .zcwf_lblLeft .formsubmit.zcwf_button {
+            color: white !important;
+            background: hsl(var(--primary));
+            border: none;
+          }
+          .zcwf_lblLeft .formsubmit.zcwf_button:hover {
+            opacity: 0.9;
+          }
+          .zcwf_lblLeft .zcwf_button {
+            font-size: 14px;
+            color: hsl(var(--foreground));
+            border: 1px solid hsl(var(--border));
+            padding: 10px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            background: transparent;
+            margin-left: 8px;
+          }
+          .zcwf_lblLeft .zcwf_button:hover {
+            background: hsl(var(--muted));
+          }
+          .zcwf_row-buttons {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+          }
+        `}} />
+
+        <div id="crmWebToEntityForm" className="zcwf_lblLeft crmWebToEntityForm">
+          <form 
+            id="webform1691948000001924023" 
+            action="https://crm.zoho.com/crm/WebToLeadForm" 
+            name="WebToLeads1691948000001924023" 
+            method="POST" 
+            acceptCharset="UTF-8"
+          >
+            <input type="text" style={{ display: 'none' }} name="xnQsjsdp" defaultValue="593bb5a62e5f5409baa9ec026461975948e2a01a02ae2f216d594b385ff2323d" />
+            <input type="hidden" name="zc_gad" id="zc_gad" defaultValue="" />
+            <input type="text" style={{ display: 'none' }} name="xmIwtLD" defaultValue="c87fd8d2e2738822b5cefd78d54302c3ca9c9a09537961b6229a120b0c4df63cd1cdb7ae09b47d5ca6f240ceda2cac20" />
+            <input type="text" style={{ display: 'none' }} name="actionType" defaultValue="TGVhZHM=" />
+            <input type="text" style={{ display: 'none' }} name="returnURL" defaultValue="null" />
+            <input type="text" style={{ display: 'none' }} id="ldeskuid" name="ldeskuid" />
+            <input type="text" style={{ display: 'none' }} id="LDTuvid" name="LDTuvid" />
+
+            <div className="zcwf_row">
+              <div className="zcwf_col_lab">
+                <label htmlFor="Company">Company <span style={{ color: 'hsl(var(--destructive))' }}>*</span></label>
+              </div>
+              <div className="zcwf_col_fld">
+                <input type="text" id="Company" aria-required="true" aria-label="Company" name="Company" maxLength={200} data-testid="input-company" />
+              </div>
+            </div>
+
+            <div className="zcwf_row">
+              <div className="zcwf_col_lab">
+                <label htmlFor="First_Name">First Name</label>
+              </div>
+              <div className="zcwf_col_fld">
+                <input type="text" id="First_Name" aria-required="false" aria-label="First Name" name="First Name" maxLength={40} data-testid="input-first-name" />
+              </div>
+            </div>
+
+            <div className="zcwf_row">
+              <div className="zcwf_col_lab">
+                <label htmlFor="Last_Name">Last Name <span style={{ color: 'hsl(var(--destructive))' }}>*</span></label>
+              </div>
+              <div className="zcwf_col_fld">
+                <input type="text" id="Last_Name" aria-required="true" aria-label="Last Name" name="Last Name" maxLength={80} data-testid="input-last-name" />
+              </div>
+            </div>
+
+            <div className="zcwf_row">
+              <div className="zcwf_col_lab">
+                <label htmlFor="Email">Email</label>
+              </div>
+              <div className="zcwf_col_fld">
+                <input type="text" id="Email" aria-required="false" aria-label="Email" name="Email" maxLength={100} data-testid="input-email" />
+              </div>
+            </div>
+
+            <div className="zcwf_row">
+              <div className="zcwf_col_lab">
+                <label htmlFor="Phone">Phone</label>
+              </div>
+              <div className="zcwf_col_fld">
+                <input type="text" id="Phone" aria-required="false" aria-label="Phone" name="Phone" maxLength={30} data-testid="input-phone" />
+              </div>
+            </div>
+
+            <div className="zcwf_row wfrm_fld_dpNn">
+              <div className="zcwf_col_lab">
+                <label htmlFor="Lead_Source">Lead Source</label>
+              </div>
+              <div className="zcwf_col_fld">
+                <select className="zcwf_col_fld_slt" id="Lead_Source" aria-required="false" aria-label="Lead Source" name="Lead Source" defaultValue="OnlineStore">
+                  <option value="-None-">-None-</option>
+                  <option value="Advertisement">Advertisement</option>
+                  <option value="Cold Call">Cold Call</option>
+                  <option value="Employee Referral">Employee Referral</option>
+                  <option value="External Referral">External Referral</option>
+                  <option value="OnlineStore">OnlineStore</option>
+                  <option value="Partner">Partner</option>
+                  <option value="Public Relations">Public Relations</option>
+                  <option value="Sales Mail Alias">Sales Mail Alias</option>
+                  <option value="Seminar Partner">Seminar Partner</option>
+                  <option value="Seminar-Internal">Seminar-Internal</option>
+                  <option value="Trade Show">Trade Show</option>
+                  <option value="Web Download">Web Download</option>
+                  <option value="Web Research">Web Research</option>
+                  <option value="Chat">Chat</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="zcwf_row">
+              <div className="zcwf_col_lab">
+                <label htmlFor="Description">Message</label>
+              </div>
+              <div className="zcwf_col_fld">
+                <textarea id="Description" aria-required="false" aria-label="Description" name="Description" rows={4} data-testid="textarea-message" />
+              </div>
+            </div>
+
+            <input type="hidden" name="aG9uZXlwb3Q" defaultValue="" />
+
+            <div className="zcwf_row zcwf_row-buttons">
+              <input type="submit" id="formsubmit" className="formsubmit zcwf_button" value="Submit" aria-label="Submit" title="Submit" data-testid="button-submit" />
+              <input type="reset" className="zcwf_button" name="reset" value="Reset" aria-label="Reset" title="Reset" data-testid="button-reset" />
+            </div>
+          </form>
+        </div>
       </CardContent>
     </Card>
   );

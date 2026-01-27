@@ -5,6 +5,7 @@ import { blogPosts } from "@/lib/data";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { SEO } from "@/components/seo";
 
 export default function BlogPost() {
   const { slug } = useParams<{ slug: string }>();
@@ -87,6 +88,10 @@ export default function BlogPost() {
   if (!post) {
     return (
       <div className="bg-background">
+        <SEO 
+          title="Article Not Found | Vertis Technology"
+          description="The article you're looking for doesn't exist or has been moved."
+        />
         <div className="container mx-auto px-4 py-20 text-center">
           <h1 className="text-3xl font-bold text-foreground mb-4">Article Not Found</h1>
           <p className="text-muted-foreground mb-8">
@@ -105,6 +110,15 @@ export default function BlogPost() {
 
   return (
     <div className="bg-background">
+      <SEO 
+        title={`${post.title} | Vertis Technology Blog`}
+        description={post.excerpt}
+        canonical={`https://vertisjm.com/blog/${post.slug}`}
+        type="article"
+        publishedTime={post.publishedDate}
+        author={post.author}
+        keywords={`${post.category}, IT services Jamaica, ${post.title.toLowerCase().split(' ').slice(0, 3).join(', ')}`}
+      />
       <section className="relative py-16 bg-gradient-to-br from-[#0B1F3A] via-[#1755B5] to-[#0B1F3A] overflow-hidden">
         <div className="absolute inset-0 bg-black/30" />
         <div className="container mx-auto px-4 relative z-10">

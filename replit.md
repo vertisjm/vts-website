@@ -24,6 +24,8 @@ The website is a single-page application with anchor-based navigation:
 - **Separate Pages:**
   - **/contact** - Contact form (submits to Zoho CRM WebToLead)
   - **/careers** - Job board with Zoho Recruit integration
+  - **/blog** - Blog listing page with featured and regular articles
+  - **/blog/:slug** - Individual blog post pages with full article content
 
 ## User Preferences
 

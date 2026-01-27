@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Users, Lightbulb, TrendingUp, Heart } from "lucide-react";
+import { SEO } from "@/components/seo";
 
 const benefits = [
   {
@@ -71,6 +72,12 @@ export default function Careers() {
 
   return (
     <>
+      <SEO 
+        title="Careers at Vertis Technology | IT Jobs in Jamaica"
+        description="Join the Vertis Technology team. Explore career opportunities in IT support, cybersecurity, cloud services, and more. Build your future with Jamaica's leading managed IT services provider."
+        canonical="https://vertisjm.com/careers"
+        keywords="IT jobs Jamaica, technology careers Kingston, cybersecurity jobs Caribbean, IT support positions, managed services careers"
+      />
       <section className="py-16 lg:py-20 bg-gradient-to-br from-primary/10 via-background to-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="max-w-3xl">

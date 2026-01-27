@@ -5,6 +5,7 @@ import { blogPosts } from "@/lib/data";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { SEO } from "@/components/seo";
 
 export default function Blog() {
   const featuredPosts = blogPosts.filter(post => post.featured);
@@ -21,6 +22,12 @@ export default function Blog() {
 
   return (
     <div className="bg-background">
+      <SEO 
+        title="IT Insights & Resources | Vertis Technology Blog"
+        description="Expert insights on managed IT services, cybersecurity, cloud solutions, and technology trends for Caribbean businesses. Stay informed with Vertis Technology."
+        canonical="https://vertisjm.com/blog"
+        keywords="IT blog Jamaica, managed IT services insights, cybersecurity tips Caribbean, cloud computing guides, IT best practices"
+      />
       <section className="relative py-20 bg-gradient-to-br from-[#0B1F3A] via-[#1755B5] to-[#0B1F3A] overflow-hidden">
         <div className="absolute inset-0 bg-black/30" />
         <div className="container mx-auto px-4 relative z-10">

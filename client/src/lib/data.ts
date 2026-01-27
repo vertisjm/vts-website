@@ -368,8 +368,8 @@ In an era where technology drives business success, managed IT services offer a 
 
 Ready to explore how managed IT services can benefit your organization? Contact Vertis Technology to discuss your needs.
     `,
-    author: "Michael Kerr",
-    authorRole: "Solutions Architect",
+    author: "Vertis Technology, MSP",
+    authorRole: "Managed IT Services",
     publishedDate: "2025-01-15",
     category: "IT Strategy",
     readTime: "5 min read",
@@ -452,8 +452,8 @@ Ransomware protection requires a multi-layered approach combining technology, tr
 
 Need help assessing your ransomware readiness? Vertis Technology offers comprehensive security assessments and protection solutions.
     `,
-    author: "Michael Kerr",
-    authorRole: "Solutions Architect",
+    author: "Vertis Technology, MSP",
+    authorRole: "Managed IT Services",
     publishedDate: "2025-01-10",
     category: "Cybersecurity",
     readTime: "6 min read",
@@ -565,8 +565,8 @@ Cloud migration is a journey, not a destination. With proper planning and the ri
 
 Ready to start your cloud journey? Vertis Technology specializes in helping Caribbean businesses navigate cloud migration successfully.
     `,
-    author: "Michael Kerr",
-    authorRole: "Solutions Architect",
+    author: "Vertis Technology, MSP",
+    authorRole: "Managed IT Services",
     publishedDate: "2025-01-05",
     category: "Cloud Services",
     readTime: "7 min read",
@@ -686,8 +686,8 @@ Network security requires continuous attention and investment. By implementing t
 
 Need help strengthening your network security? Vertis Technology provides comprehensive security assessments and solutions.
     `,
-    author: "Michael Kerr",
-    authorRole: "Solutions Architect",
+    author: "Vertis Technology, MSP",
+    authorRole: "Managed IT Services",
     publishedDate: "2024-12-20",
     category: "Cybersecurity",
     readTime: "6 min read",
@@ -801,8 +801,8 @@ A robust backup strategy is non-negotiable for modern businesses. By understandi
 
 Vertis Technology offers Backup as a Service (BaaS) solutions that provide enterprise-grade data protection with local expertise.
     `,
-    author: "Michael Kerr",
-    authorRole: "Solutions Architect",
+    author: "Vertis Technology, MSP",
+    authorRole: "Managed IT Services",
     publishedDate: "2024-12-15",
     category: "Data Protection",
     readTime: "5 min read",
@@ -940,8 +940,8 @@ Start by understanding your critical systems and acceptable recovery times. Buil
 
 Don't wait for disaster to strike. Contact Vertis Technology today to assess your disaster recovery readiness and build a plan that protects your business.
     `,
-    author: "Michael Kerr",
-    authorRole: "Solutions Architect",
+    author: "Vertis Technology, MSP",
+    authorRole: "Managed IT Services",
     publishedDate: "2025-01-20",
     category: "Business Continuity",
     readTime: "8 min read",

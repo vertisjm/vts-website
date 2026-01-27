@@ -5,6 +5,8 @@ import { Layout } from "@/components/layout";
 import Home from "@/pages/home";
 import Contact from "@/pages/contact";
 import Careers from "@/pages/careers";
+import Blog from "@/pages/blog";
+import BlogPost from "@/pages/blog-post";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -23,6 +25,16 @@ function Router() {
       <Route path="/careers">
         <Layout>
           <Careers />
+        </Layout>
+      </Route>
+      <Route path="/blog">
+        <Layout>
+          <Blog />
+        </Layout>
+      </Route>
+      <Route path="/blog/:slug">
+        <Layout>
+          <BlogPost />
         </Layout>
       </Route>
       <Route>

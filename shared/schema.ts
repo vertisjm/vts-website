@@ -37,3 +37,17 @@ export interface CompanyStat {
   label: string;
   isStatic?: boolean;
 }
+
+export interface BlogPost {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  author: string;
+  authorRole: string;
+  publishedDate: string;
+  category: string;
+  readTime: string;
+  featured?: boolean;
+}

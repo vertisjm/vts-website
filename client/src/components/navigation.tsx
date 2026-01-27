@@ -165,6 +165,12 @@ export function Navigation() {
                 Careers
               </Button>
             </Link>
+
+            <Link href="/blog" data-testid="link-blog">
+              <Button variant={location === "/blog" || location.startsWith("/blog/") ? "secondary" : "ghost"} size="sm">
+                Blog
+              </Button>
+            </Link>
           </nav>
 
           <div className="flex items-center gap-2">
@@ -258,6 +264,14 @@ export function Navigation() {
                     <Link href="/careers" data-testid="mobile-link-careers">
                       <Button variant={location === "/careers" ? "secondary" : "ghost"} className="w-full justify-start">
                         Careers
+                      </Button>
+                    </Link>
+                  </SheetClose>
+
+                  <SheetClose asChild>
+                    <Link href="/blog" data-testid="mobile-link-blog">
+                      <Button variant={location === "/blog" || location.startsWith("/blog/") ? "secondary" : "ghost"} className="w-full justify-start">
+                        Blog
                       </Button>
                     </Link>
                   </SheetClose>

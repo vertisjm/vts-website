@@ -3,6 +3,7 @@ import { Mail, Phone, MapPin, Clock, RefreshCw } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { SEO } from "@/components/seo";
 
 function HeroSection() {
   return (
@@ -599,6 +600,12 @@ export default function Contact() {
 
   return (
     <>
+      <SEO 
+        title="Contact Vertis Technology | IT Services Jamaica"
+        description="Get in touch with Vertis Technology for managed IT services, cybersecurity solutions, and cloud services in Jamaica. Call +1 876 634-8700 or visit our Kingston office."
+        canonical="https://vertisjm.com/contact"
+        keywords="contact Vertis Technology, IT support Jamaica contact, managed IT services quote, IT consulting Kingston"
+      />
       <HeroSection />
       <section className="py-20 lg:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

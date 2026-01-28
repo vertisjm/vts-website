@@ -957,6 +957,31 @@ The Jamaica Data Protection Act (DPA) 2020 represents a significant milestone in
 
 For businesses operating in Jamaica, understanding and complying with the DPA isn't optional—it's a legal requirement with penalties up to JMD 5 million and potential imprisonment for serious violations.
 
+## Understanding Key Terms: Data Controller vs Data Processor
+
+Before diving into the requirements, it's essential to understand two key roles defined by the Act:
+
+**Data Controller**
+A data controller is any person or organization that determines the purposes and means of processing personal data. In simple terms, the controller decides *why* and *how* personal data is collected and used. Examples include:
+- A hospital that collects patient medical records
+- A retail business that maintains a customer database
+- A bank that processes loan applications
+- An employer that manages employee personnel files
+
+The data controller bears primary responsibility for compliance with the DPA, including registering with the Information Commissioner and ensuring all data protection standards are met.
+
+**Data Processor**
+A data processor is any person or organization that processes personal data on behalf of a data controller. The processor follows the controller's instructions about what to do with the data. Examples include:
+- A cloud hosting provider storing data for a business
+- A payroll company processing employee salaries
+- An IT managed service provider managing client systems
+- A marketing agency handling customer mailing lists
+
+While processors must also follow data protection requirements, the controller remains ultimately accountable for how data is handled—even when using third-party processors.
+
+**Why This Matters**
+Understanding your role is crucial because it determines your legal obligations. Many businesses act as both controllers and processors depending on the situation. For instance, Vertis Technology is a data controller for our own employee and client data, but we act as a data processor when managing IT systems and data on behalf of our clients.
+
 ## Key Takeaways from the Jamaica DPA 2020
 
 ### The Eight Data Protection Standards

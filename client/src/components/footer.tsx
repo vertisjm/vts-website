@@ -1,207 +1,135 @@
-import { Link, useLocation } from "wouter";
-import { Mail, Phone, MapPin, Linkedin, Facebook, Instagram } from "lucide-react";
-import { services, partners } from "@/lib/data";
-import vertisLogo from "@assets/vertis-logo.svg";
+import { Link } from "wouter";
+import { Facebook, Instagram, Linkedin } from "lucide-react";
+import { Logo } from "./navigation";
+import { SectionLink, SUPPORT_PORTAL_URL, contact } from "./site";
+import { industries, services } from "@/lib/data";
 
-function scrollToSection(hash: string) {
-  const element = document.querySelector(hash);
-  if (element) {
-    element.scrollIntoView({ behavior: "smooth" });
+const companyLinks = [
+  { label: "About Us", href: "/about" },
+  { label: "Our Team", href: "/about#team" },
+  { label: "Technology Partners", href: "/#partners" },
+  { label: "Insights", href: "/blog" },
+  { label: "Careers", href: "/careers" },
+  { label: "Contact", href: "/contact" },
+];
+
+const socials = [
+  { label: "LinkedIn", href: "https://jm.linkedin.com/company/vertis-technology", icon: Linkedin },
+  { label: "Facebook", href: "https://www.facebook.com/vertisjm/", icon: Facebook },
+  { label: "Instagram", href: "https://www.instagram.com/vertistechnology/", icon: Instagram },
+];
+
+const linkCls = "text-slate-pale transition-colors hover:text-white";
+
+function FooterLink({ href, children }: { href: string; children: React.ReactNode }) {
+  if (href.startsWith("/#")) {
+    return (
+      <SectionLink href={href} className={linkCls}>
+        {children}
+      </SectionLink>
+    );
   }
+  if (href.includes("#")) {
+    // A section on another page: a normal link so the browser jumps to it after loading.
+    return (
+      <a href={href} className={linkCls}>
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={linkCls}>
+      {children}
+    </Link>
+  );
+}
+
+function Column({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <div className="flex flex-col gap-2.5 text-sm">
+      <div className="mb-1.5 font-display text-sm font-semibold text-white">{title}</div>
+      {children}
+    </div>
+  );
 }
 
 export function Footer() {
-  const [location] = useLocation();
-
-  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, hash: string) => {
-    if (location === "/") {
-      e.preventDefault();
-      scrollToSection(hash);
-    }
-  };
-
   return (
-    <footer className="bg-foreground text-background">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
-          <div>
-            <div className="flex items-center gap-2 mb-6">
-              <img 
-                src={vertisLogo} 
-                alt="Vertis Technology" 
-                className="h-10 w-auto brightness-0 invert"
-              />
-            </div>
-            <p className="text-sm opacity-80 leading-relaxed mb-6">
-              Jamaica's leading Managed IT Services provider offering enterprise-grade IT support, network infrastructure, cloud solutions, and IT security consulting.
+    <footer className="bg-navy text-slate-pale">
+      <div className="mx-auto max-w-[1440px] px-5 pb-8 pt-14 sm:px-8 lg:px-20 lg:pt-[72px]">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_0.9fr_1.3fr] lg:gap-12">
+          <div className="flex flex-col gap-5">
+            <Link href="/" aria-label="Vertis Technology home">
+              <Logo onDark />
+            </Link>
+            <p className="max-w-[300px] text-[15px] leading-relaxed">
+              Enterprise technology solutions for a stronger, more resilient Caribbean.
             </p>
-            <div className="flex gap-3">
-              <a 
-                href="https://jm.linkedin.com/company/vertis-technology" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="p-2 rounded-md bg-background/10 hover:bg-background/20 transition-colors"
-                data-testid="link-linkedin"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="h-5 w-5" />
-              </a>
-              <a 
-                href="https://www.facebook.com/vertisjm/" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="p-2 rounded-md bg-background/10 hover:bg-background/20 transition-colors"
-                data-testid="link-facebook"
-                aria-label="Facebook"
-              >
-                <Facebook className="h-5 w-5" />
-              </a>
-              <a 
-                href="https://www.instagram.com/vertistechnology/?hl=en" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="p-2 rounded-md bg-background/10 hover:bg-background/20 transition-colors"
-                data-testid="link-instagram"
-                aria-label="Instagram"
-              >
-                <Instagram className="h-5 w-5" />
-              </a>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-lg mb-6">Our Services</h3>
-            <ul className="space-y-3">
-              {services.map((service) => (
-                <li key={service.id}>
-                  <a 
-                    href="/#services"
-                    onClick={(e) => handleAnchorClick(e, "#services")}
-                    className="text-sm opacity-80 hover:opacity-100 transition-opacity"
-                    data-testid={`footer-link-${service.id}`}
-                  >
-                    {service.title}
-                  </a>
-                </li>
+            <div className="flex gap-2">
+              {socials.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  className="flex h-11 w-11 items-center justify-center rounded-lg bg-white/10 text-white transition-colors hover:bg-white/20"
+                >
+                  <s.icon aria-hidden="true" className="h-[18px] w-[18px]" />
+                </a>
               ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-lg mb-6">Quick Links</h3>
-            <ul className="space-y-3">
-              <li>
-                <a 
-                  href="/#about"
-                  onClick={(e) => handleAnchorClick(e, "#about")}
-                  className="text-sm opacity-80 hover:opacity-100 transition-opacity"
-                  data-testid="footer-link-about"
-                >
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="/#partners"
-                  onClick={(e) => handleAnchorClick(e, "#partners")}
-                  className="text-sm opacity-80 hover:opacity-100 transition-opacity"
-                  data-testid="footer-link-partners"
-                >
-                  Technology Partners
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="/#support"
-                  onClick={(e) => handleAnchorClick(e, "#support")}
-                  className="text-sm opacity-80 hover:opacity-100 transition-opacity"
-                  data-testid="footer-link-support"
-                >
-                  Support
-                </a>
-              </li>
-              <li>
-                <Link 
-                  href="/careers"
-                  className="text-sm opacity-80 hover:opacity-100 transition-opacity"
-                  data-testid="footer-link-careers"
-                >
-                  Careers
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/contact"
-                  className="text-sm opacity-80 hover:opacity-100 transition-opacity"
-                  data-testid="footer-link-contact"
-                >
-                  Contact Us
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-semibold text-lg mb-6">Contact Us</h3>
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3">
-                <MapPin className="h-5 w-5 mt-0.5 flex-shrink-0 opacity-80" />
-                <span className="text-sm opacity-80">
-                  1b Braemar Avenue<br />
-                  Kingston 10, Jamaica
-                </span>
-              </li>
-              <li className="flex items-center gap-3">
-                <Phone className="h-5 w-5 flex-shrink-0 opacity-80" />
-                <a 
-                  href="tel:+18766348700" 
-                  className="text-sm opacity-80 hover:opacity-100 transition-opacity"
-                  data-testid="footer-link-phone"
-                >
-                  +1 (876) 634-8700
-                </a>
-                <br />
-                <a 
-                  href="tel:+18766348699" 
-                  className="text-sm opacity-80 hover:opacity-100 transition-opacity"
-                  data-testid="footer-link-phone-alt"
-                >
-                  +1 (876) 634-8699
-                </a>
-              </li>
-              <li className="flex items-center gap-3">
-                <Mail className="h-5 w-5 flex-shrink-0 opacity-80" />
-                <a 
-                  href="mailto:info@vertisjm.com" 
-                  className="text-sm opacity-80 hover:opacity-100 transition-opacity"
-                  data-testid="footer-link-email"
-                >
-                  info@vertisjm.com
-                </a>
-              </li>
-            </ul>
-            <div className="mt-6">
-              <p className="text-sm opacity-80 mb-2">Office Hours</p>
-              <p className="text-sm opacity-60">Monday - Friday: 8:00 AM - 5:00 PM</p>
-              <p className="text-sm opacity-60">Weekend: Emergency Support Only</p>
             </div>
           </div>
+
+          <Column title="Solutions">
+            {services.map((s) => (
+              <FooterLink key={s.id} href="/#solutions">
+                {s.title}
+              </FooterLink>
+            ))}
+          </Column>
+
+          <Column title="Industries">
+            {industries.map((i) => (
+              <FooterLink key={i} href="/#industries">
+                {i}
+              </FooterLink>
+            ))}
+          </Column>
+
+          <Column title="Company">
+            {companyLinks.map((l) => (
+              <FooterLink key={l.label} href={l.href}>
+                {l.label}
+              </FooterLink>
+            ))}
+          </Column>
+
+          <Column title="Client Support">
+            <a href={SUPPORT_PORTAL_URL} className="text-leaf-light hover:text-white">
+              Support Portal
+            </a>
+            {contact.phones.map((p) => (
+              <a key={p.href} href={p.href} className="text-white hover:text-leaf-light">
+                {p.label}
+              </a>
+            ))}
+            <a href={`mailto:${contact.email}`} className="text-white hover:text-leaf-light">
+              {contact.email}
+            </a>
+            <span className="mt-1 leading-normal">
+              {contact.addressLines[0]}, {contact.addressLines[1]}
+            </span>
+            <span className="leading-normal">
+              Mon – Fri: 8:00 AM – 5:00 PM
+              <br />
+              Weekend: Emergency Support Only
+            </span>
+          </Column>
         </div>
 
-        <div className="border-t border-background/20 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm opacity-60">
-              &copy; {new Date().getFullYear()} Vertis Technology. All rights reserved.
-            </p>
-            <div className="flex gap-6">
-              <a href="/#support" onClick={(e) => handleAnchorClick(e, "#support")} className="text-sm opacity-60 hover:opacity-100 transition-opacity" data-testid="footer-link-support-portal">
-                Support Portal
-              </a>
-              <Link href="/contact" className="text-sm opacity-60 hover:opacity-100 transition-opacity" data-testid="footer-link-contact-us">
-                Contact
-              </Link>
-            </div>
-          </div>
+        <div className="mt-12 border-t border-navy-line pt-6 text-[13px]">
+          © {new Date().getFullYear()} Vertis Technology. All rights reserved.
         </div>
       </div>
     </footer>

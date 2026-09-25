@@ -1,29 +1,42 @@
 import { useEffect, useRef } from "react";
-import { Mail, Phone, MapPin, Clock, RefreshCw } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
+import { ArrowRight, Clock, Headphones, Mail, MapPin, Phone, RefreshCw } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { industries } from "@/lib/data";
+import { Container, PageHero, PillLink, Reveal, SUPPORT_PORTAL_URL, contact, pillClass, scrollToId } from "@/components/site";
 
-function HeroSection() {
+import heroImage from "@assets/stock_images/hero-it-server-room.jpg";
+import coverageMap from "@assets/caribbean-map-light.svg";
+
+const fieldCls =
+  "h-12 w-full rounded-lg border border-line-strong bg-white px-3.5 text-[15px] text-ink placeholder:text-slate-muted focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/25";
+const labelCls = "text-sm font-semibold text-ink";
+
+function Required() {
   return (
-    <section className="py-20 lg:py-24 bg-gradient-to-br from-primary/10 via-background to-background">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl">
-          <Badge variant="secondary" className="mb-6">Contact Us</Badge>
-          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight leading-tight mb-6" data-testid="text-contact-title">
-            Let's Start a <span className="text-primary">Conversation</span>
-          </h1>
-          <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed" data-testid="text-contact-description">
-            Whether you need IT support, want to discuss a project, or simply have questions, we're here to help. Reach out and let's explore how we can support your business.
-          </p>
-        </div>
-      </div>
-    </section>
+    <span className="text-[#B42318]" aria-hidden="true">
+      {" "}*
+    </span>
   );
 }
+
+const faqs = [
+  {
+    q: "How quickly can you respond to a new enquiry?",
+    a: `Our team reviews new enquiries Monday to Friday, 8:00 AM – 5:00 PM. If you need urgent help with a system we already support, call ${contact.phones[0].label} or open a ticket in the Support Portal.`,
+  },
+  {
+    q: "Do you provide support outside of Jamaica?",
+    a: "Yes. We work with organisations across Jamaica and the wider Caribbean. Tell us where you're based and what you need, and we'll explain how we can support you.",
+  },
+  {
+    q: "What industries do you work with?",
+    a: `We serve ${industries.slice(0, -1).join(", ").toLowerCase()} and ${industries[industries.length - 1].toLowerCase()} organisations, among others.`,
+  },
+  {
+    q: "Do you offer on-site and remote support?",
+    a: "Yes. Our help desk resolves many issues remotely, and our engineers work on site for installations, infrastructure projects and problems that need hands-on attention.",
+  },
+];
 
 function ContactFormSection() {
   const captchaRef = useRef<HTMLImageElement>(null);
@@ -171,258 +184,272 @@ function ContactFormSection() {
   }, []);
 
   return (
-    <Card data-testid="card-contact-form">
-      <CardContent className="p-8">
-        <h2 className="text-2xl font-bold mb-6">Send Us a Message</h2>
-        <form 
-          id="webform1691948000001924023"
-          action="https://crm.zoho.com/crm/WebToLeadForm"
-          name="WebToLeads1691948000001924023"
-          method="POST"
-          acceptCharset="UTF-8"
-          className="space-y-6"
-          target="captchaFrame"
-        >
-          <input type="hidden" name="xnQsjsdp" value="3b5b6f9a5120a084799e7561fb70ee5fc096c127faee986b2a5b3e6b9a7c2396" />
-          <input type="hidden" name="zc_gad" id="zc_gad" value="" />
-          <input type="hidden" name="xmIwtLD" value="82dc63325867e829e189ef2e3715b723eeda9a099fc20d18651e1e176efb14e7021e53fad9c87050d7a6b2c0380137a4" />
-          <input type="hidden" name="actionType" value="TGVhZHM=" />
-          <input type="hidden" name="returnURL" value="null" />
-          <input type="hidden" id="ldeskuid" name="ldeskuid" />
-          <input type="hidden" id="LDTuvid" name="LDTuvid" />
-          <input type="hidden" name="Lead Source" value="OnlineStore" />
-          <input type="hidden" name="aG9uZXlwb3Q" value="" />
+    <div
+      className="flex flex-col gap-6 rounded-2xl border border-line bg-white p-6 shadow-[0_12px_32px_rgba(10,27,46,0.06)] sm:p-10"
+      data-testid="card-contact-form"
+    >
+      <h2 className="font-display text-2xl font-bold">Get in touch</h2>
+      <form
+        id="webform1691948000001924023"
+        action="https://crm.zoho.com/crm/WebToLeadForm"
+        name="WebToLeads1691948000001924023"
+        method="POST"
+        acceptCharset="UTF-8"
+        className="flex flex-col gap-[22px]"
+        target="captchaFrame"
+      >
+        <input type="hidden" name="xnQsjsdp" value="3b5b6f9a5120a084799e7561fb70ee5fc096c127faee986b2a5b3e6b9a7c2396" />
+        <input type="hidden" name="zc_gad" id="zc_gad" value="" />
+        <input type="hidden" name="xmIwtLD" value="82dc63325867e829e189ef2e3715b723eeda9a099fc20d18651e1e176efb14e7021e53fad9c87050d7a6b2c0380137a4" />
+        <input type="hidden" name="actionType" value="TGVhZHM=" />
+        <input type="hidden" name="returnURL" value="null" />
+        <input type="hidden" id="ldeskuid" name="ldeskuid" />
+        <input type="hidden" id="LDTuvid" name="LDTuvid" />
+        <input type="hidden" name="Lead Source" value="OnlineStore" />
+        <input type="hidden" name="aG9uZXlwb3Q" value="" />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <Label htmlFor="Company">
-                Company <span className="text-destructive">*</span>
-              </Label>
-              <Input 
-                type="text" 
-                id="Company" 
-                name="Company" 
-                maxLength={200}
-                required
-                data-testid="input-company"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="First_Name">First Name</Label>
-              <Input 
-                type="text" 
-                id="First_Name" 
-                name="First Name" 
-                maxLength={40}
-                data-testid="input-first-name"
-              />
-            </div>
+        <div className="flex flex-col gap-2">
+          <label htmlFor="Company" className={labelCls}>
+            Company<Required />
+          </label>
+          <input type="text" id="Company" name="Company" maxLength={200} required autoComplete="organization" className={fieldCls} data-testid="input-company" />
+        </div>
+
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+          <div className="flex flex-col gap-2">
+            <label htmlFor="First_Name" className={labelCls}>
+              First name
+            </label>
+            <input type="text" id="First_Name" name="First Name" maxLength={40} autoComplete="given-name" className={fieldCls} data-testid="input-first-name" />
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <Label htmlFor="Last_Name">
-                Last Name <span className="text-destructive">*</span>
-              </Label>
-              <Input 
-                type="text" 
-                id="Last_Name" 
-                name="Last Name" 
-                maxLength={80}
-                required
-                data-testid="input-last-name"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="Email">Email</Label>
-              <Input 
-                type="email" 
-                id="Email" 
-                name="Email" 
-                maxLength={100}
-                data-ftype="email"
-                data-testid="input-email"
-              />
-            </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="Last_Name" className={labelCls}>
+              Last name<Required />
+            </label>
+            <input type="text" id="Last_Name" name="Last Name" maxLength={80} required autoComplete="family-name" className={fieldCls} data-testid="input-last-name" />
           </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="Email" className={labelCls}>
+              Email
+            </label>
+            <input type="email" id="Email" name="Email" maxLength={100} data-ftype="email" autoComplete="email" className={fieldCls} data-testid="input-email" />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="Phone" className={labelCls}>
+              Phone
+            </label>
+            <input type="tel" id="Phone" name="Phone" maxLength={30} autoComplete="tel" className={fieldCls} data-testid="input-phone" />
+          </div>
+        </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="Phone">Phone</Label>
-            <Input 
-              type="tel" 
-              id="Phone" 
-              name="Phone" 
-              maxLength={30}
-              data-testid="input-phone"
+        <div className="flex flex-col gap-2">
+          <label htmlFor="Description" className={labelCls}>
+            Message
+          </label>
+          <textarea
+            id="Description"
+            name="Description"
+            rows={5}
+            placeholder="Tell us about your project or inquiry..."
+            className={fieldCls + " h-auto min-h-[140px] resize-y py-3"}
+            data-testid="textarea-message"
+          />
+        </div>
+
+        <div className="flex flex-col gap-3 rounded-[10px] border border-line bg-mist p-4">
+          <label htmlFor="captchaField1691948000001924023" className={labelCls}>
+            Enter the characters shown
+          </label>
+          <div className="flex flex-wrap items-center gap-3">
+            <img
+              ref={captchaRef}
+              id="imgid1691948000001924023"
+              src="https://crm.zoho.com/crm/CaptchaServlet?formId=82dc63325867e829e189ef2e3715b723eeda9a099fc20d18651e1e176efb14e7021e53fad9c87050d7a6b2c0380137a4&grpid=3b5b6f9a5120a084799e7561fb70ee5fc096c127faee986b2a5b3e6b9a7c2396"
+              alt="Captcha image"
+              className="h-12 rounded-md border border-line bg-white"
+            />
+            <button
+              type="button"
+              onClick={reloadCaptcha}
+              className="flex h-11 items-center gap-2 rounded-full border border-line-strong bg-white px-4 text-sm font-semibold text-ink hover:border-ink"
+              data-testid="button-reload-captcha"
+            >
+              <RefreshCw aria-hidden="true" className="h-4 w-4" />
+              New code
+            </button>
+            <input
+              type="text"
+              id="captchaField1691948000001924023"
+              name="enterdigest"
+              maxLength={10}
+              autoComplete="off"
+              className={fieldCls + " max-w-[200px]"}
+              data-testid="input-captcha"
             />
           </div>
+        </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="Description">Message</Label>
-            <Textarea 
-              id="Description" 
-              name="Description"
-              className="min-h-[150px] resize-none"
-              placeholder="Tell us about your project or inquiry..."
-              data-testid="textarea-message"
-            />
-          </div>
-
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="captchaField">Enter the Captcha</Label>
-              <Input 
-                type="text" 
-                id="captchaField1691948000001924023" 
-                name="enterdigest"
-                maxLength={10}
-                data-testid="input-captcha"
-              />
-            </div>
-            <div className="flex items-center gap-4">
-              <img 
-                ref={captchaRef}
-                id="imgid1691948000001924023"
-                src="https://crm.zoho.com/crm/CaptchaServlet?formId=82dc63325867e829e189ef2e3715b723eeda9a099fc20d18651e1e176efb14e7021e53fad9c87050d7a6b2c0380137a4&grpid=3b5b6f9a5120a084799e7561fb70ee5fc096c127faee986b2a5b3e6b9a7c2396"
-                alt="Captcha"
-                className="border rounded"
-              />
-              <Button 
-                type="button" 
-                variant="outline" 
-                size="sm"
-                onClick={reloadCaptcha}
-                className="gap-2"
-                data-testid="button-reload-captcha"
-              >
-                <RefreshCw className="h-4 w-4" />
-                Reload
-              </Button>
-            </div>
-          </div>
-
-          <div className="flex gap-4">
-            <Button 
-              type="submit" 
-              size="lg"
-              className="formsubmit flex-1"
-              data-testid="button-submit"
-            >
-              Submit
-            </Button>
-            <Button 
-              type="reset" 
-              variant="outline"
-              size="lg"
-              data-testid="button-reset"
-            >
-              Reset
-            </Button>
-          </div>
-        </form>
-        <iframe name="captchaFrame" style={{ display: 'none' }} title="Captcha Frame" />
-      </CardContent>
-    </Card>
+        <div>
+          <button type="submit" className={pillClass("primary", "lg", "formsubmit w-full sm:w-auto")} data-testid="button-submit">
+            Send Message
+            <ArrowRight aria-hidden="true" className="h-[18px] w-[18px]" />
+          </button>
+        </div>
+      </form>
+      <iframe name="captchaFrame" style={{ display: "none" }} title="Form submission" />
+    </div>
   );
 }
 
-function ContactInfoSection() {
-  return (
-    <div className="space-y-6">
-      <Card data-testid="card-contact-info">
-        <CardContent className="p-6">
-          <h3 className="text-lg font-semibold mb-6">Contact Information</h3>
-          <ul className="space-y-6">
-            <li className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <MapPin className="h-5 w-5 text-primary" />
-              </div>
-              <div>
-                <p className="font-medium mb-1">Office Address</p>
-                <p className="text-sm text-muted-foreground">
-                  1b Braemar Avenue<br />
-                  Kingston 10, Jamaica
-                </p>
-              </div>
-            </li>
-            <li className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <Phone className="h-5 w-5 text-primary" />
-              </div>
-              <div>
-                <p className="font-medium mb-1">Phone</p>
-                <a href="tel:+18766348700" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="link-phone">
-                  +1 (876) 634-8700
-                </a>
-                <br />
-                <a href="tel:+18766348699" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="link-phone-alt">
-                  +1 (876) 634-8699
-                </a>
-              </div>
-            </li>
-            <li className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <Mail className="h-5 w-5 text-primary" />
-              </div>
-              <div>
-                <p className="font-medium mb-1">Email</p>
-                <a href="mailto:info@vertisjm.com" className="text-sm text-muted-foreground hover:text-foreground transition-colors" data-testid="link-email">
-                  info@vertisjm.com
-                </a>
-              </div>
-            </li>
-            <li className="flex items-start gap-4">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
-                <Clock className="h-5 w-5 text-primary" />
-              </div>
-              <div>
-                <p className="font-medium mb-1">Office Hours</p>
-                <p className="text-sm text-muted-foreground">
-                  Monday - Friday: 8:00 AM - 5:00 PM<br />
-                  Weekend: Emergency Support Only
-                </p>
-              </div>
-            </li>
-          </ul>
-        </CardContent>
-      </Card>
 
-      <Card data-testid="card-map">
-        <CardContent className="p-0 overflow-hidden">
-          <div className="aspect-[4/3] bg-muted">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1897.2!2d-76.7877!3d18.0085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8edb3f8d9c8a2f1b%3A0x0!2sBraemar%20Avenue%2C%20Kingston%2010%2C%20Jamaica!5e0!3m2!1sen!2s!4v1702234567890"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Vertis Technology Office Location"
-              className="rounded-b-lg"
-            />
-          </div>
-        </CardContent>
-      </Card>
+function DetailRow({ icon: Icon, children }: { icon: typeof MapPin; children: React.ReactNode }) {
+  return (
+    <div className="flex gap-4">
+      <Icon aria-hidden="true" className="mt-0.5 h-6 w-6 shrink-0 text-leaf-dark" strokeWidth={1.8} />
+      <div className="flex flex-col gap-1 text-[15px]">{children}</div>
+    </div>
+  );
+}
+
+function ContactDetails() {
+  return (
+    <div className="flex flex-col gap-10" data-testid="card-contact-info">
+      <div className="flex flex-col gap-6">
+        <h2 className="font-display text-2xl font-bold">Contact details</h2>
+        <DetailRow icon={Phone}>
+          {contact.phones.map((p, i) => (
+            <a key={p.href} href={p.href} className="font-semibold text-ink hover:text-brand" data-testid={i === 0 ? "link-phone" : "link-phone-alt"}>
+              {p.label}
+            </a>
+          ))}
+        </DetailRow>
+        <DetailRow icon={Mail}>
+          <a href={`mailto:${contact.email}`} className="font-semibold text-ink hover:text-brand" data-testid="link-email">
+            {contact.email}
+          </a>
+          <span className="text-sm text-slate">We'll respond as soon as possible.</span>
+        </DetailRow>
+        <DetailRow icon={Clock}>
+          <span className="font-semibold text-ink">Office hours</span>
+          <span className="text-sm text-slate">
+            {contact.hours[0]}
+            <br />
+            {contact.hours[1]}
+          </span>
+        </DetailRow>
+        <DetailRow icon={Headphones}>
+          <span className="font-semibold text-ink">Client support</span>
+          <span className="text-sm text-slate">Existing clients can open and track tickets in our Support Portal.</span>
+          <a href={SUPPORT_PORTAL_URL} className="text-sm font-semibold text-brand hover:text-brand-dark">
+            Open the Support Portal →
+          </a>
+        </DetailRow>
+      </div>
+
+      <div className="flex flex-col gap-6">
+        <h2 className="font-display text-2xl font-bold">Our office</h2>
+        <DetailRow icon={MapPin}>
+          <span className="font-semibold text-ink">
+            {contact.addressLines[0]}
+            <br />
+            {contact.addressLines[1]}
+          </span>
+          <a href={contact.directionsUrl} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-brand hover:text-brand-dark">
+            Get Directions →
+          </a>
+        </DetailRow>
+      </div>
     </div>
   );
 }
 
 export default function Contact() {
+  // Support links such as /contact#coverage from the home page.
+  useEffect(() => {
+    const id = window.location.hash.slice(1);
+    if (id) setTimeout(() => scrollToId(id), 60);
+  }, []);
+
   return (
     <>
-      <HeroSection />
-      <section className="py-20 lg:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
-            <div className="lg:col-span-3">
-              <ContactFormSection />
+      <PageHero
+        eyebrow="Contact us"
+        title={
+          <>
+            Let's talk about
+            <br />
+            your technology needs.
+          </>
+        }
+        body="Whether you have a question, need expert advice or want to discuss a project, our team is here to help."
+        image={heroImage}
+        imageAlt="IT professional working on a laptop in a server room"
+      />
+
+      <section id="contact-form" className="py-14 lg:py-24">
+        <Container className="grid grid-cols-1 gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
+          <Reveal>
+            <ContactFormSection />
+          </Reveal>
+          <Reveal delay={120}>
+            <ContactDetails />
+          </Reveal>
+        </Container>
+      </section>
+
+      <section className="pb-14 lg:pb-24">
+        <Container>
+          <Reveal className="relative h-[320px] overflow-hidden rounded-2xl border border-line bg-mist lg:h-[380px]">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1897.2!2d-76.7877!3d18.0085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8edb3f8d9c8a2f1b%3A0x0!2sBraemar%20Avenue%2C%20Kingston%2010%2C%20Jamaica!5e0!3m2!1sen!2s!4v1702234567890"
+              className="absolute inset-0 h-full w-full border-0"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Map showing the Vertis Technology office at 1b Braemar Avenue, Kingston 10"
+            />
+          </Reveal>
+        </Container>
+      </section>
+
+      <section id="coverage" className="bg-mist py-14 lg:py-20">
+        <Container className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
+          <Reveal variant="left" className="flex flex-col gap-4">
+            <h2 className="font-display text-3xl font-bold leading-[1.15] tracking-[-0.015em] lg:text-[34px]">
+              Supporting organisations across the Caribbean.
+            </h2>
+            <p className="text-base leading-relaxed text-slate">
+              We work with businesses, government and institutions throughout the region, delivering technology solutions
+              tailored to local needs.
+            </p>
+            <div className="mt-2">
+              <PillLink href="#contact-form" arrow size="md">
+                Talk to an Expert
+              </PillLink>
             </div>
-            <div className="lg:col-span-2">
-              <ContactInfoSection />
-            </div>
-          </div>
-        </div>
+          </Reveal>
+          <Reveal variant="zoom" delay={120}>
+            <img src={coverageMap} alt="Map of the Caribbean with Jamaica highlighted" className="w-full" />
+          </Reveal>
+        </Container>
+      </section>
+
+      <section className="py-14 lg:py-20">
+        <Container className="flex max-w-[960px] flex-col gap-6">
+          <Reveal>
+            <h2 className="font-display text-3xl font-bold leading-tight lg:text-[34px]">Frequently asked questions</h2>
+          </Reveal>
+          <Accordion type="single" collapsible className="flex flex-col">
+            {faqs.map((f, i) => (
+              <AccordionItem key={f.q} value={`faq-${i}`} className="border-b border-line">
+                <AccordionTrigger className="py-5 text-left font-display text-base font-semibold text-ink hover:no-underline">
+                  {f.q}
+                </AccordionTrigger>
+                <AccordionContent className="pb-5 text-[15px] leading-relaxed text-slate">{f.a}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </Container>
       </section>
     </>
   );

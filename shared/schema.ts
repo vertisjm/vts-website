@@ -107,14 +107,19 @@ export interface Service {
   id: string;
   title: string;
   shortDescription: string;
-  description: string;
-  features: string[];
-  benefits: string[];
-  technologies: string[];
+  // Detail fields are optional: services without them show a card with no "Learn more" panel.
+  description?: string;
+  features?: string[];
+  benefits?: string[];
+  technologies?: string[];
   icon: string;
 }
 
 export interface Partner {
+  /** Very wide logos (e.g. long wordmarks) get extra width so they stay legible. */
+  wideLogo?: boolean;
+  /** Logos made for dark backgrounds (e.g. white wordmarks) are shown on a navy tile. */
+  darkLogo?: boolean;
   id: string;
   name: string;
   description: string;

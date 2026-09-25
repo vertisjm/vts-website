@@ -116,6 +116,8 @@ export interface Service {
 }
 
 export interface Partner {
+  /** Very wide logos (e.g. long wordmarks) get extra width so they stay legible. */
+  wideLogo?: boolean;
   id: string;
   name: string;
   description: string;

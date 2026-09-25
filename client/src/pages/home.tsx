@@ -644,9 +644,9 @@ function PartnersSection() {
         <Reveal>
           <Eyebrow className="text-slate">Our technology partners</Eyebrow>
         </Reveal>
-        <ul className="grid grid-cols-2 items-center gap-x-8 gap-y-8 sm:grid-cols-3 lg:grid-cols-6 lg:gap-x-12">
+        <ul className="flex flex-wrap justify-center gap-y-8">
           {partners.map((p, i) => (
-            <Reveal as="li" key={p.id} delay={(i % 6) * 60} variant="fade" className="flex justify-center">
+            <Reveal as="li" key={p.id} delay={(i % 6) * 60} variant="fade" className={"flex justify-center px-4 sm:w-1/3 lg:w-1/6 lg:px-3 " + (p.wideLogo ? "w-full" : "w-1/2")}>
               <a
                 href={p.url}
                 target="_blank"
@@ -654,7 +654,13 @@ function PartnersSection() {
                 title={p.description}
                 className="flex h-14 w-full items-center justify-center rounded-lg px-2 grayscale-[35%] transition duration-300 hover:scale-105 hover:grayscale-0"
               >
-                <img src={p.logo} alt={p.name} className="max-h-9 max-w-[140px] object-contain" loading="lazy" />
+                {/* Explicit sizes: some logo SVGs only have a viewBox and would otherwise collapse to nothing. */}
+                <img
+                  src={p.logo}
+                  alt={p.name}
+                  className={"object-contain " + (p.wideLogo ? "h-auto w-full max-w-[200px]" : "h-9 w-auto max-w-[140px]")}
+                  loading="lazy"
+                />
               </a>
             </Reveal>
           ))}

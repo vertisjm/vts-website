@@ -1,6 +1,6 @@
 import type { Service, Partner, Testimonial } from "@shared/schema";
 
-// Partner logos: official marks from Wikimedia Commons (Grandstream from grandstream.com).
+// Partner logos: official marks from Wikimedia Commons (Grandstream, Delinea, Progress Kemp and VergeIO from their own websites).
 import microsoftLogo from "@assets/partners/microsoft.svg";
 import fortinetLogo from "@assets/partners/fortinet.svg";
 import sophosLogo from "@assets/partners/sophos.svg";
@@ -13,6 +13,11 @@ import crowdstrikeLogo from "@assets/partners/crowdstrike.svg";
 import synologyLogo from "@assets/partners/synology.svg";
 import grandstreamLogo from "@assets/partners/grandstream.png";
 import threeCxLogo from "@assets/partners/3cx.svg";
+import progressKempLogo from "@assets/partners/progress-kemp.svg";
+import redHatLogo from "@assets/partners/redhat.svg";
+import vergeIoLogo from "@assets/partners/vergeio.svg";
+import delineaLogo from "@assets/partners/delinea.svg";
+import manageEngineLogo from "@assets/partners/manageengine.png";
 
 import managedItImg from "@assets/stock_images/managed-it.jpg";
 import cybersecurityImg from "@assets/stock_images/cybersecurity.jpg";
@@ -200,11 +205,16 @@ export const partners: Partner[] = [
   { id: "hp", name: "HP", description: "Provider of enterprise computing, printing, and imaging solutions.", logo: hpLogo, url: "https://www.hp.com" },
   { id: "veeam", name: "Veeam", description: "Backup and disaster recovery solutions for hybrid cloud environments.", logo: veeamLogo, url: "https://www.veeam.com" },
   { id: "vmware", name: "VMware", description: "Virtualization and cloud infrastructure solutions for enterprise environments.", logo: vmwareLogo, url: "https://www.vmware.com" },
+  { id: "vergeio", name: "VergeIO", description: "VergeOS private cloud and virtualization, combining compute, storage and networking in one platform.", logo: vergeIoLogo, url: "https://www.verge.io" },
+  { id: "redhat", name: "Red Hat", description: "Enterprise open source platforms, including Red Hat Enterprise Linux and OpenShift.", logo: redHatLogo, url: "https://www.redhat.com" },
+  { id: "delinea", name: "Delinea", description: "Privileged access management to secure and control access to critical systems.", logo: delineaLogo, url: "https://delinea.com" },
+  { id: "manageengine", name: "ManageEngine", description: "IT management software for service desk, endpoint, network and security operations.", logo: manageEngineLogo, url: "https://www.manageengine.com" },
   { id: "cisco", name: "Cisco", description: "Networking partner for enterprise routing, switching, and collaboration solutions.", logo: ciscoLogo, url: "https://www.cisco.com" },
   { id: "crowdstrike", name: "CrowdStrike", description: "Cloud-native endpoint protection and threat intelligence platform.", logo: crowdstrikeLogo, url: "https://www.crowdstrike.com" },
   { id: "synology", name: "Synology", description: "Storage and backup solutions partner for enterprise NAS and data management.", logo: synologyLogo, url: "https://www.synology.com" },
   { id: "grandstream", name: "Grandstream", description: "VoIP and unified communications solutions for modern business telephony.", logo: grandstreamLogo, url: "https://www.grandstream.com" },
-  { id: "3cx", name: "3CX", description: "Software-based PBX and unified communications platform for voice and video.", logo: threeCxLogo, url: "https://www.3cx.com" }
+  { id: "3cx", name: "3CX", description: "Software-based PBX and unified communications platform for voice and video.", logo: threeCxLogo, url: "https://www.3cx.com" },
+  { id: "progress-kemp", name: "Progress Kemp", description: "Progress Kemp LoadMaster load balancing and application delivery for reliable, high-availability services.", logo: progressKempLogo, url: "https://kemptechnologies.com", wideLogo: true }
 ];
 
 // Shown when the admin portal has no testimonials saved. Same four as vertisjm.com.

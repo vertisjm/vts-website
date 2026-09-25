@@ -1,6 +1,6 @@
 import type { Service, Partner, Testimonial } from "@shared/schema";
 
-// Partner logos: official marks from Wikimedia Commons (Grandstream, Delinea, Progress Kemp and VergeIO from their own websites).
+// Partner logos: official marks from Wikimedia Commons, or from the partner's own website where Commons has none.
 import microsoftLogo from "@assets/partners/microsoft.svg";
 import fortinetLogo from "@assets/partners/fortinet.svg";
 import sophosLogo from "@assets/partners/sophos.svg";
@@ -16,6 +16,9 @@ import threeCxLogo from "@assets/partners/3cx.svg";
 import progressKempLogo from "@assets/partners/progress-kemp.svg";
 import redHatLogo from "@assets/partners/redhat.svg";
 import vergeIoLogo from "@assets/partners/vergeio.svg";
+import lumuLogo from "@assets/partners/lumu.png";
+import qwerxLogo from "@assets/partners/qwerx.png";
+import exaGridLogo from "@assets/partners/exagrid.png";
 import delineaLogo from "@assets/partners/delinea.svg";
 import manageEngineLogo from "@assets/partners/manageengine.png";
 
@@ -204,9 +207,12 @@ export const partners: Partner[] = [
   { id: "dell", name: "Dell Technologies", description: "Hardware partner for enterprise servers, workstations, and infrastructure solutions.", logo: dellLogo, url: "https://www.dell.com" },
   { id: "hp", name: "HP", description: "Provider of enterprise computing, printing, and imaging solutions.", logo: hpLogo, url: "https://www.hp.com" },
   { id: "veeam", name: "Veeam", description: "Backup and disaster recovery solutions for hybrid cloud environments.", logo: veeamLogo, url: "https://www.veeam.com" },
+  { id: "exagrid", name: "ExaGrid", description: "Tiered backup storage with fast backups, fast recoveries and ransomware recovery.", logo: exaGridLogo, url: "https://www.exagrid.com" },
   { id: "vmware", name: "VMware", description: "Virtualization and cloud infrastructure solutions for enterprise environments.", logo: vmwareLogo, url: "https://www.vmware.com" },
   { id: "vergeio", name: "VergeIO", description: "VergeOS private cloud and virtualization, combining compute, storage and networking in one platform.", logo: vergeIoLogo, url: "https://www.verge.io" },
   { id: "redhat", name: "Red Hat", description: "Enterprise open source platforms, including Red Hat Enterprise Linux and OpenShift.", logo: redHatLogo, url: "https://www.redhat.com" },
+  { id: "lumu", name: "Lumu", description: "Network detection and response that confirms compromise in real time.", logo: lumuLogo, url: "https://lumu.io" },
+  { id: "qwerx", name: "QWERX", description: "Dynamic distributed device authentication with ephemeral keys and zero standing trust.", logo: qwerxLogo, url: "https://qwerx.co", darkLogo: true },
   { id: "delinea", name: "Delinea", description: "Privileged access management to secure and control access to critical systems.", logo: delineaLogo, url: "https://delinea.com" },
   { id: "manageengine", name: "ManageEngine", description: "IT management software for service desk, endpoint, network and security operations.", logo: manageEngineLogo, url: "https://www.manageengine.com" },
   { id: "cisco", name: "Cisco", description: "Networking partner for enterprise routing, switching, and collaboration solutions.", logo: ciscoLogo, url: "https://www.cisco.com" },

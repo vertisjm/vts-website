@@ -102,6 +102,12 @@ export const services: Service[] = [
     icon: "Cloud"
   },
   {
+    id: "application-development",
+    title: "Application Development",
+    shortDescription: "Custom software solutions tailored to your business needs.",
+    icon: "Code"
+  },
+  {
     id: "staff-augmentation",
     title: "IT Staff Augmentation",
     shortDescription: "Flexible IT talent solutions to extend your team's capabilities.",
@@ -125,6 +131,12 @@ export const services: Service[] = [
     ],
     technologies: ["Microsoft", "Dell", "HP", "Cisco", "Various Platforms"],
     icon: "Users"
+  },
+  {
+    id: "backup-as-a-service",
+    title: "Vertis Backup as a Service (BaaS)",
+    shortDescription: "Enterprise backup and disaster recovery with ransomware protection.",
+    icon: "RotateCcw"
   }
 ];
 
@@ -215,34 +227,14 @@ export const partners: Partner[] = [
   }
 ];
 
+// Shown when the admin portal has no testimonials saved.
 export const testimonials: Testimonial[] = [
   {
-    id: "1",
-    quote: "Vertis Technology transformed our IT infrastructure. Their managed services have reduced our downtime by 95% and their team is always responsive to our needs. They truly understand the challenges of running a modern enterprise.",
-    name: "Marcus Johnson",
-    role: "Chief Technology Officer",
-    company: "Caribbean Financial Group"
-  },
-  {
-    id: "2",
-    quote: "The network redesign project was executed flawlessly. Our employees now have reliable connectivity across all locations, and the new VoIP system has cut our communication costs significantly. Exceptional service!",
-    name: "Sandra Williams",
-    role: "IT Director",
-    company: "Island Manufacturing Ltd."
-  },
-  {
-    id: "3",
-    quote: "When we needed to migrate to the cloud, Vertis made the transition seamless. Their expertise in Microsoft 365 and Azure helped us modernize without disrupting our operations. A trusted partner for any IT initiative.",
-    name: "David Chen",
-    role: "Operations Manager",
-    company: "Kingston Logistics Inc."
-  },
-  {
-    id: "4",
-    quote: "The cybersecurity assessment revealed vulnerabilities we didn't know existed. Vertis implemented a comprehensive security framework that now protects our sensitive financial data. Their SOC team gives us peace of mind.",
-    name: "Patricia Morrison",
-    role: "VP of Information Security",
-    company: "First Regional Credit Union"
+    id: "ironrock",
+    quote: "Vertis was able to resolve our network concerns in one week where other service providers were saying they needed 2 months. We chose Vertis Technology Solutions Ltd, for our Managed Service partner a decision that has yielded great rewards.",
+    name: "Maurice Bolt",
+    role: "Gen. Manager – Technology & Operations",
+    company: "IronRock Insurance Company Limited"
   }
 ];
 
@@ -258,7 +250,7 @@ export const industries = [
 ];
 
 export const companyStats = [
-  { value: 50, suffix: "+", label: "Years Experience" },
+  { value: 10, suffix: "+", label: "Years Experience" },
   { value: 200, suffix: "+", label: "Clients Served" },
   { value: 99.9, suffix: "%", label: "Uptime SLA" },
   { value: "24/7", suffix: "", label: "Support Available", isStatic: true }

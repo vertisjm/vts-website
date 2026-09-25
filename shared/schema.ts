@@ -107,10 +107,11 @@ export interface Service {
   id: string;
   title: string;
   shortDescription: string;
-  description: string;
-  features: string[];
-  benefits: string[];
-  technologies: string[];
+  // Detail fields are optional: services without them show a card with no "Learn more" panel.
+  description?: string;
+  features?: string[];
+  benefits?: string[];
+  technologies?: string[];
   icon: string;
 }
 

@@ -1,790 +1,413 @@
+import { useEffect, useState } from "react";
 import { Link } from "wouter";
-import { ArrowRight, Server, Network, Shield, Cloud, Users, CheckCircle, Quote, Target, Eye, Award, Building2, Briefcase, Headphones, Clock, ExternalLink, Zap } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { services, partners, testimonials as fallbackTestimonials, companyStats, industries } from "@/lib/data";
-import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
-import type { TestimonialRecord } from "@shared/schema";
+import { ArrowRight, Check, Cloud, Code, Network, Phone, RotateCcw, Server, Shield, Ticket, UserPlus } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
+import { services, partners, testimonials as fallbackTestimonials, companyStats, industries } from "@/lib/data";
+import type { Service, TestimonialRecord } from "@shared/schema";
+import { Container, Eyebrow, FanMark, H2, IconBadge, PillLink, SUPPORT_PORTAL_URL, contact, scrollToId } from "@/components/site";
 
-import heroImage1 from "@assets/stock_images/black_professionals__57cc3629.jpg";
-import heroImage2 from "@assets/stock_images/black_professionals__5b030cf6.jpg";
-import heroImage3 from "@assets/stock_images/black_professionals__34628ca7.jpg";
-
-const heroImages = [heroImage1, heroImage2, heroImage3];
+import heroImage from "@assets/stock_images/hero-it-server-room.jpg";
+import industriesImage from "@assets/stock_images/industries-meeting.jpg";
 
 const serviceIcons: Record<string, typeof Server> = {
-  Server, Network, Shield, Cloud, Users
+  Server,
+  Network,
+  Shield,
+  Cloud,
+  Code,
+  Users: UserPlus,
+  RotateCcw,
 };
 
-function HeroSection() {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+const whyChooseUs = [
+  "24/7 proactive monitoring and support",
+  "Certified engineers with enterprise experience",
+  "Transparent pricing with no hidden costs",
+  "Fast response times with defined SLAs",
+  "Local presence with Caribbean expertise",
+  "Strategic partnerships with leading vendors",
+];
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
-    }, 6000);
-    return () => clearInterval(interval);
-  }, []);
+// Drop a licensed photo of the Kingston skyline at night at client/public/images/kingston-skyline-night.jpg
+// (landscape, at least 2400px wide). Until it exists the hero falls back to the navy background and logo mark.
+const HERO_BACKGROUND = "/images/kingston-skyline-night.jpg";
+
+function HeroSection() {
+  const [hasBackground, setHasBackground] = useState(false);
 
   return (
-    <section id="hero" className="relative min-h-[80vh] flex items-center scroll-mt-16 overflow-hidden">
-      {heroImages.map((image, index) => (
-        <div
-          key={index}
-          className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
-            index === currentImageIndex ? "opacity-100" : "opacity-0"
-          }`}
-          aria-hidden={index !== currentImageIndex}
-        >
-          <img
-            src={image}
-            alt={`Technology professionals ${index + 1}`}
-            className="w-full h-full object-cover"
-          />
-        </div>
-      ))}
-      <div className="absolute inset-0 bg-gradient-to-r from-[rgba(11,31,58,0.92)] via-[rgba(11,31,58,0.85)] to-[rgba(11,31,58,0.70)]" />
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 relative z-10">
-        <div className="max-w-3xl">
-          <Badge className="mb-6 bg-white/15 text-white border-white/20 backdrop-blur-sm" data-testid="badge-hero">
-            Jamaica's Leading IT Partner
-          </Badge>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight mb-6 text-white" data-testid="text-hero-title">
-            Enterprise IT Solutions <br className="hidden sm:block" />
-            <span className="text-[#33C3F0]">Built for Growth</span>
+    <section id="hero" className="relative overflow-hidden bg-navy text-white">
+      <img
+        src={HERO_BACKGROUND}
+        alt=""
+        aria-hidden="true"
+        onLoad={() => setHasBackground(true)}
+        onError={() => setHasBackground(false)}
+        className={"pointer-events-none absolute inset-0 h-full w-full object-cover " + (hasBackground ? "" : "hidden")}
+      />
+      {hasBackground ? (
+        // Keeps the headline readable: darkest on the left behind the text, lighter on the right.
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-navy/80 lg:bg-transparent lg:bg-gradient-to-r lg:from-navy lg:via-navy/85 lg:to-navy/40" />
+      ) : (
+        <FanMark className="pointer-events-none absolute -right-36 -top-10 w-[360px] opacity-[0.14] lg:-right-[120px] lg:w-[760px]" />
+      )}
+      <Container className="relative flex flex-col gap-12 pb-14 pt-12 lg:flex-row lg:items-center lg:gap-16 lg:pb-[72px] lg:pt-24">
+        <div className="flex flex-1 flex-col gap-6 lg:gap-7">
+          <Eyebrow dark rule>
+            Jamaica's leading IT partner
+          </Eyebrow>
+          <h1
+            className="font-display text-[38px] font-bold leading-[1.06] tracking-[-0.02em] sm:text-5xl lg:text-[68px] lg:leading-[1.04]"
+            data-testid="text-hero-title"
+          >
+            Enterprise IT solutions <span className="text-leaf">built for growth.</span>
           </h1>
-          <p className="text-lg sm:text-xl text-white/85 leading-relaxed mb-8 max-w-2xl" data-testid="text-hero-description">
-            Vertis Technology delivers comprehensive managed IT services, network infrastructure, cybersecurity, and cloud solutions for medium to large enterprises across Jamaica and the Caribbean.
+          <p className="max-w-[600px] text-[17px] leading-relaxed text-slate-mist lg:text-xl" data-testid="text-hero-description">
+            Vertis Technology delivers comprehensive managed IT services, network infrastructure, cybersecurity, and cloud
+            solutions for medium to large enterprises across Jamaica and the Caribbean.
           </p>
-          <div className="flex flex-wrap gap-4">
-            <Link href="/contact">
-              <Button size="lg" className="gap-2" data-testid="button-hero-consultation">
-                Schedule Consultation
-                <ArrowRight className="h-4 w-4" />
-              </Button>
-            </Link>
-            <a href="#support">
-              <Button variant="outline" size="lg" className="bg-white/10 border-white/30 text-white backdrop-blur-sm" data-testid="button-hero-support">
-                Request Support
-              </Button>
-            </a>
+          <div className="mt-2 flex flex-col gap-3 sm:flex-row sm:gap-4">
+            <PillLink href="/contact" arrow data-testid="button-hero-consultation">
+              Schedule Consultation
+            </PillLink>
+            <PillLink href="/#support" variant="outline-dark" data-testid="button-hero-support">
+              Request Support
+            </PillLink>
           </div>
         </div>
-      </div>
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-10">
-        {heroImages.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentImageIndex(index)}
-            className={`w-2 h-2 rounded-full transition-colors ${
-              index === currentImageIndex ? "bg-white" : "bg-white/40"
-            }`}
-            aria-label={`Go to slide ${index + 1}`}
-            data-testid={`button-hero-slide-${index}`}
-          />
-        ))}
-      </div>
-    </section>
-  );
-}
-
-function CountUpNumber({ value, suffix, duration = 2000 }: { value: number; suffix: string; duration?: number }) {
-  const [count, setCount] = useState(0);
-  const [hasStarted, setHasStarted] = useState(false);
-  const ref = useRef<HTMLSpanElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !hasStarted) {
-          setHasStarted(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => observer.disconnect();
-  }, [hasStarted]);
-
-  useEffect(() => {
-    if (!hasStarted) return;
-
-    const steps = 60;
-    const increment = value / steps;
-    const stepDuration = duration / steps;
-    let current = 0;
-
-    const timer = setInterval(() => {
-      current += increment;
-      if (current >= value) {
-        setCount(value);
-        clearInterval(timer);
-      } else {
-        setCount(current);
-      }
-    }, stepDuration);
-
-    return () => clearInterval(timer);
-  }, [hasStarted, value, duration]);
-
-  const displayValue = Number.isInteger(value) ? Math.round(count) : count.toFixed(1);
-
-  return (
-    <span ref={ref}>
-      {displayValue}{suffix}
-    </span>
-  );
-}
-
-function useIntersectionObserver(ref: React.RefObject<HTMLElement>) {
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  return isVisible;
-}
-
-function StatsSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  return (
-    <section ref={sectionRef} className="py-12 border-b bg-card">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {companyStats.map((stat, index) => (
-            <div key={index} className="text-center">
-              <p className="text-3xl sm:text-4xl font-bold text-primary mb-2" data-testid={`text-stat-value-${index}`}>
-                {stat.isStatic ? (
-                  <>{stat.value}{stat.suffix}</>
-                ) : (
-                  <CountUpNumber value={stat.value as number} suffix={stat.suffix} />
-                )}
-              </p>
-              <p className="text-sm text-muted-foreground" data-testid={`text-stat-label-${index}`}>
-                {stat.label}
-              </p>
+        <div className="relative h-[300px] overflow-hidden rounded-[24px_24px_24px_120px] sm:h-[400px] lg:h-[480px] lg:w-[560px] lg:shrink-0">
+          <img src={heroImage} alt="IT professional working on a laptop in a server room" className="absolute inset-0 h-full w-full object-cover" />
+        </div>
+      </Container>
+      <Container className="relative">
+        <dl className="grid grid-cols-2 border-t border-navy-line lg:grid-cols-4">
+          {companyStats.map((stat, i) => (
+            <div
+              key={stat.label}
+              className={
+                "flex flex-col-reverse gap-1 border-navy-line pb-6 pt-6 lg:pb-10 lg:pt-8 " +
+                ["pr-4", "border-l pl-4 lg:pl-6", "lg:border-l lg:pl-6", "border-l pl-4 lg:pl-6"][i]
+              }
+            >
+              <dt className="text-sm text-slate-pale lg:text-[15px]">{stat.label}</dt>
+              <dd className="font-display text-3xl font-bold text-leaf lg:text-[40px]">
+                {stat.value}
+                {stat.suffix}
+              </dd>
             </div>
           ))}
-        </div>
-      </div>
+        </dl>
+      </Container>
     </section>
   );
 }
 
-function AboutSection() {
+function ServiceDetails({ service, open, onOpenChange }: { service: Service | null; open: boolean; onOpenChange: (o: boolean) => void }) {
+  if (!service) return null;
   return (
-    <section id="about" className="py-20 lg:py-24 scroll-mt-16">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <Badge variant="secondary" className="mb-4">About Us</Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" data-testid="text-about-title">
-            Your Trusted IT Partner in Jamaica
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            For over 50 years, Vertis Technology has been empowering businesses across Jamaica and the Caribbean with enterprise-grade IT solutions and exceptional service.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-          <Card data-testid="card-mission">
-            <CardContent className="p-8">
-              <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
-                <Target className="h-7 w-7 text-primary" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4">Our Mission</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                To deliver exceptional IT services and solutions that enable businesses to achieve their strategic objectives through reliable, secure, and innovative technology.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card data-testid="card-vision">
-            <CardContent className="p-8">
-              <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-6">
-                <Eye className="h-7 w-7 text-primary" />
-              </div>
-              <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                To be the leading Managed IT Services provider in the Caribbean, recognized for excellence in technology solutions, customer satisfaction, and innovation.
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            { icon: Award, title: "Excellence", description: "We strive for excellence in every interaction and solution." },
-            { icon: Users, title: "Partnership", description: "We build lasting relationships based on trust and transparency." },
-            { icon: Target, title: "Innovation", description: "We continuously evolve to bring the latest technology solutions." },
-            { icon: Building2, title: "Integrity", description: "We conduct business with the highest ethical standards." }
-          ].map((value, index) => (
-            <Card key={index} className="text-center" data-testid={`card-value-${index}`}>
-              <CardContent className="p-6">
-                <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                  <value.icon className="h-7 w-7 text-primary" />
-                </div>
-                <h4 className="text-lg font-semibold mb-2">{value.title}</h4>
-                <p className="text-sm text-muted-foreground">{value.description}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-import cameilleSterlingImg from "@assets/image_1765405458755.png";
-import ryanSterlingImg from "@assets/image_1765405515300.png";
-import michaelKerrImg from "@assets/image_1765405543889.png";
-import sanjayStephensImg from "@assets/Photo-_Sanjay_1765405740646.jpeg";
-import coleenHibbertImg from "@assets/Vertis_Technology_Headshots-51_1765405778953.jpg";
-import cassandraSterlingImg from "@assets/Cass_-_Pic_1765405831947.png";
-
-const executives = [
-  {
-    name: "Ryan Sterling",
-    role: "CEO & Head of Business Development",
-    initials: "RS",
-    image: ryanSterlingImg,
-    imageClass: "scale-150 object-[center_35%]",
-    bio: "Ryan Sterling serves on the Board of Directors. Ryan is responsible for all of the company's worldwide sales and business development, and strategic partnerships."
-  },
-  {
-    name: "Cameille Sterling",
-    role: "Chief Operations Officer",
-    initials: "CS",
-    image: cameilleSterlingImg,
-    imagePosition: "object-top",
-    bio: "Cameille serves on the Board of Directors. As head of Operations and Marketing, Cameille leads a talented and creative team focused on enabling the success of Vertis Technology teams across the organization."
-  },
-  {
-    name: "Michael Kerr",
-    role: "CTO & Head of Service Delivery",
-    initials: "MK",
-    image: michaelKerrImg,
-    imageClass: "scale-150 object-[center_40%]",
-    bio: "Michael serves on the Board of Directors. He leads Vertis' Service and Solutions Teams. Michael has a proven ability in adapting/maturing technology organizations to solve business issues while managing costs and risks."
-  }
-];
-
-const keyEmployees = [
-  {
-    name: "Cassandra-Leigh Sterling-Masters",
-    role: "Service Delivery Manager",
-    initials: "CS",
-    image: cassandraSterlingImg
-  },
-  {
-    name: "Sanjay Stephens",
-    role: "Snr Systems Engineer",
-    initials: "SS",
-    image: sanjayStephensImg
-  },
-  {
-    name: "Coleen Hibbert",
-    role: "IT Operations Manager",
-    initials: "CH",
-    image: coleenHibbertImg
-  }
-];
-
-function TeamSection() {
-  return (
-    <section id="team" className="py-20 lg:py-24 bg-card scroll-mt-16">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <Badge variant="secondary" className="mb-4">Our Team</Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6" data-testid="text-team-title">
-            Over 50 Vertis Strong!
-          </h2>
-        </div>
-        <div className="max-w-4xl mx-auto mb-16">
-          <p className="text-lg text-muted-foreground text-center leading-relaxed" data-testid="text-team-description">
-            With over 100 years combined experience in the IT field implementing, supporting IT solutions and services from medium to large enterprises, we pride ourselves in delivering value service. Our customers are dear to us and we ensure that we know their mission and give solutions that achieve the mission well. Our commitment to our customers defines how we do business and our years of experience working across industries underpin the vast array of services we offer.
-          </p>
-        </div>
-
-        <div className="mb-16">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
-            {keyEmployees.map((employee, index) => (
-              <Card key={index} className="text-center" data-testid={`card-employee-${index}`}>
-                <CardContent className="p-6">
-                  {employee.image ? (
-                    <div className="w-44 h-44 rounded-full overflow-hidden mx-auto mb-4">
-                      <img 
-                        src={employee.image} 
-                        alt={employee.name}
-                        className="w-full h-full object-cover object-top"
-                      />
-                    </div>
-                  ) : (
-                    <div className="w-44 h-44 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                      <span className="text-4xl font-bold text-primary">{employee.initials}</span>
-                    </div>
-                  )}
-                  <h4 className="text-base font-semibold mb-1">{employee.name}</h4>
-                  <p className="text-sm text-muted-foreground">{employee.role}</p>
-                </CardContent>
-              </Card>
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto rounded-3xl border-line bg-white p-8 sm:p-10">
+        <DialogTitle className="font-display text-2xl font-bold text-ink sm:text-3xl">{service.title}</DialogTitle>
+        <DialogDescription className="text-base leading-relaxed text-slate">{service.description}</DialogDescription>
+        {service.features && (
+          <div className="flex flex-col gap-3">
+            <h3 className="font-display text-lg font-semibold text-ink">What's included</h3>
+            <ul className="grid gap-x-6 gap-y-2.5 sm:grid-cols-2">
+              {service.features.map((f) => (
+                <li key={f} className="flex gap-2.5 text-[15px] text-ink">
+                  <Check aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-leaf-dark" strokeWidth={3} />
+                  {f}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {service.benefits && (
+          <div className="flex flex-col gap-3">
+            <h3 className="font-display text-lg font-semibold text-ink">Benefits</h3>
+            <ul className="flex flex-col gap-2.5">
+              {service.benefits.map((b) => (
+                <li key={b} className="flex gap-2.5 text-[15px] text-slate">
+                  <Check aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-brand" strokeWidth={3} />
+                  {b}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {service.technologies && (
+          <div className="flex flex-wrap gap-2">
+            {service.technologies.map((t) => (
+              <span key={t} className="rounded-full bg-mist px-3 py-1.5 text-[13px] font-semibold text-slate">
+                {t}
+              </span>
             ))}
           </div>
-        </div>
-
+        )}
         <div>
-          <h3 className="text-2xl font-bold text-center mb-10">Executive Team</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {executives.map((exec, index) => (
-              <Card key={index} className="text-center" data-testid={`card-executive-${index}`}>
-                <CardContent className="p-6">
-                  {exec.image ? (
-                    <div className="w-48 h-48 rounded-full overflow-hidden mx-auto mb-4">
-                      <img 
-                        src={exec.image} 
-                        alt={exec.name}
-                        className={`w-full h-full object-cover ${exec.imageClass || exec.imagePosition || ''}`}
-                      />
-                    </div>
-                  ) : (
-                    <div className="w-48 h-48 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                      <span className="text-5xl font-bold text-primary">{exec.initials}</span>
-                    </div>
-                  )}
-                  <h4 className="text-lg font-semibold mb-1">{exec.name}</h4>
-                  <p className="text-sm text-primary font-medium mb-4">{exec.role}</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{exec.bio}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <PillLink href="/contact" arrow size="md">
+            Talk to us about {service.title.replace(/ \(.*\)$/, "")}
+          </PillLink>
         </div>
-      </div>
-    </section>
+      </DialogContent>
+    </Dialog>
   );
 }
 
 function ServicesSection() {
-  const [expandedService, setExpandedService] = useState<string | null>(null);
+  const [selected, setSelected] = useState<Service | null>(null);
 
   return (
-    <section id="services" className="py-20 lg:py-24 bg-card scroll-mt-16">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <Badge variant="secondary" className="mb-4">Our Services</Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" data-testid="text-services-title">
-            Comprehensive IT Solutions
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            From managed IT services to cybersecurity, we provide end-to-end technology solutions tailored to your business needs.
+    <section id="services" className="bg-mist py-14 lg:py-28">
+      <Container className="flex flex-col gap-8 lg:gap-12">
+        <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between lg:gap-12">
+          <div className="flex flex-col gap-3.5">
+            <Eyebrow>Our services</Eyebrow>
+            <H2>Comprehensive IT solutions</H2>
+          </div>
+          <p className="max-w-[520px] text-base leading-relaxed text-slate lg:text-lg">
+            From managed IT services to cybersecurity, we provide end-to-end technology solutions tailored to your
+            business needs.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
           {services.map((service) => {
-            const IconComponent = serviceIcons[service.icon] || Server;
-            const isExpanded = expandedService === service.id;
-            return (
-              <Card 
-                key={service.id} 
-                className={`group transition-all duration-300 ${isExpanded ? 'md:col-span-2 lg:col-span-3' : 'hover-elevate'}`}
-                data-testid={`card-service-${service.id}`}
-              >
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary/20 transition-colors">
-                      <IconComponent className="h-6 w-6 text-primary" />
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
-                      <p className="text-muted-foreground mb-4 leading-relaxed">
-                        {isExpanded ? service.description : service.shortDescription}
-                      </p>
-                      
-                      {isExpanded && (
-                        <div className="mt-6 space-y-6">
-                          <div>
-                            <h4 className="font-semibold mb-3 flex items-center gap-2">
-                              <Zap className="h-4 w-4 text-primary" />
-                              Key Features
-                            </h4>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                              {service.features.map((feature, idx) => (
-                                <div key={idx} className="flex items-center gap-2 text-sm">
-                                  <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
-                                  <span>{feature}</span>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                          <div>
-                            <h4 className="font-semibold mb-3">Technologies</h4>
-                            <div className="flex flex-wrap gap-2">
-                              {service.technologies.map((tech, idx) => (
-                                <Badge key={idx} variant="secondary">{tech}</Badge>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                      
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
-                        className="gap-2 -ml-3 mt-2"
-                        onClick={() => setExpandedService(isExpanded ? null : service.id)}
-                        data-testid={`button-toggle-${service.id}`}
-                      >
-                        {isExpanded ? 'Show Less' : 'Learn More'}
-                        <ArrowRight className={`h-4 w-4 transition-transform ${isExpanded ? 'rotate-90' : ''}`} />
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+            const Icon = serviceIcons[service.icon] ?? Server;
+            const hasDetails = Boolean(service.description);
+            const body = (
+              <>
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-navy text-leaf sm:h-[52px] sm:w-[52px]">
+                  <Icon aria-hidden="true" className="h-5 w-5 sm:h-[22px] sm:w-[22px]" />
+                </span>
+                <span className="flex flex-1 flex-col gap-1 sm:gap-3.5">
+                  <span className="font-display text-base font-semibold leading-snug sm:text-[19px]">{service.title}</span>
+                  <span className="text-sm leading-normal text-slate sm:flex-1 sm:text-[15px]">{service.shortDescription}</span>
+                  <span className="hidden items-center gap-1.5 text-sm font-semibold text-brand sm:flex">
+                    {hasDetails ? "Learn More" : "Ask Us About It"} <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
+                  </span>
+                </span>
+              </>
+            );
+            const cls =
+              "group flex items-center gap-4 rounded-2xl border border-line bg-white p-4 text-left text-ink transition-shadow hover:shadow-[0_12px_32px_rgba(10,27,46,0.08)] sm:min-h-[250px] sm:flex-col sm:items-start sm:gap-3.5 sm:rounded-[18px] sm:p-7";
+            return hasDetails ? (
+              <button key={service.id} id={service.id} type="button" className={cls} onClick={() => setSelected(service)} data-testid={`card-service-${service.id}`}>
+                {body}
+              </button>
+            ) : (
+              <Link key={service.id} id={service.id} href="/contact" className={cls} data-testid={`card-service-${service.id}`}>
+                {body}
+              </Link>
             );
           })}
+          <Link
+            href="/contact"
+            className="flex flex-col justify-between gap-3.5 rounded-2xl bg-brand p-6 text-white transition-colors hover:bg-brand-dark sm:min-h-[250px] sm:rounded-[18px] sm:p-7"
+          >
+            <span className="font-display text-[22px] font-semibold leading-snug">Not sure where to start?</span>
+            <span className="text-[15px] leading-normal text-brand-tint">Schedule a free consultation with our experts.</span>
+            <span className="flex items-center gap-1.5 text-[15px] font-semibold">
+              Schedule Consultation <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
+            </span>
+          </Link>
         </div>
-      </div>
+      </Container>
+      <ServiceDetails service={selected} open={selected !== null} onOpenChange={(o) => !o && setSelected(null)} />
     </section>
   );
 }
 
 function IndustriesSection() {
   return (
-    <section className="py-20 lg:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <Badge variant="secondary" className="mb-4">Industries We Serve</Badge>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6" data-testid="text-industries-title">
-              Expertise Across Sectors
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-              We understand that different industries have unique technology requirements and compliance needs. Our team has deep experience serving organizations across multiple sectors.
-            </p>
-            <Link href="/contact">
-              <Button className="gap-2" data-testid="button-discuss-needs">
-                Discuss Your Needs
-                <ArrowRight className="h-4 w-4" />
-              </Button>
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            {industries.map((industry, index) => (
-              <Card key={index} className="hover-elevate" data-testid={`card-industry-${index}`}>
-                <CardContent className="p-4 flex items-center gap-3">
-                  <Briefcase className="h-5 w-5 text-primary flex-shrink-0" />
-                  <span className="font-medium text-sm">{industry}</span>
-                </CardContent>
-              </Card>
+    <section id="industries" className="bg-navy py-14 text-white lg:py-28">
+      <Container className="flex flex-col gap-10 lg:flex-row lg:items-center lg:gap-20">
+        <div className="relative hidden h-[440px] w-[600px] shrink-0 overflow-hidden rounded-[20px] lg:block">
+          <img src={industriesImage} alt="Business team meeting around a table with laptops" className="absolute inset-0 h-full w-full object-cover" />
+        </div>
+        <div className="flex flex-1 flex-col gap-5 lg:gap-6">
+          <Eyebrow dark>Industries we serve</Eyebrow>
+          <H2>Expertise across sectors</H2>
+          <p className="text-base leading-relaxed text-slate-mist lg:text-lg">
+            We understand that different industries have unique technology requirements and compliance needs. Our team
+            has deep experience serving organizations across multiple sectors.
+          </p>
+          <ul className="flex flex-wrap gap-2 sm:grid sm:grid-cols-2 sm:gap-2.5">
+            {industries.map((industry) => (
+              <li key={industry} className="rounded-full bg-navy-600 px-3.5 py-2 text-sm sm:rounded-xl sm:px-4 sm:py-3 sm:text-[15px]">
+                {industry}
+              </li>
             ))}
+          </ul>
+          <div className="mt-2">
+            <PillLink href="/contact" variant="leaf" arrow data-testid="button-discuss-needs">
+              Discuss Your Needs
+            </PillLink>
           </div>
         </div>
-      </div>
+      </Container>
+    </section>
+  );
+}
+
+function WhyAndTestimonialSection() {
+  const { data: dbTestimonials } = useQuery<TestimonialRecord[]>({ queryKey: ["/api/testimonials"] });
+  const items = dbTestimonials && dbTestimonials.length > 0 ? dbTestimonials : fallbackTestimonials;
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    if (items.length < 2) return;
+    const id = setInterval(() => setIndex((i) => (i + 1) % items.length), 8000);
+    return () => clearInterval(id);
+  }, [items.length]);
+
+  const t = items[index % items.length];
+
+  return (
+    <section className="py-14 lg:py-28">
+      <Container className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.2fr_1fr] lg:gap-[72px]">
+        <div className="flex flex-col gap-5 lg:gap-[22px]">
+          <Eyebrow>Why choose us</Eyebrow>
+          <H2>Your technology partner for success</H2>
+          <p className="text-base leading-relaxed text-slate lg:text-lg">
+            At Vertis Technology, we understand that reliable IT infrastructure is the backbone of modern business. Our
+            team of certified professionals works tirelessly to ensure your technology empowers your growth.
+          </p>
+          <ul className="mt-1.5 grid grid-cols-1 gap-x-7 gap-y-3.5 sm:grid-cols-2">
+            {whyChooseUs.map((item) => (
+              <li key={item} className="flex items-start gap-3 text-base leading-snug">
+                <span className="flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-full bg-leaf-tint text-leaf-dark">
+                  <Check aria-hidden="true" className="h-3.5 w-3.5" strokeWidth={3} />
+                </span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+        {t && (
+          <figure className="relative m-0 flex flex-col gap-7 rounded-[28px] bg-mist px-7 pb-10 pt-12 sm:px-12 sm:pb-11 sm:pt-14" data-testid="card-testimonial">
+            <svg aria-hidden="true" width="56" height="44" viewBox="0 0 56 44" className="text-leaf">
+              <path d="M0 44V26C0 11 8 2 22 0l2 6c-8 2-12 8-12 14h10v24zm32 0V26c0-15 8-24 22-26l2 6c-8 2-12 8-12 14h10v24z" fill="currentColor" />
+            </svg>
+            <blockquote className="m-0 font-display text-lg font-medium leading-normal text-ink sm:text-[22px]" data-testid="text-testimonial-quote">
+              {t.quote}
+            </blockquote>
+            <figcaption className="flex flex-col gap-1 border-t border-line pt-5">
+              <span className="text-[17px] font-semibold">{t.name}</span>
+              <span className="text-[15px] text-slate">
+                {t.role}, {t.company}
+              </span>
+            </figcaption>
+            {items.length > 1 && (
+              <div className="flex gap-2" role="group" aria-label="Choose testimonial">
+                {items.map((item, i) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => setIndex(i)}
+                    aria-label={`Show testimonial ${i + 1} of ${items.length}`}
+                    aria-pressed={i === index}
+                    className="flex h-11 w-11 items-center justify-center"
+                  >
+                    <span className={"block h-2.5 rounded-full transition-all " + (i === index ? "w-6 bg-brand" : "w-2.5 bg-line-strong")} />
+                  </button>
+                ))}
+              </div>
+            )}
+          </figure>
+        )}
+      </Container>
     </section>
   );
 }
 
 function PartnersSection() {
   return (
-    <section id="partners" className="py-20 lg:py-24 bg-gradient-to-br from-primary/5 via-background to-accent/10 scroll-mt-16">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <Badge variant="secondary" className="mb-4">Technology Partners</Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" data-testid="text-partners-title">
-            Powered by Industry Leaders
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+    <section id="partners" className="bg-mist py-14 lg:py-24">
+      <Container className="flex flex-col gap-10">
+        <div className="flex flex-col items-center gap-3 text-center">
+          <Eyebrow>Technology partners</Eyebrow>
+          <h2 className="font-display text-3xl font-bold leading-tight lg:text-4xl">Powered by industry leaders</h2>
+          <p className="text-base text-slate lg:text-[17px]">
             We partner with the world's leading technology providers to deliver best-in-class solutions for your business.
           </p>
         </div>
-        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-6">
-          {partners.map((partner) => (
-            <a
-              key={partner.id}
-              href={partner.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`flex items-center justify-center p-6 rounded-lg border hover:border-primary/30 transition-all group hover-elevate aspect-[3/2] ${
-                partner.id === "3cx" ? "bg-slate-800" : "bg-background"
-              }`}
-              data-testid={`partner-logo-${partner.id}`}
-              title={partner.name}
-            >
-              <img
-                src={partner.logo}
-                alt={`${partner.name} logo`}
-                className={`w-auto max-w-full object-contain opacity-70 group-hover:opacity-100 transition-opacity ${
-                  ["synology", "cisco", "vmware"].includes(partner.id) ? "h-12 sm:h-14" : "h-8 sm:h-10"
-                } ${
-                  ["fortinet", "crowdstrike"].includes(partner.id) ? "brightness-0 saturate-100 invert sepia saturate-[10000%] hue-rotate-[0deg]" :
-                  ["hp", "cisco"].includes(partner.id) ? "brightness-0 saturate-100 invert sepia saturate-[10000%] hue-rotate-[200deg]" : ""
-                }`}
-                style={
-                  ["fortinet", "crowdstrike"].includes(partner.id) ? { filter: "brightness(0) saturate(100%) invert(21%) sepia(100%) saturate(3000%) hue-rotate(0deg) brightness(90%)" } :
-                  ["hp", "cisco"].includes(partner.id) ? { filter: "brightness(0) saturate(100%) invert(30%) sepia(100%) saturate(2000%) hue-rotate(200deg) brightness(90%)" } : undefined
-                }
-              />
-            </a>
+        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-6">
+          {partners.map((p) => (
+            <li key={p.id}>
+              <a
+                href={p.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                title={p.description}
+                className="flex h-[72px] items-center justify-center rounded-[14px] border border-line bg-white px-3 text-center font-display text-base font-semibold text-slate transition-colors hover:border-brand hover:text-brand lg:h-[84px] lg:text-lg"
+              >
+                {p.name}
+              </a>
+            </li>
           ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function TestimonialsSection() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  
-  const { data: dbTestimonials } = useQuery<TestimonialRecord[]>({
-    queryKey: ["/api/testimonials"],
-  });
-
-  const testimonials = dbTestimonials && dbTestimonials.length > 0 
-    ? dbTestimonials 
-    : fallbackTestimonials;
-
-  useEffect(() => {
-    if (testimonials.length > 0) {
-      const interval = setInterval(() => {
-        setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-      }, 6000);
-      return () => clearInterval(interval);
-    }
-  }, [testimonials.length]);
-
-  if (testimonials.length === 0) {
-    return null;
-  }
-
-  return (
-    <section className="py-20 lg:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <Badge variant="secondary" className="mb-4">Testimonials</Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" data-testid="text-testimonials-title">
-            Trusted by Leading Organizations
-          </h2>
-        </div>
-        
-        <div className="max-w-4xl mx-auto">
-          <Card className="relative overflow-visible" data-testid="card-testimonial">
-            <CardContent className="p-8 sm:p-12">
-              <Quote className="h-10 w-10 text-primary/20 mb-6" />
-              <p className="text-lg sm:text-xl leading-relaxed mb-8" data-testid="text-testimonial-quote">
-                {testimonials[currentIndex]?.quote}
-              </p>
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary font-semibold">
-                  {testimonials[currentIndex]?.name?.charAt(0)}
-                </div>
-                <div>
-                  <p className="font-semibold" data-testid="text-testimonial-name">
-                    {testimonials[currentIndex]?.name}
-                  </p>
-                  <p className="text-sm text-muted-foreground" data-testid="text-testimonial-role">
-                    {testimonials[currentIndex]?.role}, {testimonials[currentIndex]?.company}
-                  </p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          
-          <div className="flex justify-center gap-2 mt-6">
-            {testimonials.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`w-2 h-2 rounded-full transition-colors ${
-                  index === currentIndex ? "bg-primary" : "bg-primary/30"
-                }`}
-                aria-label={`Go to testimonial ${index + 1}`}
-                data-testid={`button-testimonial-dot-${index}`}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
+        </ul>
+      </Container>
     </section>
   );
 }
 
 function SupportSection() {
-  const supportOptions = [
-    {
-      icon: Headphones,
-      title: "Phone Support",
-      description: "Speak directly with our technical support team for urgent issues.",
-      action: "Call Now",
-      link: "tel:+18766348700"
-    },
-    {
-      icon: Clock,
-      title: "Ticket Portal",
-      description: "Submit and track support tickets through our Zoho Desk portal.",
-      action: "Open Portal",
-      link: "https://support.vertisjm.com/portal/en/home",
-      external: true
-    }
-  ];
-
   return (
-    <section id="support" className="py-20 lg:py-24 bg-card scroll-mt-16">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <Badge variant="secondary" className="mb-4">Support</Badge>
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" data-testid="text-support-title">
-            We're Here to Help
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Need technical assistance? Our support team is available to help you resolve issues quickly.
+    <section id="support" className="py-14 lg:py-28">
+      <Container className="grid grid-cols-1 gap-5 lg:grid-cols-[1.3fr_1fr_1fr]">
+        <div className="flex flex-col gap-4 rounded-[22px] bg-brand px-6 py-8 text-white sm:rounded-3xl sm:p-12">
+          <h2 className="font-display text-[26px] font-bold leading-tight sm:text-[34px]">Ready to transform your IT infrastructure?</h2>
+          <p className="text-base leading-relaxed text-brand-tint sm:text-[17px]">
+            Let's discuss how Vertis Technology can help your organization achieve its technology goals. Schedule a free
+            consultation with our experts today.
           </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-          {supportOptions.map((option, index) => (
-            <Card key={index} className="text-center" data-testid={`card-support-option-${index}`}>
-              <CardContent className="p-8">
-                <div className="w-16 h-16 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-6">
-                  <option.icon className="h-8 w-8 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold mb-3">{option.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                  {option.description}
-                </p>
-                <Button className="gap-2" asChild data-testid={`button-support-${index}`}>
-                  <a 
-                    href={option.link} 
-                    target={option.external ? "_blank" : undefined}
-                    rel={option.external ? "noopener noreferrer" : undefined}
-                  >
-                    {option.action}
-                    {option.external && <ExternalLink className="h-4 w-4" />}
-                  </a>
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function WhyChooseUsSection() {
-  const reasons = [
-    "24/7 proactive monitoring and support",
-    "Certified engineers with enterprise experience",
-    "Transparent pricing with no hidden costs",
-    "Fast response times with defined SLAs",
-    "Local presence with Caribbean expertise",
-    "Strategic partnerships with leading vendors"
-  ];
-
-  return (
-    <section className="py-20 lg:py-24">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <Badge variant="secondary" className="mb-4">Why Choose Us</Badge>
-            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6" data-testid="text-why-choose-title">
-              Your Technology Partner for Success
-            </h2>
-            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
-              At Vertis Technology, we understand that reliable IT infrastructure is the backbone of modern business. Our team of certified professionals works tirelessly to ensure your technology empowers your growth.
-            </p>
-            <ul className="space-y-4">
-              {reasons.map((reason, index) => (
-                <li key={index} className="flex items-start gap-3" data-testid={`text-reason-${index}`}>
-                  <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                  <span>{reason}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="relative">
-            <div className="aspect-square rounded-lg bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center">
-              <div className="grid grid-cols-2 gap-4 p-8">
-                {[Server, Network, Shield, Cloud].map((Icon, index) => (
-                  <div
-                    key={index}
-                    className="w-24 h-24 sm:w-32 sm:h-32 rounded-lg bg-background shadow-sm flex items-center justify-center"
-                  >
-                    <Icon className="h-10 w-10 sm:h-12 sm:w-12 text-primary" />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function CTASection() {
-  return (
-    <section className="py-20 lg:py-24 bg-primary text-primary-foreground">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4" data-testid="text-cta-title">
-          Ready to Transform Your IT Infrastructure?
-        </h2>
-        <p className="text-lg opacity-90 max-w-2xl mx-auto mb-8">
-          Let's discuss how Vertis Technology can help your organization achieve its technology goals. Schedule a free consultation with our experts today.
-        </p>
-        <div className="flex flex-wrap justify-center gap-4">
-          <Link href="/contact">
-            <Button size="lg" variant="secondary" className="gap-2" data-testid="button-cta-consultation">
+          <div className="mt-2">
+            <PillLink href="/contact" variant="white" className="w-full sm:w-auto" data-testid="button-cta-consultation">
               Schedule Consultation
-              <ArrowRight className="h-4 w-4" />
-            </Button>
-          </Link>
-          <a href="#services">
-            <Button size="lg" variant="outline" className="bg-transparent border-primary-foreground/30 hover:bg-primary-foreground/10" data-testid="button-cta-services">
-              Explore Our Services
-            </Button>
+            </PillLink>
+          </div>
+        </div>
+        <div className="flex flex-col gap-3.5 rounded-3xl border border-line bg-mist p-8 sm:p-10">
+          <IconBadge>
+            <Phone aria-hidden="true" className="h-[22px] w-[22px]" />
+          </IconBadge>
+          <h3 className="font-display text-[21px] font-semibold">Phone Support</h3>
+          <p className="flex-1 text-[15px] leading-normal text-slate">Speak directly with our technical support team for urgent issues.</p>
+          <a href={contact.phones[0].href} className="text-base font-semibold text-brand hover:text-brand-dark">
+            Call {contact.phones[0].label} →
           </a>
         </div>
-      </div>
+        <div className="flex flex-col gap-3.5 rounded-3xl border border-line bg-mist p-8 sm:p-10">
+          <IconBadge>
+            <Ticket aria-hidden="true" className="h-[22px] w-[22px]" />
+          </IconBadge>
+          <h3 className="font-display text-[21px] font-semibold">Ticket Portal</h3>
+          <p className="flex-1 text-[15px] leading-normal text-slate">Submit and track support tickets through our Zoho Desk portal.</p>
+          <a href={SUPPORT_PORTAL_URL} className="text-base font-semibold text-brand hover:text-brand-dark">
+            Open Portal →
+          </a>
+        </div>
+      </Container>
     </section>
   );
 }
 
 export default function Home() {
+  // Honour /#section links when arriving from another page or a fresh load.
+  useEffect(() => {
+    const id = window.location.hash.slice(1);
+    if (id) setTimeout(() => scrollToId(id), 60);
+  }, []);
+
   return (
     <>
       <HeroSection />
-      <StatsSection />
-      <AboutSection />
-      <TeamSection />
       <ServicesSection />
       <IndustriesSection />
+      <WhyAndTestimonialSection />
       <PartnersSection />
-      <TestimonialsSection />
       <SupportSection />
-      <WhyChooseUsSection />
-      <CTASection />
     </>
   );
 }

@@ -6,6 +6,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Keep in-page anchors clear of the sticky header */
+[id] {
+  scroll-margin-top: 96px;
+}
+
 /* LIGHT MODE - Vertis Technology Brand Colors */
 :root {
   --button-outline: rgba(0,0,0, .10);
@@ -13,41 +18,41 @@ html {
   --opaque-button-border-intensity: -8;
   --elevate-1: rgba(0,0,0, .03);
   --elevate-2: rgba(0,0,0, .08);
-  --background: 210 20% 99%;
-  --foreground: 214 68% 14%;
-  --border: 212 18% 90%;
+  --background: 0 0% 100%;
+  --foreground: 211 43% 13%;
+  --border: 205 20% 89%;
   --card: 210 25% 97%;
-  --card-foreground: 214 68% 14%;
+  --card-foreground: 211 43% 13%;
   --card-border: 212 18% 92%;
   --sidebar: 214 30% 95%;
-  --sidebar-foreground: 214 68% 14%;
+  --sidebar-foreground: 211 43% 13%;
   --sidebar-border: 212 18% 90%;
-  --sidebar-primary: 212 74% 40%;
+  --sidebar-primary: 202 84% 35%;
   --sidebar-primary-foreground: 210 100% 97%;
   --sidebar-accent: 212 20% 90%;
   --sidebar-accent-foreground: 214 68% 18%;
-  --sidebar-ring: 212 74% 40%;
+  --sidebar-ring: 202 84% 35%;
   --popover: 210 20% 96%;
-  --popover-foreground: 214 68% 14%;
+  --popover-foreground: 211 43% 13%;
   --popover-border: 212 18% 88%;
-  --primary: 212 74% 40%;
+  --primary: 202 84% 35%;
   --primary-foreground: 210 100% 97%;
-  --secondary: 191 78% 53%;
-  --secondary-foreground: 214 68% 12%;
+  --secondary: 87 53% 51%;
+  --secondary-foreground: 212 64% 11%;
   --muted: 212 18% 92%;
-  --muted-foreground: 214 14% 40%;
-  --accent: 191 60% 92%;
-  --accent-foreground: 214 68% 18%;
+  --muted-foreground: 210 15% 36%;
+  --accent: 87 55% 91%;
+  --accent-foreground: 94 67% 27%;
   --destructive: 0 72% 45%;
   --destructive-foreground: 0 72% 98%;
-  --input: 212 18% 78%;
-  --ring: 212 74% 40%;
+  --input: 207 17% 77%;
+  --ring: 202 84% 35%;
   --chart-1: 212 74% 40%;
   --chart-2: 191 78% 45%;
   --chart-3: 220 70% 48%;
   --chart-4: 200 65% 40%;
   --chart-5: 214 60% 35%;
-  --font-sans: Open Sans, sans-serif;
+  --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
   --font-serif: Georgia, serif;
   --font-mono: Menlo, monospace;
   --radius: .5rem;

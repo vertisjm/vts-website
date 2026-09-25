@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Layout } from "@/components/layout";
 import Home from "@/pages/home";
+import About from "@/pages/about";
 import Contact from "@/pages/contact";
 import Careers from "@/pages/careers";
 import AdminLogin from "@/pages/admin/login";
@@ -19,6 +20,11 @@ function Router() {
       <Route path="/">
         <Layout>
           <Home />
+        </Layout>
+      </Route>
+      <Route path="/about">
+        <Layout>
+          <About />
         </Layout>
       </Route>
       <Route path="/contact">

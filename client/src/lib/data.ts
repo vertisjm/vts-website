@@ -1,5 +1,34 @@
 import type { Service, Partner, Testimonial } from "@shared/schema";
 
+// Partner logos: official marks from Wikimedia Commons (Grandstream from grandstream.com).
+import microsoftLogo from "@assets/partners/microsoft.svg";
+import fortinetLogo from "@assets/partners/fortinet.svg";
+import sophosLogo from "@assets/partners/sophos.svg";
+import dellLogo from "@assets/partners/dell.svg";
+import hpLogo from "@assets/partners/hp.svg";
+import veeamLogo from "@assets/partners/veeam.svg";
+import vmwareLogo from "@assets/partners/vmware.svg";
+import ciscoLogo from "@assets/partners/cisco.svg";
+import crowdstrikeLogo from "@assets/partners/crowdstrike.svg";
+import synologyLogo from "@assets/partners/synology.svg";
+import grandstreamLogo from "@assets/partners/grandstream.png";
+import threeCxLogo from "@assets/partners/3cx.svg";
+
+import managedItImg from "@assets/stock_images/managed-it.jpg";
+import cybersecurityImg from "@assets/stock_images/cybersecurity.jpg";
+import cloudImg from "@assets/stock_images/cloud.jpg";
+import infrastructureImg from "@assets/stock_images/infrastructure.jpg";
+import backupImg from "@assets/stock_images/backup-dr.jpg";
+
+// The five solutions featured as photo cards on the home page (ids refer to `services`).
+export const featuredSolutions = [
+  { serviceId: "managed-it", title: "Managed IT Services", blurb: "Keep your IT environment secure, productive and supported.", image: managedItImg },
+  { serviceId: "it-security", title: "Cybersecurity", blurb: "Protect your people, data and operations.", image: cybersecurityImg },
+  { serviceId: "cloud-services", title: "Cloud Solutions", blurb: "Modernise with Azure, Microsoft 365 and hybrid cloud.", image: cloudImg },
+  { serviceId: "network-infrastructure", title: "Infrastructure", blurb: "Networks, compute, storage and datacentre solutions.", image: infrastructureImg },
+  { serviceId: "backup-as-a-service", title: "Backup & DR", blurb: "Keep your business running, whatever happens.", image: backupImg },
+];
+
 export const services: Service[] = [
   {
     id: "managed-it",
@@ -102,6 +131,29 @@ export const services: Service[] = [
     icon: "Cloud"
   },
   {
+    id: "sovereign-ai",
+    title: "Local & Sovereign AI Infrastructure",
+    shortDescription: "AI servers, high-performance networking, GPU clusters and AI models, designed and built locally.",
+    description: "Vertis Technology designs and builds local and sovereign AI infrastructure through partnerships with global technology leaders. We supply and deploy AI servers, design high-performance AI networking, design and configure GPU clusters, and implement the AI models that run on them, on premises or in a local data centre, so sensitive data stays in Jamaica and the region.",
+    features: [
+      "AI Server Supply & Deployment",
+      "High-Performance AI Networking Design & Deployment",
+      "GPU Cluster Design & Configuration",
+      "AI Model Implementation & Integration",
+      "On-Premises & Local Data Centre Deployment",
+      "Data Residency & Access Controls",
+      "Ongoing Management & Support"
+    ],
+    benefits: [
+      "Keep sensitive data in-country and under your control",
+      "Support data protection and residency obligations",
+      "Predictable performance for AI workloads",
+      "Enterprise-grade platforms from our technology partners",
+      "Local expertise to design, build and support your AI environment"
+    ],
+    icon: "BrainCircuit"
+  },
+  {
     id: "application-development",
     title: "Application Development",
     shortDescription: "Custom software solutions tailored to your business needs.",
@@ -141,100 +193,49 @@ export const services: Service[] = [
 ];
 
 export const partners: Partner[] = [
-  {
-    id: "microsoft",
-    name: "Microsoft",
-    description: "Strategic partner for Microsoft 365, Azure cloud solutions, and enterprise productivity tools.",
-    logo: "https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE1Mu3b?ver=5c31",
-    url: "https://www.microsoft.com"
-  },
-  {
-    id: "dell",
-    name: "Dell Technologies",
-    description: "Hardware partner for enterprise servers, workstations, and infrastructure solutions.",
-    logo: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/dell.svg",
-    url: "https://www.dell.com"
-  },
-  {
-    id: "hp",
-    name: "HP",
-    description: "Provider of enterprise computing, printing, and imaging solutions.",
-    logo: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/hp.svg",
-    url: "https://www.hp.com"
-  },
-  {
-    id: "fortinet",
-    name: "Fortinet",
-    description: "Network security partner offering next-generation firewalls and security fabric solutions.",
-    logo: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/fortinet.svg",
-    url: "https://www.fortinet.com"
-  },
-  {
-    id: "sophos",
-    name: "Sophos",
-    description: "Cybersecurity partner for endpoint protection and synchronized security solutions.",
-    logo: "https://assets.sophos.com/X24WTUEQ/at/cgwpbfck63x7s6xnn84ck/Logo-Graphic-Logo-Tagline.svg",
-    url: "https://www.sophos.com"
-  },
-  {
-    id: "crowdstrike",
-    name: "CrowdStrike",
-    description: "Cloud-native endpoint protection and threat intelligence platform.",
-    logo: "https://assets.crowdstrike.com/is/content/crowdstrikeinc/black-primary-crowdstrike-logo-1-addedPadding-3",
-    url: "https://www.crowdstrike.com"
-  },
-  {
-    id: "synology",
-    name: "Synology",
-    description: "Storage and backup solutions partner for enterprise NAS and data management.",
-    logo: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/synology.svg",
-    url: "https://www.synology.com"
-  },
-  {
-    id: "cisco",
-    name: "Cisco",
-    description: "Networking partner for enterprise routing, switching, and collaboration solutions.",
-    logo: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/cisco.svg",
-    url: "https://www.cisco.com"
-  },
-  {
-    id: "grandstream",
-    name: "Grandstream",
-    description: "VoIP and unified communications solutions for modern business telephony.",
-    logo: "https://www.grandstream.com/hs-fs/hubfs/raw_assets/public/Grandstream_Feb_2021/images/logo-grandstream-low-web.png?width=600&height=204&name=logo-grandstream-low-web.png",
-    url: "https://www.grandstream.com"
-  },
-  {
-    id: "3cx",
-    name: "3CX",
-    description: "Software-based PBX and unified communications platform for voice and video.",
-    logo: "https://www.3cx.com/wp-content/uploads/2018/08/logo-3.png",
-    url: "https://www.3cx.com"
-  },
-  {
-    id: "veeam",
-    name: "Veeam",
-    description: "Backup and disaster recovery solutions for hybrid cloud environments.",
-    logo: "https://psr.veeam.com/global/img/logo/veeam_logo_lp_white.svg",
-    url: "https://www.veeam.com"
-  },
-  {
-    id: "vmware",
-    name: "VMware",
-    description: "Virtualization and cloud infrastructure solutions for enterprise environments.",
-    logo: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/vmware.svg",
-    url: "https://www.vmware.com"
-  }
+  { id: "microsoft", name: "Microsoft", description: "Strategic partner for Microsoft 365, Azure cloud solutions, and enterprise productivity tools.", logo: microsoftLogo, url: "https://www.microsoft.com" },
+  { id: "fortinet", name: "Fortinet", description: "Network security partner offering next-generation firewalls and security fabric solutions.", logo: fortinetLogo, url: "https://www.fortinet.com" },
+  { id: "sophos", name: "Sophos", description: "Cybersecurity partner for endpoint protection and synchronized security solutions.", logo: sophosLogo, url: "https://www.sophos.com" },
+  { id: "dell", name: "Dell Technologies", description: "Hardware partner for enterprise servers, workstations, and infrastructure solutions.", logo: dellLogo, url: "https://www.dell.com" },
+  { id: "hp", name: "HP", description: "Provider of enterprise computing, printing, and imaging solutions.", logo: hpLogo, url: "https://www.hp.com" },
+  { id: "veeam", name: "Veeam", description: "Backup and disaster recovery solutions for hybrid cloud environments.", logo: veeamLogo, url: "https://www.veeam.com" },
+  { id: "vmware", name: "VMware", description: "Virtualization and cloud infrastructure solutions for enterprise environments.", logo: vmwareLogo, url: "https://www.vmware.com" },
+  { id: "cisco", name: "Cisco", description: "Networking partner for enterprise routing, switching, and collaboration solutions.", logo: ciscoLogo, url: "https://www.cisco.com" },
+  { id: "crowdstrike", name: "CrowdStrike", description: "Cloud-native endpoint protection and threat intelligence platform.", logo: crowdstrikeLogo, url: "https://www.crowdstrike.com" },
+  { id: "synology", name: "Synology", description: "Storage and backup solutions partner for enterprise NAS and data management.", logo: synologyLogo, url: "https://www.synology.com" },
+  { id: "grandstream", name: "Grandstream", description: "VoIP and unified communications solutions for modern business telephony.", logo: grandstreamLogo, url: "https://www.grandstream.com" },
+  { id: "3cx", name: "3CX", description: "Software-based PBX and unified communications platform for voice and video.", logo: threeCxLogo, url: "https://www.3cx.com" }
 ];
 
-// Shown when the admin portal has no testimonials saved.
+// Shown when the admin portal has no testimonials saved. Same four as vertisjm.com.
 export const testimonials: Testimonial[] = [
   {
     id: "ironrock",
     quote: "Vertis was able to resolve our network concerns in one week where other service providers were saying they needed 2 months. We chose Vertis Technology Solutions Ltd, for our Managed Service partner a decision that has yielded great rewards.",
     name: "Maurice Bolt",
-    role: "Gen. Manager – Technology & Operations",
+    role: "Gen. Manager - Technology & Operations",
     company: "IronRock Insurance Company Limited"
+  },
+  {
+    id: "jta",
+    quote: "We needed a SD-WAN solution to be implemented to meet the needs of our infrastructure. Vertis Technology Solutions Ltd partnered with us to implement the solution across our locations. THANK YOU, VERTIS!",
+    name: "Fabian Webb",
+    role: "IT Manager",
+    company: "JTA Credit Union"
+  },
+  {
+    id: "sangsters",
+    quote: "For me being able to rely completely on your partner, is probably the single most important thing, and that for me has been a differentiator for Vertis. Vertis has not let me down, and I don't believe it's in them to let a customer down.",
+    name: "Shane Monroe",
+    role: "IT Manager",
+    company: "Sangster's International Airport"
+  },
+  {
+    id: "purity",
+    quote: "Vertis solved our network security needs with the implementation of a Unified Threat Management device that improved our security exponentially. Vertis attention to detail is quite refreshing.",
+    name: "Steven Mullings",
+    role: "IT Manager",
+    company: "Purity Bakery"
   }
 ];
 

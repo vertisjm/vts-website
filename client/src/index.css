@@ -6,6 +6,120 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ---------- Motion (2026 redesign) ---------- */
+
+/* Scroll reveal: see <Reveal> in components/site.tsx */
+.reveal {
+  transition: opacity 0.75s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.75s cubic-bezier(0.2, 0.7, 0.2, 1);
+  will-change: opacity, transform;
+}
+.reveal:not(.is-visible) { opacity: 0; }
+.reveal-up:not(.is-visible) { transform: translateY(28px); }
+.reveal-left:not(.is-visible) { transform: translateX(-36px); }
+.reveal-right:not(.is-visible) { transform: translateX(36px); }
+.reveal-zoom:not(.is-visible) { transform: scale(0.94); }
+
+/* Page-load entrance for hero content: add .enter and a --d delay */
+@keyframes enter-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+.enter {
+  animation: enter-up 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+
+/* Slow drift on hero photos */
+@keyframes ken-burns {
+  from { transform: scale(1.08); }
+  to { transform: scale(1); }
+}
+.ken-burns { animation: ken-burns 14s ease-out both; }
+
+/* Map: pulsing rings and connection lines drawing in */
+@keyframes pulse-ring {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+.pulse-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pulse-ring 2.6s cubic-bezier(0.2, 0.6, 0.3, 1) infinite;
+}
+.pulse-ring-delay { animation-delay: 1.3s; }
+@keyframes draw-line {
+  to { stroke-dashoffset: 0; }
+}
+.draw-line {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+.is-visible .draw-line {
+  animation: draw-line 1.6s cubic-bezier(0.5, 0, 0.2, 1) forwards;
+  animation-delay: var(--d, 0ms);
+}
+@keyframes dash-flow {
+  to { stroke-dashoffset: -24; }
+}
+.dash-flow { animation: dash-flow 1.8s linear infinite; }
+@keyframes pop-in {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.pop-in {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+}
+.is-visible .pop-in {
+  animation: pop-in 0.5s cubic-bezier(0.3, 1.4, 0.5, 1) forwards;
+  animation-delay: var(--d, 0ms);
+}
+
+/* Sovereign AI diagram: data moving between layers, GPU status lights */
+@keyframes data-up {
+  0% { transform: translateY(0); opacity: 0; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
+  100% { transform: translateY(-34px); opacity: 0; }
+}
+.data-up { animation: data-up 2.4s ease-in-out infinite; animation-delay: var(--d, 0ms); }
+@keyframes led {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+.led { animation: led 1.8s ease-in-out infinite; animation-delay: var(--d, 0ms); }
+
+/* Hover lift for cards */
+.lift {
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.35s ease;
+}
+.lift:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 40px rgba(10, 27, 46, 0.12);
+}
+/* Elements that both reveal on scroll and lift on hover need both transitions. */
+.reveal.lift {
+  transition: opacity 0.75s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.75s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.35s ease;
+}
+
+/* Testimonial cross-fade */
+@keyframes quote-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+.quote-in { animation: quote-in 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal, .reveal:not(.is-visible) { opacity: 1; transform: none; transition: none; }
+  .enter, .ken-burns, .pulse-ring, .dash-flow, .quote-in, .led { animation: none; }
+  .data-up { animation: none; opacity: 0; }
+  .draw-line, .is-visible .draw-line { animation: none; stroke-dashoffset: 0; }
+  .pop-in, .is-visible .pop-in { animation: none; opacity: 1; }
+  .lift, .lift:hover { transition: none; transform: none; }
+}
+
 /* Keep in-page anchors clear of the sticky header */
 [id] {
   scroll-margin-top: 96px;

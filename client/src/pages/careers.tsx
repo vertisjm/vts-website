@@ -1,14 +1,17 @@
 import { useEffect } from "react";
-import { BarChart3, Clock, Medal, Users } from "lucide-react";
-import { Container, Eyebrow, H2, IconBadge, PageHero, PillLink, contact } from "@/components/site";
+import { GraduationCap, Puzzle, Sprout, Users } from "lucide-react";
+import { Container, Eyebrow, PageHero, PillLink, Reveal, contact } from "@/components/site";
 
 import heroImage from "@assets/stock_images/careers-team.jpg";
+import teamImage from "@assets/stock_images/industries-meeting.jpg";
 
-const benefits = [
-  { icon: Users, title: "Collaborative Team", description: "Work alongside talented professionals in a supportive environment." },
-  { icon: BarChart3, title: "Growth Opportunities", description: "Continuous learning and career advancement programs." },
-  { icon: Medal, title: "Competitive Benefits", description: "Comprehensive compensation and benefits packages." },
-  { icon: Clock, title: "Work-Life Balance", description: "Flexible arrangements to support your personal life." },
+const ZOHO_RECRUIT_SITE = "https://vertisjm.zohorecruit.com";
+
+const reasons = [
+  { icon: Users, title: "Meaningful work", body: "Work on enterprise technology solutions across cloud, cybersecurity, infrastructure and more." },
+  { icon: GraduationCap, title: "Keep developing", body: "Certifications, training, mentoring and exposure to enterprise environments." },
+  { icon: Puzzle, title: "Solve real problems", body: "Work directly with clients on technology that their organisations depend on." },
+  { icon: Sprout, title: "Grow with us", body: "Build your career as Vertis expands across Jamaica and the Caribbean." },
 ];
 
 // Open positions come from Zoho Recruit's embeddable job list.
@@ -16,7 +19,7 @@ const recruitOptions = {
   widget_id: "rec_job_listing_div",
   page_name: "Careers",
   source: "CareerSite",
-  site: "https://vertisjm.zohorecruit.com",
+  site: ZOHO_RECRUIT_SITE,
   brand_color: "#0E6FA6",
   empty_job_msg: "No current openings",
 };
@@ -44,18 +47,25 @@ function useZohoRecruitJobs() {
   }, []);
 }
 
+const h2Cls = "font-display text-3xl font-bold leading-[1.15] tracking-[-0.015em] lg:text-[38px]";
+
 export default function Careers() {
   useZohoRecruitJobs();
 
   return (
     <>
       <PageHero
-        eyebrow="Careers"
-        title="Join our"
-        highlight="growing team."
-        body="At Vertis Technology, we're building the future of IT services in the Caribbean. Join a team of passionate professionals making a real impact."
+        eyebrow="Careers at Vertis"
+        title={
+          <>
+            Build technology
+            <br />
+            that makes a difference.
+          </>
+        }
+        body="Join a team solving real technology challenges for organisations across Jamaica and the Caribbean."
         cta={
-          <PillLink href="#positions" arrow>
+          <PillLink href="#positions" arrow size="md">
             View Open Positions
           </PillLink>
         }
@@ -63,34 +73,43 @@ export default function Careers() {
         imageAlt="Colleagues collaborating around a laptop"
       />
 
-      <section className="py-14 lg:py-28">
-        <Container className="flex flex-col gap-10 lg:gap-12">
-          <div className="flex flex-col gap-3.5">
-            <Eyebrow>Why work with us</Eyebrow>
-            <H2>A place to do your best work.</H2>
-          </div>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
-            {benefits.map((b, i) => (
-              <div key={b.title} className="flex flex-col gap-3 rounded-[20px] bg-mist p-7 lg:p-8" data-testid={`card-benefit-${i}`}>
-                <IconBadge>
-                  <b.icon aria-hidden="true" className="h-6 w-6" />
-                </IconBadge>
-                <h3 className="font-display text-xl font-semibold">{b.title}</h3>
-                <p className="text-[15px] leading-relaxed text-slate">{b.description}</p>
-              </div>
+      <section className="py-14 lg:py-24">
+        <Container className="flex flex-col gap-10">
+          <Reveal>
+            <h2 className={h2Cls}>Learn. Solve. Build. Grow.</h2>
+          </Reveal>
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            {reasons.map((r, i) => (
+              <Reveal key={r.title} delay={i * 100} className="group flex flex-col gap-3">
+                <span className="flex h-14 w-14 items-center justify-center rounded-xl bg-leaf-tint transition-transform duration-300 group-hover:-translate-y-1 group-hover:rotate-3" data-testid={`card-benefit-${i}`}>
+                  <r.icon aria-hidden="true" className="h-7 w-7 text-leaf-dark" strokeWidth={1.6} />
+                </span>
+                <h3 className="font-display text-lg font-semibold">{r.title}</h3>
+                <p className="text-[15px] leading-relaxed text-slate">{r.body}</p>
+              </Reveal>
             ))}
           </div>
         </Container>
       </section>
 
-      <section id="positions" className="bg-mist py-14 lg:py-28">
+      <section id="positions" className="bg-mist py-14 lg:py-24">
         <Container className="flex flex-col gap-8">
-          <div className="flex flex-col gap-3.5">
-            <Eyebrow>Open positions</Eyebrow>
-            <H2>Find your next opportunity.</H2>
-          </div>
+          <Reveal className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div className="flex flex-col gap-3">
+              <Eyebrow className="text-slate">Open positions</Eyebrow>
+              <h2 className={h2Cls}>Find your next opportunity at Vertis.</h2>
+            </div>
+            <a
+              href={`${ZOHO_RECRUIT_SITE}/jobs/Careers`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex min-h-11 items-center gap-2 self-start text-[15px] font-semibold text-brand hover:text-brand-dark sm:self-auto"
+            >
+              View all positions →
+            </a>
+          </Reveal>
 
-          <div className="rounded-[20px] border border-line bg-white p-4 sm:p-8">
+          <div className="rounded-xl border border-line bg-white p-4 sm:p-8">
             <div className="embed_jobs_head embed_jobs_with_style_1">
               <div className="embed_jobs_head2">
                 <div className="embed_jobs_head3">
@@ -100,15 +119,33 @@ export default function Careers() {
             </div>
           </div>
 
-          <div className="flex flex-col gap-5 rounded-2xl bg-navy px-6 py-7 text-white sm:flex-row sm:items-center sm:justify-between sm:px-8">
-            <div className="flex flex-col gap-1">
-              <span className="font-display text-xl font-semibold">Don't see a role that fits?</span>
-              <span className="text-base text-slate-pale">Send your resume and we'll keep you in mind.</span>
-            </div>
-            <PillLink href={`mailto:${contact.jobsEmail}`} variant="leaf" size="md" data-testid="link-careers-email">
+          <p className="text-[15px] text-slate">
+            Don't see a role that fits? Send your resume to{" "}
+            <a href={`mailto:${contact.jobsEmail}`} className="font-semibold text-brand hover:text-brand-dark" data-testid="link-careers-email">
               {contact.jobsEmail}
-            </PillLink>
-          </div>
+            </a>{" "}
+            and we'll keep you in mind.
+          </p>
+        </Container>
+      </section>
+
+      <section className="py-14 lg:py-20">
+        <Container>
+          <Reveal variant="zoom" className="grid grid-cols-1 overflow-hidden rounded-2xl bg-navy text-white lg:grid-cols-2">
+            <img src={teamImage} alt="Team meeting around a table with laptops" className="h-64 w-full object-cover lg:h-full" />
+            <div className="flex flex-col justify-center gap-4 px-7 py-10 lg:px-14 lg:py-16">
+              <h2 className="font-display text-[28px] font-bold leading-tight lg:text-[34px]">A team that supports each other.</h2>
+              <p className="text-base leading-relaxed text-slate-mist">
+                We value collaboration, continuous learning and a shared commitment to delivering excellent service to our
+                customers.
+              </p>
+              <div className="mt-2">
+                <PillLink href="/about#team" arrow size="md">
+                  Meet the Team
+                </PillLink>
+              </div>
+            </div>
+          </Reveal>
         </Container>
       </section>
     </>

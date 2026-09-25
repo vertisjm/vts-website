@@ -1,9 +1,14 @@
 import { useEffect, useRef } from "react";
-import { ArrowRight, Clock, Mail, MapPin, Phone, RefreshCw } from "lucide-react";
-import { Container, Eyebrow, IconBadge, PillLink, SUPPORT_PORTAL_URL, contact, pillClass } from "@/components/site";
+import { ArrowRight, Clock, Headphones, Mail, MapPin, Phone, RefreshCw } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { industries } from "@/lib/data";
+import { Container, PageHero, PillLink, Reveal, SUPPORT_PORTAL_URL, contact, pillClass, scrollToId } from "@/components/site";
+
+import heroImage from "@assets/stock_images/hero-it-server-room.jpg";
+import coverageMap from "@assets/caribbean-map-light.svg";
 
 const fieldCls =
-  "h-12 w-full rounded-[10px] border border-line-strong bg-white px-3.5 text-[15px] text-ink placeholder:text-slate-muted focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/25";
+  "h-12 w-full rounded-lg border border-line-strong bg-white px-3.5 text-[15px] text-ink placeholder:text-slate-muted focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/25";
 const labelCls = "text-sm font-semibold text-ink";
 
 function Required() {
@@ -14,37 +19,24 @@ function Required() {
   );
 }
 
-function HeroSection() {
-  return (
-    <section className="flex flex-col bg-navy text-white lg:min-h-[520px] lg:flex-row">
-      <div className="flex flex-col justify-center gap-6 px-5 py-16 sm:px-8 lg:w-[720px] lg:shrink-0 lg:py-20 lg:pl-20 lg:pr-16">
-        <Eyebrow dark rule>
-          Contact us
-        </Eyebrow>
-        <h1
-          className="font-display text-[40px] font-bold leading-[1.06] tracking-[-0.02em] sm:text-5xl lg:text-6xl"
-          data-testid="text-contact-title"
-        >
-          Let's start a <span className="text-leaf">conversation.</span>
-        </h1>
-        <p className="text-[17px] leading-relaxed text-slate-mist sm:text-[19px]" data-testid="text-contact-description">
-          Whether you need IT support, want to discuss a project, or simply have questions, we're here to help. Reach out
-          and let's explore how we can support your business.
-        </p>
-      </div>
-      <div className="relative min-h-[280px] flex-1 overflow-hidden bg-navy-700 lg:rounded-bl-[160px]">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1897.2!2d-76.7877!3d18.0085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8edb3f8d9c8a2f1b%3A0x0!2sBraemar%20Avenue%2C%20Kingston%2010%2C%20Jamaica!5e0!3m2!1sen!2s!4v1702234567890"
-          className="absolute inset-0 h-full w-full border-0"
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          title="Map showing the Vertis Technology office at 1b Braemar Avenue, Kingston 10"
-        />
-      </div>
-    </section>
-  );
-}
+const faqs = [
+  {
+    q: "How quickly can you respond to a new enquiry?",
+    a: `Our team reviews new enquiries Monday to Friday, 8:00 AM – 5:00 PM. If you need urgent help with a system we already support, call ${contact.phones[0].label} or open a ticket in the Support Portal.`,
+  },
+  {
+    q: "Do you provide support outside of Jamaica?",
+    a: "Yes. We work with organisations across Jamaica and the wider Caribbean. Tell us where you're based and what you need, and we'll explain how we can support you.",
+  },
+  {
+    q: "What industries do you work with?",
+    a: `We serve ${industries.slice(0, -1).join(", ").toLowerCase()} and ${industries[industries.length - 1].toLowerCase()} organisations, among others.`,
+  },
+  {
+    q: "Do you offer on-site and remote support?",
+    a: "Yes. Our help desk resolves many issues remotely, and our engineers work on site for installations, infrastructure projects and problems that need hands-on attention.",
+  },
+];
 
 function ContactFormSection() {
   const captchaRef = useRef<HTMLImageElement>(null);
@@ -193,10 +185,10 @@ function ContactFormSection() {
 
   return (
     <div
-      className="flex flex-col gap-6 rounded-3xl border border-line bg-white p-6 shadow-[0_12px_32px_rgba(10,27,46,0.06)] sm:p-12"
+      className="flex flex-col gap-6 rounded-2xl border border-line bg-white p-6 shadow-[0_12px_32px_rgba(10,27,46,0.06)] sm:p-10"
       data-testid="card-contact-form"
     >
-      <h2 className="font-display text-[28px] font-bold lg:text-[32px]">Send us a message</h2>
+      <h2 className="font-display text-2xl font-bold">Get in touch</h2>
       <form
         id="webform1691948000001924023"
         action="https://crm.zoho.com/crm/WebToLeadForm"
@@ -309,102 +301,156 @@ function ContactFormSection() {
   );
 }
 
-function InfoRow({ icon: Icon, title, children }: { icon: typeof MapPin; title: string; children: React.ReactNode }) {
+
+function DetailRow({ icon: Icon, children }: { icon: typeof MapPin; children: React.ReactNode }) {
   return (
     <div className="flex gap-4">
-      <IconBadge className="h-12 w-12">
-        <Icon aria-hidden="true" className="h-5 w-5" />
-      </IconBadge>
-      <div className="flex flex-col gap-1">
-        <h3 className="font-display text-[19px] font-semibold">{title}</h3>
-        {children}
+      <Icon aria-hidden="true" className="mt-0.5 h-6 w-6 shrink-0 text-leaf-dark" strokeWidth={1.8} />
+      <div className="flex flex-col gap-1 text-[15px]">{children}</div>
+    </div>
+  );
+}
+
+function ContactDetails() {
+  return (
+    <div className="flex flex-col gap-10" data-testid="card-contact-info">
+      <div className="flex flex-col gap-6">
+        <h2 className="font-display text-2xl font-bold">Contact details</h2>
+        <DetailRow icon={Phone}>
+          {contact.phones.map((p, i) => (
+            <a key={p.href} href={p.href} className="font-semibold text-ink hover:text-brand" data-testid={i === 0 ? "link-phone" : "link-phone-alt"}>
+              {p.label}
+            </a>
+          ))}
+        </DetailRow>
+        <DetailRow icon={Mail}>
+          <a href={`mailto:${contact.email}`} className="font-semibold text-ink hover:text-brand" data-testid="link-email">
+            {contact.email}
+          </a>
+          <span className="text-sm text-slate">We'll respond as soon as possible.</span>
+        </DetailRow>
+        <DetailRow icon={Clock}>
+          <span className="font-semibold text-ink">Office hours</span>
+          <span className="text-sm text-slate">
+            {contact.hours[0]}
+            <br />
+            {contact.hours[1]}
+          </span>
+        </DetailRow>
+        <DetailRow icon={Headphones}>
+          <span className="font-semibold text-ink">Client support</span>
+          <span className="text-sm text-slate">Existing clients can open and track tickets in our Support Portal.</span>
+          <a href={SUPPORT_PORTAL_URL} className="text-sm font-semibold text-brand hover:text-brand-dark">
+            Open the Support Portal →
+          </a>
+        </DetailRow>
+      </div>
+
+      <div className="flex flex-col gap-6">
+        <h2 className="font-display text-2xl font-bold">Our office</h2>
+        <DetailRow icon={MapPin}>
+          <span className="font-semibold text-ink">
+            {contact.addressLines[0]}
+            <br />
+            {contact.addressLines[1]}
+          </span>
+          <a href={contact.directionsUrl} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-brand hover:text-brand-dark">
+            Get Directions →
+          </a>
+        </DetailRow>
       </div>
     </div>
   );
 }
 
-function ContactInfoSection() {
-  return (
-    <div className="flex flex-col gap-[30px] pt-2" data-testid="card-contact-info">
-      <h2 className="font-display text-[28px] font-bold lg:text-[32px]">Contact information</h2>
-      <InfoRow icon={MapPin} title="Office address">
-        <span className="text-base leading-normal text-slate">
-          {contact.addressLines[0]}
-          <br />
-          {contact.addressLines[1]}
-        </span>
-        <a href={contact.directionsUrl} target="_blank" rel="noopener noreferrer" className="text-[15px] font-semibold text-brand hover:text-brand-dark">
-          Get Directions →
-        </a>
-      </InfoRow>
-      <InfoRow icon={Phone} title="Phone">
-        {contact.phones.map((p, i) => (
-          <a key={p.href} href={p.href} className="text-base text-ink hover:text-brand" data-testid={i === 0 ? "link-phone" : "link-phone-alt"}>
-            {p.label}
-          </a>
-        ))}
-      </InfoRow>
-      <InfoRow icon={Mail} title="Email">
-        <a href={`mailto:${contact.email}`} className="text-base text-brand hover:text-brand-dark" data-testid="link-email">
-          {contact.email}
-        </a>
-      </InfoRow>
-      <InfoRow icon={Clock} title="Office hours">
-        <span className="text-base leading-normal text-slate">
-          {contact.hours[0]}
-          <br />
-          {contact.hours[1]}
-        </span>
-      </InfoRow>
-    </div>
-  );
-}
-
-function SupportSection() {
-  return (
-    <section id="support" className="pb-14 lg:pb-28">
-      <Container className="grid grid-cols-1 gap-5 lg:grid-cols-[1.2fr_1fr_1fr]">
-        <div className="flex flex-col gap-3.5 rounded-3xl bg-navy p-8 text-white lg:p-12">
-          <Eyebrow dark>Support</Eyebrow>
-          <h2 className="font-display text-[28px] font-bold leading-tight lg:text-[34px]">We're here to help.</h2>
-          <p className="text-base leading-relaxed text-slate-mist lg:text-[17px]">
-            Need technical assistance? Our support team is available to help you resolve issues quickly.
-          </p>
-        </div>
-        <div className="flex flex-col gap-3.5 rounded-3xl border border-line bg-mist p-8 lg:p-10">
-          <h3 className="font-display text-[21px] font-semibold">Phone Support</h3>
-          <p className="flex-1 text-[15px] leading-normal text-slate">Speak directly with our technical support team for urgent issues.</p>
-          <div>
-            <PillLink href={contact.phones[0].href} size="md">
-              Call Now
-            </PillLink>
-          </div>
-        </div>
-        <div className="flex flex-col gap-3.5 rounded-3xl border border-line bg-mist p-8 lg:p-10">
-          <h3 className="font-display text-[21px] font-semibold">Ticket Portal</h3>
-          <p className="flex-1 text-[15px] leading-normal text-slate">Submit and track support tickets through our Zoho Desk portal.</p>
-          <div>
-            <PillLink href={SUPPORT_PORTAL_URL} size="md">
-              Open Portal
-            </PillLink>
-          </div>
-        </div>
-      </Container>
-    </section>
-  );
-}
-
 export default function Contact() {
+  // Support links such as /contact#coverage from the home page.
+  useEffect(() => {
+    const id = window.location.hash.slice(1);
+    if (id) setTimeout(() => scrollToId(id), 60);
+  }, []);
+
   return (
     <>
-      <HeroSection />
-      <section id="contact-form" className="py-14 lg:py-28">
+      <PageHero
+        eyebrow="Contact us"
+        title={
+          <>
+            Let's talk about
+            <br />
+            your technology needs.
+          </>
+        }
+        body="Whether you have a question, need expert advice or want to discuss a project, our team is here to help."
+        image={heroImage}
+        imageAlt="IT professional working on a laptop in a server room"
+      />
+
+      <section id="contact-form" className="py-14 lg:py-24">
         <Container className="grid grid-cols-1 gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
-          <ContactFormSection />
-          <ContactInfoSection />
+          <Reveal>
+            <ContactFormSection />
+          </Reveal>
+          <Reveal delay={120}>
+            <ContactDetails />
+          </Reveal>
         </Container>
       </section>
-      <SupportSection />
+
+      <section className="pb-14 lg:pb-24">
+        <Container>
+          <Reveal className="relative h-[320px] overflow-hidden rounded-2xl border border-line bg-mist lg:h-[380px]">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1897.2!2d-76.7877!3d18.0085!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8edb3f8d9c8a2f1b%3A0x0!2sBraemar%20Avenue%2C%20Kingston%2010%2C%20Jamaica!5e0!3m2!1sen!2s!4v1702234567890"
+              className="absolute inset-0 h-full w-full border-0"
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Map showing the Vertis Technology office at 1b Braemar Avenue, Kingston 10"
+            />
+          </Reveal>
+        </Container>
+      </section>
+
+      <section id="coverage" className="bg-mist py-14 lg:py-20">
+        <Container className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
+          <Reveal variant="left" className="flex flex-col gap-4">
+            <h2 className="font-display text-3xl font-bold leading-[1.15] tracking-[-0.015em] lg:text-[34px]">
+              Supporting organisations across the Caribbean.
+            </h2>
+            <p className="text-base leading-relaxed text-slate">
+              We work with businesses, government and institutions throughout the region, delivering technology solutions
+              tailored to local needs.
+            </p>
+            <div className="mt-2">
+              <PillLink href="#contact-form" arrow size="md">
+                Talk to an Expert
+              </PillLink>
+            </div>
+          </Reveal>
+          <Reveal variant="zoom" delay={120}>
+            <img src={coverageMap} alt="Map of the Caribbean with Jamaica highlighted" className="w-full" />
+          </Reveal>
+        </Container>
+      </section>
+
+      <section className="py-14 lg:py-20">
+        <Container className="flex max-w-[960px] flex-col gap-6">
+          <Reveal>
+            <h2 className="font-display text-3xl font-bold leading-tight lg:text-[34px]">Frequently asked questions</h2>
+          </Reveal>
+          <Accordion type="single" collapsible className="flex flex-col">
+            {faqs.map((f, i) => (
+              <AccordionItem key={f.q} value={`faq-${i}`} className="border-b border-line">
+                <AccordionTrigger className="py-5 text-left font-display text-base font-semibold text-ink hover:no-underline">
+                  {f.q}
+                </AccordionTrigger>
+                <AccordionContent className="pb-5 text-[15px] leading-relaxed text-slate">{f.a}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </Container>
+      </section>
     </>
   );
 }

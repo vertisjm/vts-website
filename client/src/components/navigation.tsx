@@ -9,10 +9,10 @@ import vertisMark from "@assets/vertis-mark.png";
 type NavItem = { label: string; href: string };
 
 const navItems: NavItem[] = [
-  { label: "Services", href: "/#services" },
+  { label: "Solutions", href: "/#solutions" },
   { label: "Industries", href: "/#industries" },
+  { label: "Insights", href: "/blog" },
   { label: "About", href: "/about" },
-  { label: "Support", href: "/#support" },
   { label: "Careers", href: "/careers" },
   { label: "Contact", href: "/contact" },
 ];
@@ -68,7 +68,8 @@ function NavLink({ item, active, className, onNavigate }: { item: NavItem; activ
 export function Navigation() {
   const [location] = useLocation();
   const [open, setOpen] = useState(false);
-  const isActive = (item: NavItem) => !item.href.startsWith("/#") && location === item.href;
+  const isActive = (item: NavItem) =>
+    !item.href.startsWith("/#") && (location === item.href || location.startsWith(item.href + "/"));
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-line bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/85">
@@ -82,7 +83,7 @@ export function Navigation() {
           </span>
         </Link>
 
-        <nav aria-label="Primary" className="hidden items-center gap-7 xl:flex xl:gap-8">
+        <nav aria-label="Primary" className="hidden items-center gap-8 xl:flex xl:gap-10">
           {navItems.map((item) => (
             <NavLink
               key={item.label}
@@ -96,16 +97,9 @@ export function Navigation() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 xl:flex">
-          <a
-            href={SUPPORT_PORTAL_URL}
-            className="flex h-11 items-center rounded-full border border-line-strong px-[18px] text-[15px] font-semibold text-ink transition-colors hover:border-ink"
-            data-testid="link-support-portal"
-          >
-            Support Portal
-          </a>
+        <div className="hidden items-center xl:flex">
           <Link href="/contact" className={pillClass("primary", "md", "h-11 px-5")} data-testid="button-nav-consultation">
-            Schedule Consultation
+            Talk to an Expert
             <ArrowRight aria-hidden="true" className="h-4 w-4" />
           </Link>
         </div>
@@ -148,7 +142,7 @@ export function Navigation() {
               <div className="mt-auto flex flex-col gap-3 border-t border-line p-6">
                 <SheetClose asChild>
                   <Link href="/contact" className={pillClass("primary", "md")}>
-                    Schedule Consultation
+                    Talk to an Expert
                   </Link>
                 </SheetClose>
                 <a href={SUPPORT_PORTAL_URL} className={pillClass("outline", "md")}>

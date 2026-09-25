@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "wouter";
 import { ArrowRight, Camera } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -64,7 +64,7 @@ const sizeClass = {
 
 export function pillClass(variant: Variant = "primary", size: "md" | "lg" = "lg", className?: string) {
   return cn(
-    "inline-flex items-center justify-center gap-2.5 rounded-full font-semibold transition-colors no-underline",
+    "inline-flex items-center justify-center gap-2.5 rounded-lg font-semibold transition-colors no-underline",
     "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-leaf",
     sizeClass[size],
     variantClass[variant],
@@ -166,45 +166,51 @@ export function PhotoPlaceholder({ label, className, dark = true }: { label: str
   );
 }
 
-/** Dark hero used on the inner pages (About, Careers, Contact). */
+/** Dark photo hero used on the inner pages (About, Careers, Contact): the photo fills the right and fades into navy. */
 export function PageHero({
   eyebrow,
   title,
-  highlight,
   body,
   cta,
   image,
   imageAlt,
-  photoLabel,
+  imageClass,
 }: {
   eyebrow: string;
-  title: string;
-  highlight: string;
+  title: React.ReactNode;
   body: string;
   cta?: React.ReactNode;
-  image?: string;
-  imageAlt?: string;
-  photoLabel?: string;
+  image: string;
+  imageAlt: string;
+  imageClass?: string;
 }) {
   return (
-    <section className="flex flex-col bg-navy text-white lg:min-h-[560px] lg:flex-row">
-      <div className="flex flex-col justify-center gap-6 px-5 py-16 sm:px-8 lg:w-[700px] lg:shrink-0 lg:py-24 lg:pl-20 lg:pr-16">
-        <Eyebrow dark rule>
+    <section className="relative overflow-hidden bg-navy text-white">
+      <img
+        src={image}
+        alt={imageAlt}
+        className={cn("ken-burns absolute inset-0 h-full w-full object-cover lg:left-auto lg:w-[64%]", imageClass)}
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-navy/80 lg:bg-transparent lg:bg-gradient-to-r lg:from-navy lg:from-[36%] lg:via-navy/70 lg:via-[52%] lg:to-navy/0"
+      />
+      <Container className="relative flex min-h-[440px] flex-col justify-center gap-5 py-16 lg:min-h-[520px] lg:py-24">
+        <Eyebrow dark className="enter">
           {eyebrow}
         </Eyebrow>
-        <h1 className="font-display text-[40px] font-bold leading-[1.06] tracking-[-0.02em] sm:text-5xl lg:text-6xl">
-          {title} <span className="text-leaf">{highlight}</span>
+        <h1 style={{ "--d": "100ms" } as React.CSSProperties} className="enter max-w-[620px] font-display text-[38px] font-bold leading-[1.08] tracking-[-0.02em] sm:text-5xl lg:text-[56px]">
+          {title}
         </h1>
-        <p className="text-[17px] leading-relaxed text-slate-mist sm:text-[19px]">{body}</p>
-        {cta && <div className="flex">{cta}</div>}
-      </div>
-      <div className="relative min-h-[260px] flex-1 overflow-hidden lg:rounded-bl-[160px]">
-        {image ? (
-          <img src={image} alt={imageAlt ?? ""} className="absolute inset-0 h-full w-full object-cover" />
-        ) : (
-          <PhotoPlaceholder label={photoLabel ?? "Photo"} className="absolute inset-0 border-y-0 border-r-0" />
+        <p style={{ "--d": "220ms" } as React.CSSProperties} className="enter max-w-[520px] text-[17px] leading-relaxed text-slate-mist lg:text-lg">
+          {body}
+        </p>
+        {cta && (
+          <div style={{ "--d": "340ms" } as React.CSSProperties} className="enter mt-2 flex">
+            {cta}
+          </div>
         )}
-      </div>
+      </Container>
     </section>
   );
 }
@@ -226,6 +232,109 @@ export function IconBadge({ children, className }: { children: React.ReactNode; 
   return (
     <span className={cn("flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-leaf-tint text-leaf-dark", className)}>
       {children}
+    </span>
+  );
+}
+
+/* ---------- Motion ---------- */
+
+const prefersReducedMotion = () =>
+  typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
+/** True once the element has scrolled into view, or been scrolled past (and stays true). */
+export function useInView<T extends Element>(threshold = 0.15) {
+  const ref = useRef<T>(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || inView) return;
+    if (!("IntersectionObserver" in window)) {
+      setInView(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          io.disconnect();
+        }
+      },
+      // The huge top margin counts anything already above the viewport as seen, so jumping past a section
+      // (a fast scroll or a #link) never leaves its content hidden.
+      { threshold, rootMargin: "100000px 0px -40px 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [inView, threshold]);
+  return [ref, inView] as const;
+}
+
+/**
+ * Fades and lifts its content in when it scrolls into view. `delay` (ms) staggers items in a row.
+ * Styles live in index.css (.reveal); people who prefer reduced motion see content immediately.
+ */
+export function Reveal({
+  children,
+  delay = 0,
+  className,
+  as: Tag = "div",
+  variant = "up",
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+  as?: "div" | "li" | "section" | "article" | "span";
+  variant?: "up" | "fade" | "left" | "right" | "zoom";
+}) {
+  const [ref, inView] = useInView<HTMLElement>();
+  return (
+    <Tag
+      ref={ref as React.Ref<never>}
+      className={cn("reveal", `reveal-${variant}`, inView && "is-visible", className)}
+      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
+    >
+      {children}
+    </Tag>
+  );
+}
+
+/** Counts a number up from zero the first time it scrolls into view, e.g. "200+" or "99.9%". */
+export function CountUp({ value, className }: { value: string; className?: string }) {
+  const match = /^(\D*)(\d+(?:\.\d+)?)(.*)$/.exec(value);
+  const [ref, inView] = useInView<HTMLSpanElement>(0.4);
+  const target = match ? parseFloat(match[2]) : 0;
+  const decimals = match && match[2].includes(".") ? match[2].split(".")[1].length : 0;
+  const [current, setCurrent] = useState(0);
+
+  useEffect(() => {
+    if (!inView || !match) return;
+    if (prefersReducedMotion()) {
+      setCurrent(target);
+      return;
+    }
+    const duration = 1400;
+    const start = performance.now();
+    let frame = 0;
+    const tick = (now: number) => {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      setCurrent(target * eased);
+      if (t < 1) frame = requestAnimationFrame(tick);
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inView, target]);
+
+  // Values like "24/7" have nothing to count; show them as they are.
+  if (!match || value.includes("/")) return <span className={className}>{value}</span>;
+  return (
+    <span ref={ref} className={className} aria-label={value}>
+      <span aria-hidden="true">
+        {match[1]}
+        {current.toFixed(decimals)}
+        {match[3]}
+      </span>
     </span>
   );
 }
